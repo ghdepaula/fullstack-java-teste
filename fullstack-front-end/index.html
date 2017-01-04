@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.ico"/>
+	<title>Desafio Contabilizei</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-select.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/awesome-bootstrap-checkbox.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+</head>
+<body ng-app="nf_app">
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">
+					<img src="assets/images/logo2016.png" width="110px" height="100px" class="img-responsive" />
+				</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a class="dropdown-toggle" type="button" id="menuCliente" data-toggle="dropdown">
+								<span class="fa fa-users"></span>&nbsp;&nbsp;Clientes&nbsp;&nbsp;<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="menuCliente">
+							<li role="presentation">
+								<a role="menuitem" href="#/clientes">
+									<span class="fa fa-edit"></span>&nbsp;&nbsp;Cadastro
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" type="button" id="menuNotaFiscal" data-toggle="dropdown">
+								<span class="fa fa-file-text"></span>&nbsp;&nbsp;Nota Fiscal&nbsp;&nbsp;<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="menuNotaFiscal">
+							<li role="presentation">
+								<a role="menuitem" href="#/nota-fiscal">
+									<span class="fa fa-edit"></span>&nbsp;&nbsp;Cadastro
+								</a>
+							</li>
+							<li role="presentation">
+								<a role="menuitem" href="#/calculo-imposto">
+									<span class="fa fa-calculator"></span>&nbsp;&nbsp;Cálculo Impostos
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="content" ng-view ></div>
+	</div>
+	<script src="assets/js/jquery-3.1.0.min.js"></script>
+	<script src="assets/js/jquery.mask.js"></script>
+	<script src="assets/js/bootstrap.js"></script>
+	<script src="assets/js/bootstrap-select.js"></script>
+	<script src="assets/js/angular.js"></script>
+	<script src="assets/js/angular-route.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/services/clienteService.js"></script>
+	<script src="app/services/anexoService.js"></script>
+	<script src="app/controllers/clienteController.js"></script>
+</body>
+</html>

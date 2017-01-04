@@ -1,0 +1,53 @@
+<div id="clientes" class="content" ng-controller="clientesController">
+	<div class="panel panel-primary">
+		<div class="panel-heading"><span class="fa fa-edit"></span>&nbsp;&nbsp;Nota Fiscal</div>
+		<div class="panel-body">
+			<form name="clienteForm" class="form-group">
+				<div class="form-group">
+					<label for="numNotaFiscal">Num.Nota</label> <input id="numNotaFiscal" disabled="true" type="text" class="form-control" ng-model="cliente.numNotaFiscal" ng-required="true">
+				</div>
+				<hr />
+				<div class="text-right">
+					<button id="resetCliente" type="button" class="btn btn-default" ng-click="cancel()">
+						Cancelar&nbsp;&nbsp;<span class="fa fa-ban" aria-hidden="true"></span>
+					</button>
+					<button type="button" class="btn btn-success" ng-disabled="clienteForm.$invalid" ng-click="insert(cliente)" ng-hide="hideAdd">
+						Salvar&nbsp;&nbsp;<span class="fa fa-save" aria-hidden="true"></span>
+					</button>
+					<button type="button" class="btn btn-success" ng-disabled="clienteForm.$invalid" ng-click="update(cliente)" ng-hide="!hideAdd">
+						Atualizar&nbsp;&nbsp;<span class="fa fa-refresh" aria-hidden="true"></span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-condensed table-hover">
+			<thead>
+				<th>Núm</th>
+				<th>Data Emissão</th>
+				<th>Descrição</th>
+				<th>Anexo</th>
+				<th>Valor(R$)</th>
+				<th class="text-center">Ações</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>13213</td>
+					<td>10/09/1990</td>
+					<td>Top app of all times</td>
+					<td>Lucro Presumido</td>
+					<td>R$ 4.900,00</td>
+					<td class="text-center">
+						<button class="btn btn-sm btn-info" ng-click="loadForm(cliente.idCliente)">
+							Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>
+						</button>
+						<button class="btn btn-sm btn-danger" ng-click="remove(cliente.idCliente)">
+							Excluir&nbsp;&nbsp;<span class="fa fa-remove" aria-hidden="true"></span>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
