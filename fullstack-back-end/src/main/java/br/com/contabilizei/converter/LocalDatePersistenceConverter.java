@@ -1,6 +1,7 @@
 package br.com.contabilizei.converter;
 
 import java.time.LocalDate;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

@@ -1,14 +1,18 @@
-package br.com.contabilizei.config;
+package br.com.contabilizei.main;
 
-import java.io.File;
 import java.net.MalformedURLException;
 
 import javax.servlet.ServletException;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
+import org.apache.catalina.filters.CorsFilter;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.tomcat.util.descriptor.web.FilterDef;
+import org.apache.tomcat.util.descriptor.web.FilterMap;
+import org.glassfish.jersey.servlet.ServletContainer;
 
+import br.com.contabilizei.config.RestApplication;
 import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.dto.TipoEmpresaDTO;
 import br.com.contabilizei.dto.TipoImpostoDTO;
@@ -16,21 +20,21 @@ import br.com.contabilizei.services.AnexoService;
 import br.com.contabilizei.services.TipoEmpresaService;
 import br.com.contabilizei.services.TipoImpostoService;
 
-public class App {
+public class Main {
 
 	private static final String CTX_BACK_END_APP = "/contabilizei";
 	private static final String CTX_FRONT_END_APP = "/";
 	private static final String PATH_FRONT_END_APP = "C:\\Users\\cliente\\Downloads\\fullstack-front-end";
 
 	public static void main(String[] args) throws Exception, LifecycleException {
-		App.start();
+		Main.start();
 	}
 
 	public static void start() throws ServletException, LifecycleException, MalformedURLException, Exception {
 
-		// Define a folder to hold web application contents.
-		String webappDirLocation = "src/main/webapp/";
+		String appBase = ".";
 		Tomcat tomcat = new Tomcat();
+		tomcat.getHost().setAppBase(appBase);
 
 		// Define port number for the web application
 		String webPort = System.getenv("PORT");
@@ -41,11 +45,32 @@ public class App {
 		tomcat.setPort(Integer.valueOf(webPort));
 		
 		// Define a web application ctxBack and bind web.xml file location.
-		String backEndPath = new File(webappDirLocation).getAbsolutePath();
-		File configFile = new File(webappDirLocation + "WEB-INF/web.xml");
-		Context ctxBack = tomcat.addWebapp(CTX_BACK_END_APP , backEndPath);
-		ctxBack.setConfigFile(configFile.toURI().toURL());
+		Context ctxBack = tomcat.addWebapp(CTX_BACK_END_APP , appBase);
 		ctxBack.setReloadable(true);
+		
+	    ServletContainer servletContainer = new ServletContainer(new RestApplication());
+	    
+	    Tomcat.addServlet(ctxBack, "jersey-servlet", servletContainer);
+	    
+	    //tomcat.addServlet(ctxBack, "jersey-servlet", servletContainer);
+	    ctxBack.addServletMapping("/rest/", "jersey-servlet");
+	    
+	    FilterDef corsFilter = new FilterDef();
+	    corsFilter.setFilterName(CorsFilter.class.getName());
+	    corsFilter.setFilterClass(CorsFilter.class.getName());
+	    corsFilter.addInitParameter("cors.allowed.origins", "*");
+	    corsFilter.addInitParameter("cors.allowed.methods", "GET,POST,HEAD,OPTIONS,PUT,DELETE");
+	    corsFilter.addInitParameter("cors.allowed.headers", "Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers");
+	    corsFilter.addInitParameter("cors.exposed.headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
+	    corsFilter.addInitParameter("cors.support.credentials", "true");
+	    corsFilter.addInitParameter("cors.preflight.maxage", "10");
+	    ctxBack.addFilterDef(corsFilter);
+	    
+	    FilterMap filterMap = new FilterMap();
+	    filterMap.setFilterName(CorsFilter.class.getName());
+	    filterMap.addURLPattern("/*");
+	    
+	    ctxBack.addFilterMap(filterMap);
 		
 		// Define a web application ctxFront.
 		Context ctxFront = tomcat.addWebapp(CTX_FRONT_END_APP , PATH_FRONT_END_APP);
@@ -70,19 +95,19 @@ public class App {
 		
 		AnexoDTO anexo1 = new AnexoDTO();
 		anexo1.setCodAnexo(1L);
-		anexo1.setDescricaoAnexo("ComÃ©rcio");
+		anexo1.setDescricaoAnexo("Comércio");
 		anexo1.setAliquotaAnexo(6d);
 		anexo1.setStatusAnexo(Boolean.TRUE);
 		
 		AnexoDTO anexo2 = new AnexoDTO();
 		anexo2.setCodAnexo(2L);
-		anexo2.setDescricaoAnexo("IndÃºstria");
+		anexo2.setDescricaoAnexo("Indústria");
 		anexo2.setAliquotaAnexo(8.5d);
 		anexo2.setStatusAnexo(Boolean.TRUE);
 		
 		AnexoDTO anexo3 = new AnexoDTO();
 		anexo3.setCodAnexo(3L);
-		anexo3.setDescricaoAnexo("PrestaÃ§Ã£o de serviÃ§os");
+		anexo3.setDescricaoAnexo("Prestação de serviços");
 		anexo3.setAliquotaAnexo(11d);
 		anexo3.setStatusAnexo(Boolean.TRUE);
 		
@@ -95,7 +120,7 @@ public class App {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			System.out.println("Erro ao inicializar as configuraÃ§Ãµes de Anexo da aplicaÃ§Ã£o !");
+			System.out.println("Erro ao inicializar as configurações de Anexo da aplicação !");
 		}
 	}
 	
@@ -118,7 +143,7 @@ public class App {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			System.out.println("Erro ao inicializar as configuraÃ§Ãµes de Tipos de Empresa da aplicaÃ§Ã£o !");
+			System.out.println("Erro ao inicializar as configurações de Tipos de Empresa da aplicação !");
 		}
 		
 	}
@@ -153,8 +178,9 @@ public class App {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			System.out.println("Erro ao inicializar as configuraÃ§Ãµes de Tipos de Imposto da aplicaÃ§Ã£o !");
+			System.out.println("Erro ao inicializar as configurações de Tipos de Imposto da aplicação !");
 		}
 		
 	}
+
 }
