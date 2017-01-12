@@ -24,7 +24,7 @@ public class Main {
 
 	private static final String CTX_BACK_END_APP = "/contabilizei";
 	private static final String CTX_FRONT_END_APP = "/";
-	private static final String PATH_FRONT_END_APP = "C:\\Users\\cliente\\Downloads\\fullstack-front-end";
+	private static final String PATH_FRONT_END_APP = "/home/desenv/personal-workspace/fullstack-front-end";
 
 	public static void main(String[] args) throws Exception, LifecycleException {
 		Main.start();
@@ -39,7 +39,7 @@ public class Main {
 		// Define port number for the web application
 		String webPort = System.getenv("PORT");
 		if (webPort == null || webPort.isEmpty()) {
-			webPort = "8080";
+			webPort = "8081";
 		}
 		// Bind the port to Tomcat server and enable naming
 		tomcat.setPort(Integer.valueOf(webPort));
@@ -95,19 +95,19 @@ public class Main {
 		
 		AnexoDTO anexo1 = new AnexoDTO();
 		anexo1.setCodAnexo(1L);
-		anexo1.setDescricaoAnexo("Comércio");
+		anexo1.setDescricaoAnexo("ComÃ©rcio");
 		anexo1.setAliquotaAnexo(6d);
 		anexo1.setStatusAnexo(Boolean.TRUE);
 		
 		AnexoDTO anexo2 = new AnexoDTO();
 		anexo2.setCodAnexo(2L);
-		anexo2.setDescricaoAnexo("Indústria");
+		anexo2.setDescricaoAnexo("IndÃºstria");
 		anexo2.setAliquotaAnexo(8.5d);
 		anexo2.setStatusAnexo(Boolean.TRUE);
 		
 		AnexoDTO anexo3 = new AnexoDTO();
 		anexo3.setCodAnexo(3L);
-		anexo3.setDescricaoAnexo("Prestação de serviços");
+		anexo3.setDescricaoAnexo("PrestaÃ§Ã£o de serviÃ§os");
 		anexo3.setAliquotaAnexo(11d);
 		anexo3.setStatusAnexo(Boolean.TRUE);
 		
@@ -120,7 +120,7 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			System.out.println("Erro ao inicializar as configurações de Anexo da aplicação !");
+			System.out.println("Erro ao inicializar as configuraÃ§Ãµes de Anexo da aplicaÃ§Ã£o !");
 		}
 	}
 	
@@ -143,7 +143,7 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			System.out.println("Erro ao inicializar as configurações de Tipos de Empresa da aplicação !");
+			System.out.println("Erro ao inicializar as configuraÃ§Ãµes de Tipos de Empresa da aplicacÃ£o !");
 		}
 		
 	}
@@ -178,7 +178,7 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			System.out.println("Erro ao inicializar as configurações de Tipos de Imposto da aplicação !");
+			System.out.println("Erro ao inicializar as configuraÃ§Ãµes de Tipos de Imposto da aplicaÃ§Ã£o !");
 		}
 		
 	}

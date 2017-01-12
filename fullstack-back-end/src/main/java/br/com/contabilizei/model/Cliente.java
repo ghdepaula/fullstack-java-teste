@@ -2,7 +2,6 @@ package br.com.contabilizei.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +29,7 @@ public class Cliente {
 	@Column(nullable = false, length = 80)
 	private String email;
 	
-	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToMany
     @JoinTable(name="cliente_anexos", joinColumns={@JoinColumn(name="idCliente")}, inverseJoinColumns={@JoinColumn(name="codAnexo")})
 	private List<Anexo> anexos;
 	

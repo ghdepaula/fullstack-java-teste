@@ -6,9 +6,11 @@
 	clientesController.$inject = ['clienteService','anexoService', '$scope', '$filter'];
 
 	function clientesController(clienteService, anexoService, $scope, $filter) {
+		
 		$scope.clientes = [];
-		$scope.anexos = [];
 		$scope.cliente;
+		$scope.anexos = [];
+		$scope.anexosChecked = [];
 		$scope.hideAdd = false;
 
 		$scope.findAll = function () {
@@ -29,6 +31,9 @@
 		}
 
 		$scope.insert = function (cliente) {
+			
+			cliente.anexos = $scope.anexos;
+			
 			clienteService.insert(cliente).success(function (data) {
 				clearData();
 			})
@@ -54,6 +59,11 @@
 				showError(data);
 			});
 		}
+		
+		$scope.toggleChecked = function(anexo) {
+			console.log(anexo.checked);
+		    console.log($scope.anexosChecked);
+		}
 
 		function findAll() {
 			clienteService.findAll().success(function(result){
@@ -67,19 +77,13 @@
 			});
 		}
 		
-		function selectedAnexos() {
-			var anexosTeste = $filter('filter')($scope.anexos, {checked: true})
-		    $scope.cliente.anexos = anexosTeste;
-		    
-		    console.log(anexosTeste)
-		}
-
 		function clearData() {
 			$scope.cliente = null;
 			$scope.hideAdd = false;
 
 			resetCliente();
 			findAll();
+			findAnexosActives();
 		}
 		
 		$scope.cancel = function () {

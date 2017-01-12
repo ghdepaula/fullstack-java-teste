@@ -7,24 +7,24 @@
 
 	function clienteService($http) {
 		var _findAll = function () {
-			return $http.get('http://localhost:8080/contabilizei/rest/clientes');
+			return $http.get('http://localhost:8081/contabilizei/rest/clientes');
 		}
 		
 		var _insert = function (cliente) {
-			return $http.post('http://localhost:8080/contabilizei/rest/clientes', cliente);	
+			return $http.post('http://localhost:8081/contabilizei/rest/clientes', cliente);	
 		}
 
 		
 		var _update = function (cliente) {
-			return $http.put('http://localhost:8080/contabilizei/rest/clientes', cliente);	
+			return $http.put('http://localhost:8081/contabilizei/rest/clientes', cliente);	
 		}
 
 		var _remove = function (idCliente) {
-			return $http.delete('http://localhost:8080/contabilizei/rest/clientes/' + idCliente);	
+			return $http.delete('http://localhost:8081/contabilizei/rest/clientes/' + idCliente);	
 		}
 
 		var _findById = function (idCliente) {
-			return $http.get('http://localhost:8080/contabilizei/rest/clientes/' + idCliente);	
+			return $http.get('http://localhost:8081/contabilizei/rest/clientes/' + idCliente);	
 		}
 
 		return {

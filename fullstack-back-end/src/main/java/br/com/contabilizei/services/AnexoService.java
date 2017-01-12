@@ -60,7 +60,7 @@ public class AnexoService {
 		return anexosDTO;
 	}
 
-	private AnexoDTO convertToDTO(Anexo anexo) {
+	public AnexoDTO convertToDTO(Anexo anexo) {
 		AnexoDTO dto = new AnexoDTO();
 
 		dto.setCodAnexo(anexo.getCodAnexo());
@@ -70,8 +70,30 @@ public class AnexoService {
 
 		return dto;
 	}
+	
+	public List<AnexoDTO> convertoToDto(List<Anexo> anexos){
+		
+		List<AnexoDTO> anexosDTO = new ArrayList<AnexoDTO>();
+		
+		if(anexos == null || anexosDTO.size() < 1){
+			return anexosDTO;
+		}
+		
+		for(Anexo anexo : anexos){
+			AnexoDTO dto = new AnexoDTO();
 
-	private Anexo convertToModel(AnexoDTO anexoDTO) {
+			dto.setCodAnexo(anexo.getCodAnexo());
+			dto.setDescricaoAnexo(anexo.getDescricaoAnexo());
+			dto.setAliquotaAnexo(anexo.getAliquotaAnexo());
+			dto.setStatusAnexo(anexo.getStatusAnexo());
+
+			anexosDTO.add(dto);
+		}
+		
+		return anexosDTO;
+	}
+
+	public Anexo convertToModel(AnexoDTO anexoDTO) {
 		Anexo anexo = new Anexo();
 
 		anexo.setCodAnexo(anexoDTO.getCodAnexo());
@@ -80,6 +102,29 @@ public class AnexoService {
 		anexo.setStatusAnexo(anexoDTO.getStatusAnexo());
 
 		return anexo;
+	}
+	
+
+	public List<Anexo> convertToModel(List<AnexoDTO> anexosDTO) {
+		
+		List<Anexo> anexos = new ArrayList<Anexo>();
+		
+		if(anexosDTO == null || anexosDTO.size() < 1){
+			return anexos;
+		}
+		
+		for(AnexoDTO anexoDTO : anexosDTO){
+			Anexo anexo = new Anexo();
+			
+			anexo.setCodAnexo(anexoDTO.getCodAnexo());
+			anexo.setDescricaoAnexo(anexoDTO.getDescricaoAnexo());
+			anexo.setAliquotaAnexo(anexoDTO.getAliquotaAnexo());
+			anexo.setStatusAnexo(anexoDTO.getStatusAnexo());
+
+			anexos.add(anexo);
+		}
+		
+		return anexos;
 	}
 
 

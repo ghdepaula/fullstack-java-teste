@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.contabilizei.dao.ClienteDAO;
+import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.dto.ClienteDTO;
+import br.com.contabilizei.model.Anexo;
 import br.com.contabilizei.model.Cliente;
 
 public class ClienteService {
 
 	private ClienteDAO daoCliente;
+	
+	private AnexoService anexoService;
 
 	public ClienteService() {
 		this.daoCliente = new ClienteDAO();
+		this.anexoService = new AnexoService();
 	}
 
 	public void insert(ClienteDTO clienteDTO) {
@@ -60,24 +65,28 @@ public class ClienteService {
 		return true;
 	}
 
-	private ClienteDTO convertToDTO(Cliente cliente) {
+	public ClienteDTO convertToDTO(Cliente cliente) {
 		ClienteDTO dto = new ClienteDTO();
+		List<AnexoDTO> anexos = anexoService.convertoToDto(cliente.getAnexos());
 
 		dto.setIdCliente(cliente.getIdCliente());
 		dto.setCnpjCliente(cliente.getCnpjCliente());
 		dto.setNomeRazaoSocial(cliente.getNomeRazaoSocial());
 		dto.setEmail(cliente.getEmail());
+		dto.setAnexos(anexos);
 
 		return dto;
 	}
 
-	private Cliente convertToModel(ClienteDTO clienteDTO) {
+	public Cliente convertToModel(ClienteDTO clienteDTO) {
 		Cliente cliente = new Cliente();
+		List<Anexo> anexos = anexoService.convertToModel(clienteDTO.getAnexos());
 
 		cliente.setIdCliente(clienteDTO.getIdCliente());
 		cliente.setCnpjCliente(clienteDTO.getCnpjCliente());
 		cliente.setNomeRazaoSocial(clienteDTO.getNomeRazaoSocial());
 		cliente.setEmail(clienteDTO.getEmail());
+		cliente.setAnexos(anexos);
 
 		return cliente;
 	}
