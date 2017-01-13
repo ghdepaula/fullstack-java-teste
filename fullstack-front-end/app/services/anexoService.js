@@ -23,14 +23,14 @@
 			return $http.get('http://localhost:8081/contabilizei/rest/anexos/' + codAnexo);	
 		}
 		
-		var _findByStatus = function (statusAnexo) {
+		var _findByStatusActive = function () {
 			return $http.get('http://localhost:8081/contabilizei/rest/anexos/actives');	
 		}
 
 		return {
 			findAll : _findAll,
 			findById : _findById,
-			findByStatus : _findByStatus,
+			findByStatusActive : _findByStatusActive,
 			insert : _insert,
 			update : _update
 		}

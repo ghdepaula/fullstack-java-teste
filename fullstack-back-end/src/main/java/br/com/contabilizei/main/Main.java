@@ -11,7 +11,6 @@ import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.glassfish.jersey.servlet.ServletContainer;
-
 import br.com.contabilizei.config.RestApplication;
 import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.dto.TipoEmpresaDTO;
@@ -24,7 +23,7 @@ public class Main {
 
 	private static final String CTX_BACK_END_APP = "/contabilizei";
 	private static final String CTX_FRONT_END_APP = "/";
-	private static final String PATH_FRONT_END_APP = "/home/desenv/personal-workspace/fullstack-front-end";
+	private static final String PATH_FRONT_END_APP = "C:\\Users\\cliente\\workspace\\fullstack-front-end";
 
 	public static void main(String[] args) throws Exception, LifecycleException {
 		Main.start();
@@ -52,7 +51,6 @@ public class Main {
 	    
 	    Tomcat.addServlet(ctxBack, "jersey-servlet", servletContainer);
 	    
-	    //tomcat.addServlet(ctxBack, "jersey-servlet", servletContainer);
 	    ctxBack.addServletMapping("/rest/", "jersey-servlet");
 	    
 	    FilterDef corsFilter = new FilterDef();

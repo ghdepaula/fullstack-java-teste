@@ -2,8 +2,10 @@ package br.com.contabilizei.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +31,7 @@ public class Cliente {
 	@Column(nullable = false, length = 80)
 	private String email;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
     @JoinTable(name="cliente_anexos", joinColumns={@JoinColumn(name="idCliente")}, inverseJoinColumns={@JoinColumn(name="codAnexo")})
 	private List<Anexo> anexos;
 	

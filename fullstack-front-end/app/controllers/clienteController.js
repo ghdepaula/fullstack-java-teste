@@ -24,15 +24,16 @@
 		$scope.loadForm = function (idCliente) {
 			clienteService.findById(idCliente).success(function (data) {
 				$scope.cliente = data;
+				$scope.anexosChecked = data.anexos;
 				$scope.hideAdd = true;
-
+				
 				$('#cnpjCliente').attr('readonly', 'cnpjCliente');
 			});
 		}
 
 		$scope.insert = function (cliente) {
 			
-			cliente.anexos = $scope.anexos;
+			cliente.anexos = $scope.anexosChecked;
 			
 			clienteService.insert(cliente).success(function (data) {
 				clearData();
@@ -43,6 +44,9 @@
 		}
 
 		$scope.update = function (cliente) {
+			
+			cliente.anexos = $scope.anexosChecked;
+			
 			clienteService.update(cliente).success(function (data) {
 				clearData();
 			})
@@ -60,9 +64,21 @@
 			});
 		}
 		
+
+		$scope.checkAnexo = function(anexo) {
+		    var arrayAnexosChecked = $scope.anexosChecked;
+		    return (arrayAnexosChecked.indexOfObject(arrayAnexosChecked, anexo.codAnexo, "codAnexo") > - 1);
+		}
+		  
 		$scope.toggleChecked = function(anexo) {
-			console.log(anexo.checked);
-		    console.log($scope.anexosChecked);
+		    var arrayAnexosChecked = $scope.anexosChecked;
+		    var index = arrayAnexosChecked.indexOfObject(arrayAnexosChecked, anexo.codAnexo, "codAnexo");
+		    
+		    if (index > -1) {
+		      arrayAnexosChecked.splice(index, 1);
+		    } else {
+		      $scope.anexosChecked.push(anexo);
+		    }
 		}
 
 		function findAll() {
@@ -72,13 +88,14 @@
 		}
 		
 		function findAnexosActives(){
-			anexoService.findByStatus(true).success(function(result){
+			anexoService.findByStatusActive().success(function(result){
 				$scope.anexos = result;
 			});
 		}
 		
 		function clearData() {
 			$scope.cliente = null;
+			$scope.anexosChecked = [];
 			$scope.hideAdd = false;
 
 			resetCliente();
@@ -92,7 +109,6 @@
 
 		function resetCliente() {
 			$('#nomeRazaoSocial').val('');
-			$('#codAnexo').val('')
 			$('#cnpjCliente').val('');
 			$('#telefone').val('');
 			$('#email').val('');

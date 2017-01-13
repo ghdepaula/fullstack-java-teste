@@ -18,10 +18,11 @@
 				<div class="form-group" ng-init="findAnexosActives()" >
 					<div ng-repeat="anexo in anexos">
 						<div class="checkbox">
-							<label><input type="checkbox" name="{{anexo.descricaoAnexo+anexo.codAnexo}}" id="{{anexo.descricaoAnexo+anexo.codAnexo}}" ng-model="anexo.checked" ng-change="toggleChecked()" />{{anexo.descricaoAnexo}}</label>
+							<label><input type="checkbox" id="{{anexo.descricaoAnexo+anexo.codAnexo}}" ng-model="anx" ng-checked="checkAnexo(anexo)" ng-change="toggleChecked(anexo)" />{{anexo.descricaoAnexo}}</label>
 						</div>
 					</div>
 				</div>
+				<pre>{{anexosChecked}}</pre>
 				<hr />
 				<div class="text-right">
 					<button id="resetCliente" type="button" class="btn btn-default" ng-click="cancel()">

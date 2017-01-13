@@ -1,10 +1,13 @@
 package br.com.contabilizei.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,6 +34,9 @@ public class Anexo {
 	
 	@Column
 	private Boolean statusAnexo;
+	
+	@ManyToMany(mappedBy="anexos")
+	private List<Cliente> clientes;
 	
 	public Long getCodAnexo() {
 		return codAnexo;
@@ -62,6 +68,14 @@ public class Anexo {
 
 	public void setStatusAnexo(Boolean statusAnexo) {
 		this.statusAnexo = statusAnexo;
+	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 }

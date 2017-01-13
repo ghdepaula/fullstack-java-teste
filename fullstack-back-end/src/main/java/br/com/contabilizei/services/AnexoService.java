@@ -75,7 +75,7 @@ public class AnexoService {
 		
 		List<AnexoDTO> anexosDTO = new ArrayList<AnexoDTO>();
 		
-		if(anexos == null || anexosDTO.size() < 1){
+		if(anexos == null || anexos.size() < 1){
 			return anexosDTO;
 		}
 		
