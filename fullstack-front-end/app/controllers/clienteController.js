@@ -71,13 +71,15 @@
 		}
 		  
 		$scope.toggleChecked = function(anexo) {
-		    var arrayAnexosChecked = $scope.anexosChecked;
-		    var index = arrayAnexosChecked.indexOfObject(arrayAnexosChecked, anexo.codAnexo, "codAnexo");
+			
+		    var index = $scope.anexosChecked.indexOfObject($scope.anexosChecked, anexo.codAnexo, "codAnexo");
 		    
 		    if (index > -1) {
-		      arrayAnexosChecked.splice(index, 1);
+		    	$scope.anexosChecked.splice(index, 1);
+		    	console.log("REMOVIDO");
 		    } else {
-		      $scope.anexosChecked.push(anexo);
+		    	$scope.anexosChecked.push(anexo);
+		    	console.log("ADICIONADO");
 		    }
 		}
 
