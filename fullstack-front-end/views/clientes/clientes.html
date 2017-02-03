@@ -18,7 +18,7 @@
 				<div class="form-group" ng-init="findAnexosActives()" >
 					<div ng-repeat="anexo in anexos">
 						<div class="checkbox">
-							<label><input type="checkbox" id="{{anexo.descricaoAnexo+anexo.codAnexo}}" ng-model="anx" ng-checked="checkAnexo(anexo)" ng-change="toggleChecked(anexo)" />{{anexo.descricaoAnexo}}</label>
+							<label><input type="checkbox" id="{{anexo.descricaoAnexo+anexo.codAnexo}}" ng-model="anx" ng-checked="checkAnexo(anexo)" ng-click="toggleChecked(anexo)" />{{anexo.descricaoAnexo}}</label>
 						</div>
 					</div>
 				</div>

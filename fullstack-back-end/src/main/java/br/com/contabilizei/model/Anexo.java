@@ -1,13 +1,12 @@
 package br.com.contabilizei.model;
 
-import java.util.List;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -17,8 +16,10 @@ import javax.persistence.Table;
 @NamedQueries({
 	 @NamedQuery(name="Anexo.findByStatus", query="SELECT a FROM Anexo a WHERE a.statusAnexo = :statusAnexo")
 })
-public class Anexo {
+public class Anexo implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	public static final String FIND_BY_STATUS = "Anexo.findByStatus";
 	
 	@Id
@@ -34,9 +35,6 @@ public class Anexo {
 	
 	@Column
 	private Boolean statusAnexo;
-	
-	@ManyToMany(mappedBy="anexos")
-	private List<Cliente> clientes;
 	
 	public Long getCodAnexo() {
 		return codAnexo;
@@ -69,13 +67,30 @@ public class Anexo {
 	public void setStatusAnexo(Boolean statusAnexo) {
 		this.statusAnexo = statusAnexo;
 	}
-
-	public List<Cliente> getClientes() {
-		return clientes;
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj)
+	        return true;
+	    if (obj == null)
+	        return false;
+	    if (getClass() != obj.getClass())
+	        return false;
+	    Anexo other = (Anexo) obj;
+	    if (getCodAnexo() == null) {
+	        if (other.getCodAnexo() != null)
+	            return false;
+	    } else if (getCodAnexo().equals(other.getCodAnexo()))
+	        return true;
+	    return false;
 	}
 
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+	@Override
+	public int hashCode() {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + ((getCodAnexo() == null) ? 0 : getCodAnexo().hashCode());
+	    return result;
 	}
 
 }

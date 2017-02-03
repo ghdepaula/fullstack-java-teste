@@ -23,7 +23,7 @@ public class Main {
 
 	private static final String CTX_BACK_END_APP = "/contabilizei";
 	private static final String CTX_FRONT_END_APP = "/";
-	private static final String PATH_FRONT_END_APP = "C:\\Users\\cliente\\workspace\\fullstack-front-end";
+	private static final String PATH_FRONT_END_APP = "/home/desenv/personal-workspace/fullstack-front-end";
 
 	public static void main(String[] args) throws Exception, LifecycleException {
 		Main.start();
