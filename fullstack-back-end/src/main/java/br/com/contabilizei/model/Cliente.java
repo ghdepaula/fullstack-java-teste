@@ -1,10 +1,8 @@
 package br.com.contabilizei.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,13 +36,10 @@ public class Cliente implements Serializable {
 	
 	@OneToMany(fetch=FetchType.EAGER)
     @JoinTable(name="cliente_anexos",
-    		   joinColumns={@JoinColumn(name="idCliente", referencedColumnName="idCliente", table="clientes", insertable=false)}, 
-    		   inverseJoinColumns={@JoinColumn(name="codAnexo", referencedColumnName="codAnexo", table="anexos", insertable=false)})
+    		   joinColumns={@JoinColumn(name="idCliente", referencedColumnName="idCliente", table="clientes", insertable=false, updatable=false)}, 
+    		   inverseJoinColumns={@JoinColumn(name="codAnexo", referencedColumnName="codAnexo", table="anexos", insertable=false, updatable=false)})
 	private List<Anexo> anexos;
 	
-	public Cliente(){
-		this.anexos = new ArrayList<Anexo>();
-	}
 	
 	public Long getIdCliente() {
 		return this.idCliente;

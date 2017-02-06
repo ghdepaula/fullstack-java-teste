@@ -3,13 +3,14 @@
 
 	angular.module('nf_app').controller('clientesController', clientesController);
 
-	clientesController.$inject = ['clienteService','anexoService', '$scope', '$filter'];
+	clientesController.$inject = ['clienteService','anexoService', 'regimeTributarioService', '$scope', '$filter'];
 
-	function clientesController(clienteService, anexoService, $scope, $filter) {
+	function clientesController(clienteService, anexoService, regimeTributarioService, $scope, $filter) {
 		
 		$scope.clientes = [];
 		$scope.cliente;
 		$scope.anexos = [];
+		$scope.regimesTributarios = [];
 		$scope.anexosChecked = [];
 		$scope.hideAdd = false;
 
@@ -19,6 +20,10 @@
 		
 		$scope.findAnexosActives = function(){
 			findAnexosActives();
+		}
+		
+		$scope.findRegsTributariosActives = function(){
+			findRegsTributariosActives();
 		}
 
 		$scope.loadForm = function (idCliente) {
@@ -95,6 +100,12 @@
 			});
 		}
 		
+		function findRegsTributariosActives(){
+			regimeTributarioService.findByStatusActive().success(function(result){
+				$scope.regimesTributarios = result;
+			});
+		}
+		
 		function clearData() {
 			$scope.cliente = null;
 			$scope.anexosChecked = [];
@@ -103,6 +114,7 @@
 			resetCliente();
 			findAll();
 			findAnexosActives();
+			findRegsTributariosActives();
 		}
 		
 		$scope.cancel = function () {

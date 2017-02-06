@@ -12,8 +12,15 @@
 					<input id="cnpjCliente" type="text" class="form-control" ng-mask="00.000.000/0000-00" ng-model="cliente.cnpjCliente" ng-required="true" placeholder="Informe o cnpj do cliente" />
 				</div>
 				<div class="form-group">
-					<label for="email">E-mail</label> 
+					<label for="email">E-mail</label>
 					<input id="email" type="email" class="form-control" ng-model="cliente.email" ng-required="true" placeholder="Informe o email do cliente"  />
+				</div>
+				<div class="form-group" ng-init="findRegsTributariosActives()">
+					<label for="regTributario">Regime Tributário</label>
+					<select class="form-control" id="regTributario">
+						<option value="">- Selecione -</option>
+						<option ng-repeat="regTributario in regimesTributarios">{{regTributario.descricaoRegimeTributario}}</option>
+					</select>
 				</div>
 				<div class="form-group" ng-init="findAnexosActives()" >
 					<div ng-repeat="anexo in anexos">

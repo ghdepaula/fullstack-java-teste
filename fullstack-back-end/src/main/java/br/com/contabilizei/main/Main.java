@@ -13,10 +13,10 @@ import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.glassfish.jersey.servlet.ServletContainer;
 import br.com.contabilizei.config.RestApplication;
 import br.com.contabilizei.dto.AnexoDTO;
-import br.com.contabilizei.dto.TipoEmpresaDTO;
+import br.com.contabilizei.dto.RegimeTributarioDTO;
 import br.com.contabilizei.dto.TipoImpostoDTO;
 import br.com.contabilizei.services.AnexoService;
-import br.com.contabilizei.services.TipoEmpresaService;
+import br.com.contabilizei.services.RegimeTributarioService;
 import br.com.contabilizei.services.TipoImpostoService;
 
 public class Main {
@@ -92,19 +92,16 @@ public class Main {
 	private static void initializeAnexoSettings(){
 		
 		AnexoDTO anexo1 = new AnexoDTO();
-		anexo1.setCodAnexo(1L);
 		anexo1.setDescricaoAnexo("Comércio");
 		anexo1.setAliquotaAnexo(6d);
 		anexo1.setStatusAnexo(Boolean.TRUE);
 		
 		AnexoDTO anexo2 = new AnexoDTO();
-		anexo2.setCodAnexo(2L);
 		anexo2.setDescricaoAnexo("Indústria");
 		anexo2.setAliquotaAnexo(8.5d);
 		anexo2.setStatusAnexo(Boolean.TRUE);
 		
 		AnexoDTO anexo3 = new AnexoDTO();
-		anexo3.setCodAnexo(3L);
 		anexo3.setDescricaoAnexo("Prestação de serviços");
 		anexo3.setAliquotaAnexo(11d);
 		anexo3.setStatusAnexo(Boolean.TRUE);
@@ -115,6 +112,7 @@ public class Main {
 			service.insert(anexo1);
 			service.insert(anexo2);
 			service.insert(anexo3);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -124,20 +122,18 @@ public class Main {
 	
 	private static void initializeTipoEmpresaSettings(){
 		
-		TipoEmpresaDTO tipoEmpresa1 = new TipoEmpresaDTO();
-		tipoEmpresa1.setCodTipoEmpresa(1L);
-		tipoEmpresa1.setDescricaoTipoEmpresa("SIMPLES NACIONAL");
-		tipoEmpresa1.setStatusTipoEmpresa(Boolean.TRUE);
+		RegimeTributarioDTO regTributario1 = new RegimeTributarioDTO();
+		regTributario1.setDescricaoRegimeTributario("SIMPLES NACIONAL");
+		regTributario1.setStatusRegimeTributario(Boolean.TRUE);
 		
-		TipoEmpresaDTO tipoEmpresa2 = new TipoEmpresaDTO();
-		tipoEmpresa2.setCodTipoEmpresa(1L);
-		tipoEmpresa2.setDescricaoTipoEmpresa("LUCRO PRESUMIDO");
-		tipoEmpresa2.setStatusTipoEmpresa(Boolean.TRUE);
+		RegimeTributarioDTO regTributario2 = new RegimeTributarioDTO();
+		regTributario2.setDescricaoRegimeTributario("LUCRO PRESUMIDO");
+		regTributario2.setStatusRegimeTributario(Boolean.TRUE);
 		
 		try {
-			TipoEmpresaService service = new TipoEmpresaService();
-			service.insert(tipoEmpresa1);
-			service.insert(tipoEmpresa2);
+			RegimeTributarioService service = new RegimeTributarioService();
+			service.insert(regTributario1);
+			service.insert(regTributario2);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -149,21 +145,18 @@ public class Main {
 	private static void initializeTipoImpostoSettings(){
 		
 		TipoImpostoDTO tipoImposto1 = new TipoImpostoDTO();
-		tipoImposto1.setCodTipoImposto(1L);
 		tipoImposto1.setDescricaoTipoImposto("IRPJ");
 		tipoImposto1.setAliquotaTipoImposto(4.8d);
 		tipoImposto1.setStatusTipoImposto(Boolean.TRUE);
 		
 		TipoImpostoDTO tipoImposto2 = new TipoImpostoDTO();
-		tipoImposto2.setCodTipoImposto(1L);
-		tipoImposto2.setDescricaoTipoImposto("IRPJ");
-		tipoImposto2.setAliquotaTipoImposto(4.8d);
+		tipoImposto2.setDescricaoTipoImposto("ISS");
+		tipoImposto2.setAliquotaTipoImposto(2d);
 		tipoImposto1.setStatusTipoImposto(Boolean.TRUE);
 		
 		TipoImpostoDTO tipoImposto3 = new TipoImpostoDTO();
-		tipoImposto3.setCodTipoImposto(1L);
-		tipoImposto3.setDescricaoTipoImposto("IRPJ");
-		tipoImposto3.setAliquotaTipoImposto(4.8d);
+		tipoImposto3.setDescricaoTipoImposto("COFINS");
+		tipoImposto3.setAliquotaTipoImposto(3d);
 		tipoImposto1.setStatusTipoImposto(Boolean.TRUE);
 		
 		try {
