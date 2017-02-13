@@ -8,10 +8,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ClienteDTO {
 	private Long idCliente;
 	private String cnpjCliente;
-	private Integer tipoEmpresa;
+	private Long codRegimeTributario;
 	private String nomeRazaoSocial;
 	private String email;
 	private List<AnexoDTO> anexos;
+	private RegimeTributarioDTO regimeTributario;
 
 	public Long getIdCliente() {
 		return this.idCliente;
@@ -45,19 +46,27 @@ public class ClienteDTO {
 		this.nomeRazaoSocial = nomeRazaoSocial;
 	}
 
-	public Integer getTipoEmpresa() {
-		return tipoEmpresa;
-	}
-
-	public void setTipoEmpresa(Integer tipoEmpresa) {
-		this.tipoEmpresa = tipoEmpresa;
-	}
-
 	public List<AnexoDTO> getAnexos() {
 		return anexos;
 	}
 
 	public void setAnexos(List<AnexoDTO> anexos) {
 		this.anexos = anexos;
+	}
+
+	public Long getCodRegimeTributario() {
+		return codRegimeTributario;
+	}
+
+	public void setCodRegimeTributario(Long codRegimeTributario) {
+		this.codRegimeTributario = codRegimeTributario;
+	}
+
+	public RegimeTributarioDTO getRegimeTributario() {
+		return regimeTributario;
+	}
+
+	public void setRegimeTributario(RegimeTributarioDTO regimeTributario) {
+		this.regimeTributario = regimeTributario;
 	}
 }

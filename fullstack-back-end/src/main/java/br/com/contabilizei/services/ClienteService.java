@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.contabilizei.dao.ClienteDAO;
 import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.dto.ClienteDTO;
+import br.com.contabilizei.dto.RegimeTributarioDTO;
 import br.com.contabilizei.model.Anexo;
 import br.com.contabilizei.model.Cliente;
 
@@ -14,10 +15,13 @@ public class ClienteService {
 	private ClienteDAO daoCliente;
 	
 	private AnexoService anexoService;
+	
+	private RegimeTributarioService regimeTributarioService;
 
 	public ClienteService() {
 		this.daoCliente = new ClienteDAO();
 		this.anexoService = new AnexoService();
+		this.regimeTributarioService = new RegimeTributarioService();
 	}
 
 	public void insert(ClienteDTO clienteDTO) {
@@ -68,11 +72,14 @@ public class ClienteService {
 	public ClienteDTO convertToDTO(Cliente cliente) {
 		ClienteDTO dto = new ClienteDTO();
 		List<AnexoDTO> anexos = anexoService.convertoToDto(cliente.getAnexos());
+		RegimeTributarioDTO regimeTributario = this.regimeTributarioService.convertToDTO(cliente.getRegimeTributario());
 
 		dto.setIdCliente(cliente.getIdCliente());
 		dto.setCnpjCliente(cliente.getCnpjCliente());
 		dto.setNomeRazaoSocial(cliente.getNomeRazaoSocial());
 		dto.setEmail(cliente.getEmail());
+		dto.setCodRegimeTributario(cliente.getCodRegimeTributario());
+		dto.setRegimeTributario(regimeTributario);
 		dto.setAnexos(anexos);
 
 		return dto;
@@ -85,6 +92,7 @@ public class ClienteService {
 		cliente.setIdCliente(clienteDTO.getIdCliente());
 		cliente.setCnpjCliente(clienteDTO.getCnpjCliente());
 		cliente.setNomeRazaoSocial(clienteDTO.getNomeRazaoSocial());
+		cliente.setCodRegimeTributario(clienteDTO.getCodRegimeTributario());
 		cliente.setEmail(clienteDTO.getEmail());
 		cliente.setAnexos(anexos);
 

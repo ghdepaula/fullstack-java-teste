@@ -32,6 +32,8 @@
 				$scope.anexosChecked = data.anexos;
 				$scope.hideAdd = true;
 				
+				console.log(data);
+				
 				$('#cnpjCliente').attr('readonly', 'cnpjCliente');
 			});
 		}
@@ -81,10 +83,8 @@
 		    
 		    if (index > -1) {
 		    	$scope.anexosChecked.splice(index, 1);
-		    	console.log("REMOVIDO");
 		    } else {
 		    	$scope.anexosChecked.push(anexo);
-		    	console.log("ADICIONADO");
 		    }
 		}
 
@@ -109,6 +109,7 @@
 		function clearData() {
 			$scope.cliente = null;
 			$scope.anexosChecked = [];
+			$scope.regimesTributarios = [];
 			$scope.hideAdd = false;
 
 			resetCliente();

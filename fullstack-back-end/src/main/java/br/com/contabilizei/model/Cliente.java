@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,12 +35,18 @@ public class Cliente implements Serializable {
 	@Column(nullable = false, length = 80)
 	private String email;
 	
+	@Column
+	private Long codRegimeTributario;
+	
 	@OneToMany(fetch=FetchType.EAGER)
     @JoinTable(name="cliente_anexos",
     		   joinColumns={@JoinColumn(name="idCliente", referencedColumnName="idCliente", table="clientes", insertable=false, updatable=false)}, 
     		   inverseJoinColumns={@JoinColumn(name="codAnexo", referencedColumnName="codAnexo", table="anexos", insertable=false, updatable=false)})
 	private List<Anexo> anexos;
 	
+	@ManyToOne
+	@JoinColumn(name="codRegimeTributario", referencedColumnName="codRegimeTributario", updatable=false, insertable=false)
+	private RegimeTributario regimeTributario;
 	
 	public Long getIdCliente() {
 		return this.idCliente;
@@ -79,6 +86,22 @@ public class Cliente implements Serializable {
 
 	public void setAnexos(List<Anexo> anexos) {
 		this.anexos = anexos;
+	}
+	
+	public Long getCodRegimeTributario() {
+		return codRegimeTributario;
+	}
+
+	public void setCodRegimeTributario(Long codRegimeTributario) {
+		this.codRegimeTributario = codRegimeTributario;
+	}
+
+	public RegimeTributario getRegimeTributario() {
+		return regimeTributario;
+	}
+
+	public void setRegimeTributario(RegimeTributario regimeTributario) {
+		this.regimeTributario = regimeTributario;
 	}
 	
 	@Override

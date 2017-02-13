@@ -59,7 +59,7 @@ public class RegimeTributarioService {
 		return regsTributariosDTO;
 	}
 
-	private RegimeTributarioDTO convertToDTO(RegimeTributario regimeTributario) {
+	public RegimeTributarioDTO convertToDTO(RegimeTributario regimeTributario) {
 		RegimeTributarioDTO dto = new RegimeTributarioDTO();
 
 		dto.setCodRegimeTributario(regimeTributario.getCodRegimeTributario());
@@ -69,12 +69,12 @@ public class RegimeTributarioService {
 		return dto;
 	}
 
-	private RegimeTributario convertToModel(RegimeTributarioDTO tipoEmpresaDTO) {
+	public RegimeTributario convertToModel(RegimeTributarioDTO regimeTributarioDTO) {
 		RegimeTributario regimeTributario = new RegimeTributario();
 
-		regimeTributario.setCodRegimeTributario(regimeTributario.getCodRegimeTributario());
-		regimeTributario.setDescricaoRegimeTributario(regimeTributario.getDescricaoRegimeTributario());
-		regimeTributario.setStatusRegimeTributario(regimeTributario.getStatusRegimeTributario());
+		regimeTributario.setCodRegimeTributario(regimeTributarioDTO.getCodRegimeTributario());
+		regimeTributario.setDescricaoRegimeTributario(regimeTributarioDTO.getDescricaoRegimeTributario());
+		regimeTributario.setStatusRegimeTributario(regimeTributarioDTO.getStatusRegimeTributario());
 		
 		return regimeTributario;
 	}

@@ -16,10 +16,9 @@
 					<input id="email" type="email" class="form-control" ng-model="cliente.email" ng-required="true" placeholder="Informe o email do cliente"  />
 				</div>
 				<div class="form-group" ng-init="findRegsTributariosActives()">
-					<label for="regTributario">Regime Tributário</label>
-					<select class="form-control" id="regTributario">
-						<option value="">- Selecione -</option>
-						<option ng-repeat="regTributario in regimesTributarios">{{regTributario.descricaoRegimeTributario}}</option>
+					<label for="regimeTributario">Regime Tributário</label>
+					<select ng-model="cliente.codRegimeTributario" ng-options="regTributario.codRegimeTributario as regTributario.descricaoRegimeTributario for regTributario in regimesTributarios" class="form-control" id="regimeTributario">
+						<option value="">-Selecione-</option>
 					</select>
 				</div>
 				<div class="form-group" ng-init="findAnexosActives()" >
@@ -29,7 +28,6 @@
 						</div>
 					</div>
 				</div>
-				<pre>{{anexosChecked}}</pre>
 				<hr />
 				<div class="text-right">
 					<button id="resetCliente" type="button" class="btn btn-default" ng-click="cancel()">
@@ -50,6 +48,7 @@
 			<thead>
 				<th>Cód</th>
 				<th>Nome/Razão Social</th>
+				<th>Regime Tributário</th>
 				<th>CNPJ</th>
 				<th>Email</th>
 				<th class="text-center">Ações</th>
@@ -58,8 +57,10 @@
 				<tr ng-repeat="cliente in clientes">
 					<td>{{ cliente.idCliente }}</td>
 					<td>{{ cliente.nomeRazaoSocial }}</td>
+					<td>{{ cliente.regimeTributario.descricaoRegimeTributario }}</td>
 					<td>{{ cliente.cnpjCliente }}</td>
 					<td>{{ cliente.email }}</td>
+					
 					<td class="text-center">
 						<button class="btn btn-sm btn-info" ng-click="loadForm(cliente.idCliente)">
 							Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>
