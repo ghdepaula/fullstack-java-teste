@@ -13,6 +13,7 @@
 		$scope.regimesTributarios = [];
 		$scope.anexosChecked = [];
 		$scope.hideAdd = false;
+		$scope.hideAnexos = false;
 
 		$scope.findAll = function () {
 			findAll();
@@ -36,6 +37,15 @@
 				
 				$('#cnpjCliente').attr('readonly', 'cnpjCliente');
 			});
+		}
+		
+		$scope.onChangeRegime = function(){
+			if($scope.cliente.codRegimeTributario != 5){
+				$scope.hideAnexos = false;
+			}else{
+				$scope.anexosChecked = [];
+				$scope.hideAnexos = true;
+			}
 		}
 
 		$scope.insert = function (cliente) {
@@ -69,6 +79,10 @@
 			.error(function (data) {
 				showError(data);
 			});
+		}
+		
+		$scope.testeHide = function(){
+			return true;
 		}
 		
 
@@ -108,6 +122,7 @@
 		
 		function clearData() {
 			$scope.cliente = null;
+			$scope.anexos = [];
 			$scope.anexosChecked = [];
 			$scope.regimesTributarios = [];
 			$scope.hideAdd = false;
@@ -124,6 +139,7 @@
 
 		function resetCliente() {
 			$('#nomeRazaoSocial').val('');
+			$('#regimeTributario').val('')
 			$('#cnpjCliente').val('');
 			$('#telefone').val('');
 			$('#email').val('');

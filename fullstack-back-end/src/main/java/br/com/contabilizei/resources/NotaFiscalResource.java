@@ -13,27 +13,26 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import br.com.contabilizei.dto.ClienteDTO;
-import br.com.contabilizei.services.ClienteService;
+import br.com.contabilizei.dto.NotaFiscalDTO;
+import br.com.contabilizei.services.NotaFiscalService;
 
-@Path("/clientes")
-public class ClienteResource {
+@Path("/notas")
+public class NotaFiscalResource {
 	
+	private NotaFiscalService notaFiscalService;
 	
-	private ClienteService clienteService;
-	
-	public ClienteResource() {
-		this.clienteService = new ClienteService();
+	public NotaFiscalResource() {
+		this.notaFiscalService = new NotaFiscalService();
 	}
 
 	@POST
 	@Consumes({ "application/json" })
 	@Produces({ "application/json" })
-	public Response insert(ClienteDTO cliente) {
+	public Response insert(NotaFiscalDTO notaFiscal) {
 		try {
-			this.clienteService.insert(cliente);
+			this.notaFiscalService.insert(notaFiscal);
 
-			return Response.ok(cliente).build();
+			return Response.ok(notaFiscal).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -44,22 +43,22 @@ public class ClienteResource {
 	@PUT
 	@Consumes({ "application/json" })
 	@Produces({ "application/json" })
-	public Response update(ClienteDTO cliente) {
+	public Response update(NotaFiscalDTO notaFiscal) {
 		try {
-			this.clienteService.update(cliente);
+			this.notaFiscalService.update(notaFiscal);
 
-			return Response.ok(cliente).build();
+			return Response.ok(notaFiscal).build();
 		} catch (Exception e) {
 			throw new WebApplicationException(500);
 		}
 	}
 
 	@DELETE
-	@Path("{idCliente}")
+	@Path("{numNotaFiscal}")
 	@Produces({ "application/json" })
-	public Response excluir(@PathParam("idCliente") Long idCliente) {
+	public Response excluir(@PathParam("numNotaFiscal") Long numNotaFiscal) {
 		try {
-			boolean sucesso = this.clienteService.remove(idCliente);
+			boolean sucesso = this.notaFiscalService.remove(numNotaFiscal);
 			if (!sucesso) {
 				throw new WebApplicationException(404);
 			}
@@ -71,20 +70,20 @@ public class ClienteResource {
 
 	@GET
 	@Produces({ "application/json" })
-	public List<ClienteDTO> findAll() {
+	public List<NotaFiscalDTO> findAll() {
 		try {
-			return this.clienteService.findAll();
+			return this.notaFiscalService.findAll();
 		} catch (Exception e) {
 			throw new WebApplicationException(500);
 		}
 	}
 
 	@GET
-	@Path("{idCliente}")
+	@Path("{numNotaFiscal}")
 	@Produces({ "application/json" })
-	public ClienteDTO buscarPorCodigo(@PathParam("idCliente") Long idCliente) {
+	public NotaFiscalDTO buscarPorCodigo(@PathParam("numNotaFiscal") Long numNotaFiscal) {
 		try {
-			return this.clienteService.findById(idCliente);
+			return this.notaFiscalService.findById(numNotaFiscal);
 		} catch (Exception e) {
 			throw new WebApplicationException(500);
 		}

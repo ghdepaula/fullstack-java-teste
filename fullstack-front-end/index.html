@@ -6,7 +6,7 @@
 	<title>Desafio Contabilizei</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-select.css">
-<!-- 	<link rel="stylesheet" type="text/css" href="assets/css/awesome-bootstrap-checkbox.css"> -->
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datepicker.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
 </head>
 <body ng-app="nf_app">
@@ -48,7 +48,7 @@
 							</li>
 							<li role="presentation">
 								<a role="menuitem" href="#/calculo-imposto">
-									<span class="fa fa-calculator"></span>&nbsp;&nbsp;Cálculo Impostos
+									<span class="fa fa-calculator"></span>&nbsp;&nbsp;Cálculo de Impostos
 								</a>
 							</li>
 						</ul>
@@ -64,13 +64,19 @@
 	<script src="assets/js/jquery.mask.js"></script>
 	<script src="assets/js/bootstrap.js"></script>
 	<script src="assets/js/bootstrap-select.js"></script>
+	<script src="assets/js/bootstrap-datepicker.js"></script>
+	<script src="assets/js/locales/bootstrap-datepicker.pt-BR.min.js"></script>
 	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/angular.js"></script>
 	<script src="assets/js/angular-route.js"></script>
 	<script src="app/app.js"></script>
+	<script src="assets/js/locales/angular-locale_pt-br.js"></script>
 	<script src="app/services/clienteService.js"></script>
 	<script src="app/services/anexoService.js"></script>
 	<script src="app/services/regimeTributarioService.js"></script>
+	<script src="app/services/notaFiscalService.js"></script>
+	<script src="app/controllers/notasController.js"></script>
 	<script src="app/controllers/clienteController.js"></script>
+	
 </body>
 </html>

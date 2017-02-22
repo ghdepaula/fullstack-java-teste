@@ -71,7 +71,7 @@ public class ClienteService {
 
 	public ClienteDTO convertToDTO(Cliente cliente) {
 		ClienteDTO dto = new ClienteDTO();
-		List<AnexoDTO> anexos = anexoService.convertoToDto(cliente.getAnexos());
+		List<AnexoDTO> anexos = anexoService.convertoToDTO(cliente.getAnexos());
 		RegimeTributarioDTO regimeTributario = this.regimeTributarioService.convertToDTO(cliente.getRegimeTributario());
 
 		dto.setIdCliente(cliente.getIdCliente());

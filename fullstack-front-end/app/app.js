@@ -4,7 +4,30 @@ app.directive('ngMask', function() {
 	return {
 		restrict : 'A',
 		link : function(scope, element, attrs) {	
-			element.mask(attrs.ngMask, {});
+			
+			var options = {};
+			
+			if(attrs.ngMaskReverse){
+				options.reverse = attrs.ngMaskReverse; 	
+			}
+			
+			element.mask(attrs.ngMask, options);
+		}
+	};
+});
+
+app.directive('ngDatePicker', function() {
+	return {
+		restrict : 'A',
+		link : function(scope, element, attrs) {	
+			
+			var options = {
+				format: "dd/mm/yyyy",
+			    language: "pt-BR",
+			    todayHighlight: true
+			};
+			
+			element.datepicker(options);
 		}
 	};
 });
@@ -18,7 +41,7 @@ app.config(function($routeProvider) {
 	
 	$routeProvider.when('/nota-fiscal', {
 	    templateUrl : 'views/nota-fiscal/nota-fiscal.html',
-	    controller  : 'clientesController'
+	    controller  : 'notasController'
 	})
 	
 	$routeProvider.when('/calculo-imposto', {

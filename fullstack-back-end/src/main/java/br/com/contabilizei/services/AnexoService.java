@@ -71,7 +71,7 @@ public class AnexoService {
 		return dto;
 	}
 	
-	public List<AnexoDTO> convertoToDto(List<Anexo> anexos){
+	public List<AnexoDTO> convertoToDTO(List<Anexo> anexos){
 		
 		List<AnexoDTO> anexosDTO = new ArrayList<AnexoDTO>();
 		
@@ -91,6 +91,22 @@ public class AnexoService {
 		}
 		
 		return anexosDTO;
+	}
+	
+	public AnexoDTO convertoToDTO(Anexo anexo) {
+
+		if (anexo == null) {
+			return null;
+		}
+
+		AnexoDTO dto = new AnexoDTO();
+
+		dto.setCodAnexo(anexo.getCodAnexo());
+		dto.setDescricaoAnexo(anexo.getDescricaoAnexo());
+		dto.setAliquotaAnexo(anexo.getAliquotaAnexo());
+		dto.setStatusAnexo(anexo.getStatusAnexo());
+
+		return dto;
 	}
 
 	public Anexo convertToModel(AnexoDTO anexoDTO) {
