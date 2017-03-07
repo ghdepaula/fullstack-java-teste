@@ -26,13 +26,18 @@
 		var _findById = function (numNotaFiscal) {
 			return $http.get('http://localhost:8081/contabilizei/rest/notas/' + numNotaFiscal);	
 		}
+		
+		var _findByCodCliente = function (codCliente) {
+			return $http.get('http://localhost:8081/contabilizei/rest/notas/cliente/' + codCliente);	
+		}
 
 		return {
-			findAll : _findAll,
-			findById : _findById,
 			insert : _insert,
 			update : _update,
-			remove : _remove
+			remove : _remove,
+			findAll : _findAll,
+			findById : _findById,
+			findByCodCliente :_findByCodCliente
 		}
 	}
 

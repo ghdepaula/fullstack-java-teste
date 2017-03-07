@@ -44,6 +44,18 @@ public class NotaFiscalService {
 		}
 		return notasFiscaisDTO;
 	}
+	
+	public boolean remove(Long numNotaFiscal) {
+
+		NotaFiscal notaFiscal = (NotaFiscal) this.daoNotaFiscal.find(numNotaFiscal);
+		if (notaFiscal == null) {
+			return false;
+		}
+		Long id = notaFiscal.getNumNotaFiscal();
+		this.daoNotaFiscal.delete(id, NotaFiscal.class);
+
+		return true;
+	}
 
 	public NotaFiscalDTO findById(Long numNotaFiscal) {
 
@@ -55,17 +67,17 @@ public class NotaFiscalService {
 		}
 		return null;
 	}
+	
+	public List<NotaFiscalDTO> findByCodCliente(Long codCliente) {
+		
+		List<NotaFiscal> notasFiscais = this.daoNotaFiscal.findByCodCliente(codCliente);
 
-	public boolean remove(Long numNotaFiscal) {
-
-		NotaFiscal notaFiscal = (NotaFiscal) this.daoNotaFiscal.find(numNotaFiscal);
-		if (notaFiscal == null) {
-			return false;
+		List<NotaFiscalDTO> notasFiscaisDTO = new ArrayList<NotaFiscalDTO>();
+		for (NotaFiscal notaFiscal : notasFiscais) {
+			NotaFiscalDTO notaFiscalDTO = convertToDTO(notaFiscal);
+			notasFiscaisDTO.add(notaFiscalDTO);
 		}
-		Long id = notaFiscal.getNumNotaFiscal();
-		this.daoNotaFiscal.delete(id, NotaFiscal.class);
-
-		return true;
+		return notasFiscaisDTO;
 	}
 
 	public NotaFiscalDTO convertToDTO(NotaFiscal notaFiscal) {

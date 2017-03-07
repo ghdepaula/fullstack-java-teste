@@ -1,5 +1,8 @@
 package br.com.contabilizei.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import br.com.contabilizei.model.NotaFiscal;
 
 public class NotaFiscalDAO extends GenericDAO<NotaFiscal> {
@@ -8,6 +11,13 @@ public class NotaFiscalDAO extends GenericDAO<NotaFiscal> {
 
 	public NotaFiscalDAO() {
 		super(NotaFiscal.class);
+	}
+
+	public List<NotaFiscal> findByCodCliente(Long codCliente) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codCliente", codCliente);
+		List<NotaFiscal> notasFiscais = findManyResults(NotaFiscal.FIND_BY_COD_CLIENTE, params);
+		return notasFiscais;
 	}
 }
 

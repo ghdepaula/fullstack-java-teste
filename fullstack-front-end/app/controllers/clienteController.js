@@ -33,8 +33,6 @@
 				$scope.anexosChecked = data.anexos;
 				$scope.hideAdd = true;
 				
-				console.log(data);
-				
 				$('#cnpjCliente').attr('readonly', 'cnpjCliente');
 			});
 		}

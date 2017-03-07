@@ -81,9 +81,21 @@ public class NotaFiscalResource {
 	@GET
 	@Path("{numNotaFiscal}")
 	@Produces({ "application/json" })
-	public NotaFiscalDTO buscarPorCodigo(@PathParam("numNotaFiscal") Long numNotaFiscal) {
+	public NotaFiscalDTO findById(@PathParam("numNotaFiscal") Long numNotaFiscal) {
 		try {
 			return this.notaFiscalService.findById(numNotaFiscal);
+		} catch (Exception e) {
+			throw new WebApplicationException(500);
+		}
+	}
+	
+	
+	@GET
+	@Path("cliente/{codCliente}")
+	@Produces({ "application/json" })
+	public List<NotaFiscalDTO> findByCodCliente(@PathParam("codCliente") Long codCliente) {
+		try {
+			return this.notaFiscalService.findByCodCliente(codCliente);
 		} catch (Exception e) {
 			throw new WebApplicationException(500);
 		}

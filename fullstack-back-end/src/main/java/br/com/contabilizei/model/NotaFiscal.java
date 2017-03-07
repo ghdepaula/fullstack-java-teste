@@ -10,15 +10,22 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import br.com.contabilizei.converter.LocalDatePersistenceConverter;
 
 @Entity
 @Table(name="nota_fiscal")
+@NamedQueries({
+	 @NamedQuery(name="NotaFiscal.findByCodCliente", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente")
+})
 public class NotaFiscal implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+
+	public static final String FIND_BY_COD_CLIENTE = "NotaFiscal.findByCodCliente";
 
 	@Id
 	@Column(nullable = false, length = 11)

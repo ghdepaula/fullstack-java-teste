@@ -24,7 +24,8 @@
 				<div class="form-group" ng-if="cliente.codRegimeTributario == 4" ng-init="findAnexosActives()" >
 					<div ng-repeat="anexo in anexos">
 						<div class="checkbox">
-							<label><input  type="checkbox" id="{{anexo.descricaoAnexo+anexo.codAnexo}}" ng-model="anx" ng-checked="checkAnexo(anexo)" ng-click="toggleChecked(anexo)" />{{anexo.descricaoAnexo}}</label>
+							<label>
+								<input ng-required="anexosChecked.length < 1" type="checkbox" id="{{anexo.descricaoAnexo+anexo.codAnexo}}" ng-model="anx" ng-checked="checkAnexo(anexo)" ng-click="toggleChecked(anexo)" />{{anexo.descricaoAnexo}}</label>
 						</div>
 					</div>
 				</div>
@@ -43,34 +44,36 @@
 			</form>
 		</div>
 	</div>
-	<div class="table-responsive">
-		<table class="table table-condensed table-hover " ng-init="findAll()">
-			<thead>
-				<th>Cód</th>
-				<th>Nome/Razão Social</th>
-				<th>Regime Tributário</th>
-				<th>CNPJ</th>
-				<th>Email</th>
-				<th class="text-center">Ações</th>
-			</thead>
-			<tbody>
-				<tr ng-repeat="cliente in clientes">
-					<td>{{ cliente.idCliente }}</td>
-					<td>{{ cliente.nomeRazaoSocial }}</td>
-					<td>{{ cliente.regimeTributario.descricaoRegimeTributario }}</td>
-					<td>{{ cliente.cnpjCliente }}</td>
-					<td>{{ cliente.email }}</td>
-					
-					<td class="text-center">
-						<button class="btn btn-sm btn-info" ng-click="loadForm(cliente.idCliente)">
-							Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>
-						</button>
-						<button class="btn btn-sm btn-danger" ng-click="remove(cliente.idCliente)">
-							Excluir&nbsp;&nbsp;<span class="fa fa-remove" aria-hidden="true"></span>
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	<div ng-show="clientes.length > 0">
+		<div class="table-responsive">
+			<table class="table table-condensed table-hover " ng-init="findAll()">
+				<thead>
+					<th>Cód</th>
+					<th>Nome/Razão Social</th>
+					<th>Regime Tributário</th>
+					<th>CNPJ</th>
+					<th>Email</th>
+					<th class="text-center">Ações</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="cliente in clientes">
+						<td>{{ cliente.idCliente }}</td>
+						<td>{{ cliente.nomeRazaoSocial }}</td>
+						<td>{{ cliente.regimeTributario.descricaoRegimeTributario }}</td>
+						<td>{{ cliente.cnpjCliente }}</td>
+						<td>{{ cliente.email }}</td>
+						
+						<td class="text-center">
+							<button class="btn btn-sm btn-info" ng-click="loadForm(cliente.idCliente)">
+								Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>
+							</button>
+							<button class="btn btn-sm btn-danger" ng-click="remove(cliente.idCliente)">
+								Excluir&nbsp;&nbsp;<span class="fa fa-remove" aria-hidden="true"></span>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>

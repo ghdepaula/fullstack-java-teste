@@ -5,77 +5,94 @@
 			<form name="notaFiscalForm" class="form-group">
 				<div class="form-group" ng-init="findClientes()">
 					<label for="clienteNotaFiscal">Cliente</label>
-					<select ng-model="nota.codCliente" ng-options="cliente.idCliente as cliente.nomeRazaoSocial for cliente in clientes" class="form-control" id="clienteNotaFiscal">
+					<select ng-model="nota.codCliente" ng-change="onSelectCliente(nota.codCliente)" ng-required="true" ng-disabled="clientes.length < 1" ng-options="cliente.idCliente as cliente.nomeRazaoSocial for cliente in clientes" class="form-control" id="clienteNotaFiscal">
 						<option value="">-Selecione-</option>
 					</select>
 				</div>
-				<div class="form-group">
-					<label for="numNotaFiscal">Número da Nota Fiscal</label> 
-					<input id="numNotaFiscal" type="text" class="form-control" ng-mask="99999999999999999999999" ng-model="nota.numNotaFiscal" ng-required="true">
-				</div>
-				<div class="form-group" >
-					<label for="dtEmissaoNota">Data Emissão</label>
-					<div class="input-group date" ng-date-picker>
-					  	<input ng-model="nota.dataEmissao" id="dtEmissaoNota" type="text" class="form-control" ng-mask="00/00/0000" />
-					  	<span class="input-group-addon">
-					  		<i class="fa fa-calendar"></i>
-					  	</span>
+				<div ng-show="nota.codCliente != null">
+					<div class="form-group">
+						<label for="numNotaFiscal">Número da Nota Fiscal</label> 
+						<input id="numNotaFiscal" name="numNotaFiscal" ng-model="nota.numNotaFiscal" type="text" class="form-control" ng-blur="validateNumNota(nota.numNotaFiscal)" ng-mask="99999999999999999999999" ng-required="true">
 					</div>
-				</div>
-				<div class="form-group" >
-					<label for="descrNotaFiscal">Descrição</label>
-					<textarea rows="2" cols="10" ng-model="nota.descricaoNotaFiscal" id="descrNotaFiscal" type="text" class="form-control" ng-required="true" >
-					</textarea>
-				</div>
-				<div class="form-group" >
-					<label for="vlrNotaFiscal">Valor da Nota Fiscal</label>
-					<input id="vlrNotaFiscal" ng-mask="#.##0,00" ng-mask-reverse="true" type="text" class="form-control" ng-model="nota.valorNotaFiscal" ng-required="true">
-				</div>
-
-				<hr />
-				<div class="text-right">
-					<button id="resetNotaFiscal" type="button" class="btn btn-default" ng-click="cancel()">
-						Cancelar&nbsp;&nbsp;<span class="fa fa-ban" aria-hidden="true"></span>
-					</button>
-					<button type="button" class="btn btn-success" ng-disabled="notaFiscalForm.$invalid" ng-click="insert(nota)" ng-hide="hideAdd">
-						Salvar&nbsp;&nbsp;<span class="fa fa-save" aria-hidden="true"></span>
-					</button>
-					<button type="button" class="btn btn-success" ng-disabled="notaFiscalForm.$invalid" ng-click="update(nota)" ng-hide="!hideAdd">
-						Atualizar&nbsp;&nbsp;<span class="fa fa-refresh" aria-hidden="true"></span>
-					</button>
+					<div class="form-group" >
+						<label for="dtEmissaoNota">Data Emissão</label>
+						<div class="input-group date" ng-date-picker>
+						  	<input ng-model="nota.dataEmissao" id="dtEmissaoNota" type="text" class="form-control" ng-mask="00/00/0000" />
+						  	<span class="input-group-addon">
+						  		<i class="fa fa-calendar"></i>
+						  	</span>
+						</div>
+					</div>
+					
+					<div class="form-group" ng-show="anexos.length > 0">
+						<label for="anexoNotaFiscal">Anexo</label> 
+							<select ng-model="nota.codAnexo" ng-options="anexo.codAnexo as anexo.descricaoAnexo for anexo in anexos" class="form-control" ng-required="true" id="anexoNotaFiscal">
+							<option value="">-Selecione-</option>
+						</select>
+					</div>
+					<div class="form-group" >
+						<label for="vlrNotaFiscal">Valor da Nota Fiscal</label>
+						<div class="input-group" >
+							<input id="vlrNotaFiscal" ng-mask="#.##0,00" ng-mask-reverse="true" type="text" class="form-control" ng-model="nota.valorNotaFiscal" ng-required="true">
+							<span class="input-group-addon">
+						  		<i class="fa fa-money"></i>
+						  	</span>
+						</div>
+					</div>
+					
+					<div class="form-group" >
+						<label for="descrNotaFiscal">Descrição</label>
+						<textarea rows="2" cols="10" ng-model="nota.descricaoNotaFiscal" id="descrNotaFiscal" type="text" class="form-control" ng-required="true" >
+						</textarea>
+					</div>
+	
+					<hr />
+					<div class="text-right">
+						<button id="resetNotaFiscal" type="button" class="btn btn-default" ng-click="cancel()">
+							Cancelar&nbsp;&nbsp;<span class="fa fa-ban" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-success" ng-disabled="notaFiscalForm.$invalid" ng-click="insert(nota)" ng-hide="hideAdd">
+							Salvar&nbsp;&nbsp;<span class="fa fa-save" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-success" ng-disabled="notaFiscalForm.$invalid" ng-click="update(nota)" ng-hide="!hideAdd">
+							Atualizar&nbsp;&nbsp;<span class="fa fa-refresh" aria-hidden="true"></span>
+						</button>
+					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-	<div class="table-responsive">
-		<table class="table table-condensed table-hover" ng-init="findAll()">
-			<thead>
-				<th>Núm</th>
-				<th>Cliente</th>
-				<th>Data Emissão</th>
-				<th>Descrição</th>
-				<th>Anexo</th>
-				<th>Valor(R$)</th>
-				<th class="text-center">Ações</th>
-			</thead>
-			<tbody>
-				<tr ng-repeat="notaFiscal in notas">
-					<td>{{notaFiscal.numNotaFiscal}}</td>
-					<td>{{notaFiscal.clienteDTO.nomeRazaoSocial}}</td>
-					<td>{{notaFiscal.dataEmissao}}</td>
-					<td>{{notaFiscal.descricaoNotaFiscal}}</td>
-					<td>{{notaFiscal.anexoDTO.descricaoAnexo}}</td>
-					<td>{{notaFiscal.valorNotaFiscal | currency}}</td>
-					<td class="text-center">
-						<button class="btn btn-sm btn-info" ng-click="loadForm(nota.numNotaFiscal)">
-							Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>
-						</button>
-						<button class="btn btn-sm btn-danger" ng-click="remove(nota.numNotaFiscal)">
-							Excluir&nbsp;&nbsp;<span class="fa fa-remove" aria-hidden="true"></span>
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	<div ng-show="notas.length > 0">
+		<div class="table-responsive" >
+			<table class="table table-condensed table-hover" ng-init="findAByCodCliente(nota.codCliente)">
+				<thead>
+					<th>Núm</th>
+					<th>Cliente</th>
+					<th>Data Emissão</th>
+					<th>Descrição</th>
+					<th>Anexo</th>
+					<th>Valor(R$)</th>
+					<th class="text-center">Ações</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="notaFiscal in notas">
+						<td>{{notaFiscal.numNotaFiscal}}</td>
+						<td>{{notaFiscal.clienteDTO.nomeRazaoSocial}}</td>
+						<td>{{notaFiscal.dataEmissao}}</td>
+						<td>{{notaFiscal.descricaoNotaFiscal}}</td>
+						<td>{{notaFiscal.anexoDTO.descricaoAnexo}}</td>
+						<td>{{notaFiscal.valorNotaFiscal | currency}}</td>
+						<td class="text-center">
+							<button class="btn btn-sm btn-info" ng-click="loadForm(notaFiscal.numNotaFiscal)">
+								Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>
+							</button>
+							<button class="btn btn-sm btn-danger" ng-click="remove(notaFiscal.numNotaFiscal)">
+								Excluir&nbsp;&nbsp;<span class="fa fa-remove" aria-hidden="true"></span>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
