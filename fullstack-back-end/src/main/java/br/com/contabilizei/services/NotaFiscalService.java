@@ -1,5 +1,6 @@
 package br.com.contabilizei.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +80,19 @@ public class NotaFiscalService {
 		}
 		return notasFiscaisDTO;
 	}
+	
+	public List<NotaFiscalDTO> findByCodClienteAndPeriodo(Long codCliente, LocalDate dataInicial, LocalDate dataFinal) {
+		
+		List<NotaFiscal> notasFiscais = this.daoNotaFiscal.findByCodClienteAndPeriodo(codCliente, dataInicial, dataFinal);
+
+		List<NotaFiscalDTO> notasFiscaisDTO = new ArrayList<NotaFiscalDTO>();
+		for (NotaFiscal notaFiscal : notasFiscais) {
+			NotaFiscalDTO notaFiscalDTO = convertToDTO(notaFiscal);
+			notasFiscaisDTO.add(notaFiscalDTO);
+		}
+		return notasFiscaisDTO;
+	}
+
 
 	public NotaFiscalDTO convertToDTO(NotaFiscal notaFiscal) {
 		NotaFiscalDTO notaFiscalDTO = new NotaFiscalDTO();
@@ -110,5 +124,6 @@ public class NotaFiscalService {
 
 		return notaFiscal;
 	}
+
 
 }

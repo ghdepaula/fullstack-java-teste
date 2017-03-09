@@ -13,37 +13,43 @@
 		$scope.regimesTributarios = [];
 		$scope.anexosChecked = [];
 		$scope.hideAdd = false;
-		$scope.hideAnexos = false;
+		$scope.showAnexos = false;
 
 		$scope.findAll = function () {
 			findAll();
 		}
 		
-		$scope.findAnexosActives = function(){
-			findAnexosActives();
+		$scope.findAnexos = function(){
+			findAnexos();
 		}
 		
-		$scope.findRegsTributariosActives = function(){
-			findRegsTributariosActives();
+		$scope.findRegimesTributarios = function(){
+			findRegimesTributarios();
 		}
 
 		$scope.loadForm = function (idCliente) {
 			clienteService.findById(idCliente).success(function (data) {
+				
 				$scope.cliente = data;
 				$scope.anexosChecked = data.anexos;
 				$scope.hideAdd = true;
+				$scope.showAnexos = data.anexos.length > 0;
 				
 				$('#cnpjCliente').attr('readonly', 'cnpjCliente');
 			});
 		}
 		
-		$scope.onChangeRegime = function(){
-			if($scope.cliente.codRegimeTributario != 5){
-				$scope.hideAnexos = false;
-			}else{
-				$scope.anexosChecked = [];
-				$scope.hideAnexos = true;
-			}
+		$scope.onChangeRegime = function(codRegimeTributario){
+			regimeTributarioService.findById(codRegimeTributario).success(function(data){
+				
+				if(data.enabledAnexos){
+					$scope.showAnexos = true;
+				}else{
+					$scope.showAnexos = false;
+					$scope.anexosChecked = [];
+				}
+			});
+		
 		}
 
 		$scope.insert = function (cliente) {
@@ -78,11 +84,6 @@
 				showError(data);
 			});
 		}
-		
-		$scope.testeHide = function(){
-			return true;
-		}
-		
 
 		$scope.checkAnexo = function(anexo) {
 		    var arrayAnexosChecked = $scope.anexosChecked;
@@ -106,14 +107,14 @@
 			});
 		}
 		
-		function findAnexosActives(){
-			anexoService.findByStatusActive().success(function(result){
+		function findAnexos(){
+			anexoService.findAll().success(function(result){
 				$scope.anexos = result;
 			});
 		}
 		
-		function findRegsTributariosActives(){
-			regimeTributarioService.findByStatusActive().success(function(result){
+		function findRegimesTributarios(){
+			regimeTributarioService.findAll().success(function(result){
 				$scope.regimesTributarios = result;
 			});
 		}
@@ -127,8 +128,8 @@
 
 			resetCliente();
 			findAll();
-			findAnexosActives();
-			findRegsTributariosActives();
+			findAnexos();
+			findRegimesTributarios();
 		}
 		
 		$scope.cancel = function () {

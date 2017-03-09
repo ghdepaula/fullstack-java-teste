@@ -48,7 +48,7 @@ public class ClienteService {
 
 	public ClienteDTO findById(Long idCliente) {
 
-		Cliente cliente = (Cliente) this.daoCliente.find(idCliente);
+		Cliente cliente = this.daoCliente.find(idCliente);
 
 		if (cliente != null) {
 			ClienteDTO clienteDTO = convertToDTO(cliente);

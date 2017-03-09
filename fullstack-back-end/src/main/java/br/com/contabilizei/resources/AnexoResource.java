@@ -59,15 +59,4 @@ public class AnexoResource {
 			throw new WebApplicationException(500);
 		}
 	}
-
-	@GET
-	@Path("actives")
-	@Produces({ "application/json" })
-	public List<AnexoDTO> findByStatusActive() {
-		try {
-			return this.anexoService.findByStatus(Boolean.TRUE);
-		} catch (Exception e) {
-			throw new WebApplicationException(500);
-		}
-	}
 }

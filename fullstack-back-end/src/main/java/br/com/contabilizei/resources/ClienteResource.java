@@ -19,7 +19,6 @@ import br.com.contabilizei.services.ClienteService;
 @Path("/clientes")
 public class ClienteResource {
 	
-	
 	private ClienteService clienteService;
 	
 	public ClienteResource() {

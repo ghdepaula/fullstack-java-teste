@@ -4,26 +4,17 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="anexos")
-@NamedQueries({
-	 @NamedQuery(name="Anexo.findByStatus", query="SELECT a FROM Anexo a WHERE a.statusAnexo = :statusAnexo")
-})
 public class Anexo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	public static final String FIND_BY_STATUS = "Anexo.findByStatus";
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, length = 11)
 	private Long codAnexo;
 	

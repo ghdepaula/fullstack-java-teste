@@ -22,15 +22,10 @@
 		var _findById = function (codAnexo) {
 			return $http.get('http://localhost:8081/contabilizei/rest/regtributarios/' + codAnexo);	
 		}
-		
-		var _findByStatusActive = function () {
-			return $http.get('http://localhost:8081/contabilizei/rest/regtributarios/actives');	
-		}
 
 		return {
 			findAll : _findAll,
 			findById : _findById,
-			findByStatusActive : _findByStatusActive,
 			insert : _insert,
 			update : _update
 		}

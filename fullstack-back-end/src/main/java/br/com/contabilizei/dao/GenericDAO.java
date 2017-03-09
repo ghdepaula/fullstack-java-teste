@@ -74,23 +74,16 @@ public abstract class GenericDAO<T> implements Serializable {
 		return entityUpdated;
 	}
 
-	public T find(Integer entityID) {
-		beginTransaction();
-		T entity = (T) this.em.find(this.entityClass, entityID);
-		beginTransaction();
-		return entity;
-	}
-
 	public T find(Long entityID) {
 		beginTransaction();
 		T entity = (T) this.em.find(this.entityClass, entityID);
 		closeTransaction();
 		return entity;
 	}
-
-	public T findReferenceOnly(int entityID) {
+	
+	public T findReferenceOnly(Long entityID) {
 		beginTransaction();
-		T entity = (T) this.em.getReference(this.entityClass, Integer.valueOf(entityID));
+		T entity = (T) this.em.getReference(this.entityClass, entityID);
 		closeTransaction();
 		return entity;
 	}

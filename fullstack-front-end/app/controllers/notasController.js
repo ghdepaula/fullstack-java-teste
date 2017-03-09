@@ -19,7 +19,9 @@
 		
 		//Data Load
 		$scope.findByCodCliente = function (codCliente) {
-			findByCodCliente(codCliente);
+			if(codCliente){
+				findByCodCliente(codCliente);	
+			}
 		}
 		
 		$scope.findClientes = function(){
@@ -43,7 +45,7 @@
 		}
 		
 		function findAnexos(){
-			anexoService.findByStatusActive().success(function(result){
+			anexoService.findAll().success(function(result){
 				$scope.anexos = result;
 			});
 		}

@@ -15,13 +15,13 @@
 					<label for="email">E-mail</label>
 					<input id="email" type="email" class="form-control" ng-model="cliente.email" ng-required="true" placeholder="Informe o email do cliente"  />
 				</div>
-				<div class="form-group" ng-init="findRegsTributariosActives()">
+				<div class="form-group" ng-init="findRegimesTributarios()">
 					<label for="regimeTributario">Regime Tributário</label>
-					<select ng-model="cliente.codRegimeTributario" ng-change="onChangeRegime()" ng-options="regTributario.codRegimeTributario as regTributario.descricaoRegimeTributario for regTributario in regimesTributarios" class="form-control" id="regimeTributario">
+					<select ng-model="cliente.codRegimeTributario" ng-change="onChangeRegime(cliente.codRegimeTributario)" ng-options="regTributario.codRegimeTributario as regTributario.descricaoRegimeTributario for regTributario in regimesTributarios" class="form-control" id="regimeTributario">
 						<option value="">-Selecione-</option>
 					</select>
 				</div>
-				<div class="form-group" ng-if="cliente.codRegimeTributario == 4" ng-init="findAnexosActives()" >
+				<div class="form-group" ng-if="showAnexos" ng-init="findAnexos()" >
 					<div ng-repeat="anexo in anexos">
 						<div class="checkbox">
 							<label>

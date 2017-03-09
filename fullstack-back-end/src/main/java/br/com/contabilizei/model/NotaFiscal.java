@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,18 +13,19 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import br.com.contabilizei.converter.LocalDatePersistenceConverter;
-
 @Entity
 @Table(name="nota_fiscal")
 @NamedQueries({
-	 @NamedQuery(name="NotaFiscal.findByCodCliente", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente")
+	 @NamedQuery(name="NotaFiscal.findByCodCliente", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente"),
+	 @NamedQuery(name="NotaFiscal.findByCodClienteAndPeriodo", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente AND n.dataEmissao BETWEEN :dataInicial AND :dataFinal")
 })
 public class NotaFiscal implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_BY_COD_CLIENTE = "NotaFiscal.findByCodCliente";
+	
+	public static final String FIND_BY_COD_CLIENTE_PERIODO = "NotaFiscal.findByCodClienteAndPeriodo";
 
 	@Id
 	@Column(nullable = false, length = 11)
@@ -38,7 +38,6 @@ public class NotaFiscal implements Serializable{
 	private Long codAnexo;
 	
 	@Column
-	@Convert(converter = LocalDatePersistenceConverter.class)
 	private LocalDate dataEmissao;
 	
 	@Column

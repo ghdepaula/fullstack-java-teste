@@ -10,13 +10,15 @@
 					</select>
 				</div>
 				<div ng-show="nota.codCliente != null">
+				
 					<div class="form-group">
 						<label for="numNotaFiscal">Número da Nota Fiscal</label> 
 						<input id="numNotaFiscal" name="numNotaFiscal" ng-model="nota.numNotaFiscal" type="text" class="form-control" ng-blur="validateNumNota(nota.numNotaFiscal)" ng-mask="99999999999999999999999" ng-required="true">
 					</div>
+					
 					<div class="form-group" >
 						<label for="dtEmissaoNota">Data Emissão</label>
-						<div class="input-group date" ng-date-picker>
+						<div class="input-group date" ng-date-picker="dd/mm/yyyy">
 						  	<input ng-model="nota.dataEmissao" id="dtEmissaoNota" type="text" class="form-control" ng-mask="00/00/0000" />
 						  	<span class="input-group-addon">
 						  		<i class="fa fa-calendar"></i>
@@ -30,6 +32,7 @@
 							<option value="">-Selecione-</option>
 						</select>
 					</div>
+					
 					<div class="form-group" >
 						<label for="vlrNotaFiscal">Valor da Nota Fiscal</label>
 						<div class="input-group" >
@@ -64,7 +67,7 @@
 	</div>
 	<div ng-show="notas.length > 0">
 		<div class="table-responsive" >
-			<table class="table table-condensed table-hover" ng-init="findAByCodCliente(nota.codCliente)">
+			<table class="table table-condensed table-hover" ng-init="findByCodCliente(nota.codCliente)">
 				<thead>
 					<th>Núm</th>
 					<th>Cliente</th>
@@ -81,7 +84,7 @@
 						<td>{{notaFiscal.dataEmissao}}</td>
 						<td>{{notaFiscal.descricaoNotaFiscal}}</td>
 						<td>{{notaFiscal.anexoDTO.descricaoAnexo}}</td>
-						<td>{{notaFiscal.valorNotaFiscal | currency}}</td>
+						<td>{{notaFiscal.valorNotaFiscal}}</td>
 						<td class="text-center">
 							<button class="btn btn-sm btn-info" ng-click="loadForm(notaFiscal.numNotaFiscal)">
 								Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>

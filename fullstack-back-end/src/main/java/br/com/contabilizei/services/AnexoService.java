@@ -47,18 +47,6 @@ public class AnexoService {
 		}
 		return null;
 	}
-	
-	public List<AnexoDTO> findByStatus(Boolean status) {
-		
-		List<Anexo> anexos = this.daoAnexo.findByStatus(status);
-
-		List<AnexoDTO> anexosDTO = new ArrayList<AnexoDTO>();
-		for (Anexo anexo : anexos) {
-			AnexoDTO anexoDTO = convertToDTO(anexo);
-			anexosDTO.add(anexoDTO);
-		}
-		return anexosDTO;
-	}
 
 	public AnexoDTO convertToDTO(Anexo anexo) {
 		AnexoDTO dto = new AnexoDTO();

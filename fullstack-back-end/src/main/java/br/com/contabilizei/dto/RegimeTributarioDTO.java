@@ -1,5 +1,7 @@
 package br.com.contabilizei.dto;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -9,7 +11,9 @@ public class RegimeTributarioDTO {
 	
 	private String descricaoRegimeTributario;
 	
-	private Boolean statusRegimeTributario;
+	private Boolean enabledAnexos;
+	
+	private List<TributoDTO> tributos;
 
 	public Long getCodRegimeTributario() {
 		return codRegimeTributario;
@@ -27,13 +31,20 @@ public class RegimeTributarioDTO {
 		this.descricaoRegimeTributario = descricaoRegimeTributario;
 	}
 
-	public Boolean getStatusRegimeTributario() {
-		return statusRegimeTributario;
+	public Boolean getEnabledAnexos() {
+		return enabledAnexos;
 	}
 
-	public void setStatusRegimeTributario(Boolean statusRegimeTributario) {
-		this.statusRegimeTributario = statusRegimeTributario;
+	public void setEnabledAnexos(Boolean enabledAnexos) {
+		this.enabledAnexos = enabledAnexos;
 	}
 
+	public List<TributoDTO> getTributos() {
+		return tributos;
+	}
+
+	public void setTributos(List<TributoDTO> tributos) {
+		this.tributos = tributos;
+	}
 
 }

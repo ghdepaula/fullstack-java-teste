@@ -70,16 +70,4 @@ public class RegimeTributarioResource {
 			throw new WebApplicationException(500);
 		}
 	}
-	
-
-	@GET
-	@Path("actives")
-	@Produces({ "application/json" })
-	public List<RegimeTributarioDTO> findByStatusActive() {
-		try {
-			return this.regimeTributarioService.findByStatus(Boolean.TRUE);
-		} catch (Exception e) {
-			throw new WebApplicationException(500);
-		}
-	}
 }

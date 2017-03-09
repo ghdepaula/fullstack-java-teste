@@ -1,9 +1,5 @@
 package br.com.contabilizei.dao;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import br.com.contabilizei.model.RegimeTributario;
 
 public class RegimeTributarioDAO extends GenericDAO<RegimeTributario> {
@@ -14,10 +10,4 @@ public class RegimeTributarioDAO extends GenericDAO<RegimeTributario> {
 		super(RegimeTributario.class);
 	}
 	
-	public List<RegimeTributario> findByStatus(Boolean status) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("statusRegTributario", status);
-		List<RegimeTributario> regsTributarios = findManyResults(RegimeTributario.FIND_BY_STATUS, params);
-		return regsTributarios;
-	}
 }

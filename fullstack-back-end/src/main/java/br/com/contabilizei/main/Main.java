@@ -1,6 +1,8 @@
 package br.com.contabilizei.main;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -11,13 +13,14 @@ import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.glassfish.jersey.servlet.ServletContainer;
+
 import br.com.contabilizei.config.RestApplication;
 import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.dto.RegimeTributarioDTO;
-import br.com.contabilizei.dto.TipoImpostoDTO;
+import br.com.contabilizei.dto.TributoDTO;
 import br.com.contabilizei.services.AnexoService;
 import br.com.contabilizei.services.RegimeTributarioService;
-import br.com.contabilizei.services.TipoImpostoService;
+import br.com.contabilizei.services.TributoService;
 
 public class Main {
 
@@ -84,34 +87,36 @@ public class Main {
 	public static void defineApplicationDefaultSettings(){
 		
 		initializeAnexoSettings();
-		initializeTipoEmpresaSettings();
-		initializeTipoImpostoSettings();
+		initializeRegimeTributarioAndTributosSettings();
 		
 	}
 	
 	private static void initializeAnexoSettings(){
 		
-		AnexoDTO anexo1 = new AnexoDTO();
-		anexo1.setDescricaoAnexo("Comércio");
-		anexo1.setAliquotaAnexo(6d);
-		anexo1.setStatusAnexo(Boolean.TRUE);
+		AnexoDTO comercio = new AnexoDTO();
+		comercio.setCodAnexo(1L);
+		comercio.setDescricaoAnexo("Comércio");
+		comercio.setAliquotaAnexo(6d);
+		comercio.setStatusAnexo(Boolean.TRUE);
 		
-		AnexoDTO anexo2 = new AnexoDTO();
-		anexo2.setDescricaoAnexo("Indústria");
-		anexo2.setAliquotaAnexo(8.5d);
-		anexo2.setStatusAnexo(Boolean.TRUE);
+		AnexoDTO industria = new AnexoDTO();
+		industria.setCodAnexo(2L);
+		industria.setDescricaoAnexo("Indústria");
+		industria.setAliquotaAnexo(8.5d);
+		industria.setStatusAnexo(Boolean.TRUE);
 		
-		AnexoDTO anexo3 = new AnexoDTO();
-		anexo3.setDescricaoAnexo("Prestação de serviços");
-		anexo3.setAliquotaAnexo(11d);
-		anexo3.setStatusAnexo(Boolean.TRUE);
+		AnexoDTO servicos = new AnexoDTO();
+		servicos.setCodAnexo(3L);
+		servicos.setDescricaoAnexo("Prestação de serviços");
+		servicos.setAliquotaAnexo(11d);
+		servicos.setStatusAnexo(Boolean.TRUE);
 		
 		try {
 			AnexoService service = new AnexoService();
 			
-			service.insert(anexo1);
-			service.insert(anexo2);
-			service.insert(anexo3);
+			service.insert(comercio);
+			service.insert(industria);
+			service.insert(servicos);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,56 +125,67 @@ public class Main {
 		}
 	}
 	
-	private static void initializeTipoEmpresaSettings(){
+	private static void initializeRegimeTributarioAndTributosSettings(){
 		
-		RegimeTributarioDTO regTributario1 = new RegimeTributarioDTO();
-		regTributario1.setDescricaoRegimeTributario("SIMPLES NACIONAL");
-		regTributario1.setStatusRegimeTributario(Boolean.TRUE);
+		TributoDTO irpj = new TributoDTO();
+		irpj.setCodTributo(1L);
+		irpj.setDescricaoTributo("IRPJ");
+		irpj.setAliquotaTributo(4.8d);
 		
-		RegimeTributarioDTO regTributario2 = new RegimeTributarioDTO();
-		regTributario2.setDescricaoRegimeTributario("LUCRO PRESUMIDO");
-		regTributario2.setStatusRegimeTributario(Boolean.TRUE);
+		TributoDTO iss = new TributoDTO();
+		iss.setCodTributo(2L);
+		iss.setDescricaoTributo("ISS");
+		iss.setAliquotaTributo(2d);
 		
-		try {
-			RegimeTributarioService service = new RegimeTributarioService();
-			service.insert(regTributario1);
-			service.insert(regTributario2);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			System.out.println("Erro ao inicializar as configurações de Tipos de Empresa da aplicacão !");
-		}
+		TributoDTO cofins = new TributoDTO();
+		cofins.setCodTributo(3L);
+		cofins.setDescricaoTributo("COFINS");
+		cofins.setAliquotaTributo(3d);
 		
-	}
-	
-	private static void initializeTipoImpostoSettings(){
+		TributoDTO tributoSimplesNacional = new TributoDTO();
+		tributoSimplesNacional.setCodTributo(4L);
+		tributoSimplesNacional.setDescricaoTributo("SIMPLES NACIONAL");
+		tributoSimplesNacional.setAliquotaTributo(0d);
 		
-		TipoImpostoDTO tipoImposto1 = new TipoImpostoDTO();
-		tipoImposto1.setDescricaoTipoImposto("IRPJ");
-		tipoImposto1.setAliquotaTipoImposto(4.8d);
-		tipoImposto1.setStatusTipoImposto(Boolean.TRUE);
+		RegimeTributarioDTO simplesNacional = new RegimeTributarioDTO();
+		simplesNacional.setDescricaoRegimeTributario("SIMPLES NACIONAL");
+		simplesNacional.setEnabledAnexos(Boolean.TRUE);
 		
-		TipoImpostoDTO tipoImposto2 = new TipoImpostoDTO();
-		tipoImposto2.setDescricaoTipoImposto("ISS");
-		tipoImposto2.setAliquotaTipoImposto(2d);
-		tipoImposto1.setStatusTipoImposto(Boolean.TRUE);
-		
-		TipoImpostoDTO tipoImposto3 = new TipoImpostoDTO();
-		tipoImposto3.setDescricaoTipoImposto("COFINS");
-		tipoImposto3.setAliquotaTipoImposto(3d);
-		tipoImposto1.setStatusTipoImposto(Boolean.TRUE);
+		RegimeTributarioDTO lucroPresumido = new RegimeTributarioDTO();
+		lucroPresumido.setDescricaoRegimeTributario("LUCRO PRESUMIDO");
+		lucroPresumido.setEnabledAnexos(Boolean.FALSE);
 		
 		try {
 			
-			TipoImpostoService service = new TipoImpostoService();
-			service.insert(tipoImposto1);
-			service.insert(tipoImposto2);
-			service.insert(tipoImposto3);
+			TributoService tributoService = new TributoService();
+			RegimeTributarioService regimeTributarioService = new RegimeTributarioService();
+			
+			tributoService.insert(irpj);
+			tributoService.insert(iss);
+			tributoService.insert(cofins);
+			tributoService.insert(tributoSimplesNacional);
+			
+			List<TributoDTO> tributosSimples = new ArrayList<TributoDTO>();
+			List<TributoDTO> tributosLucroPresumido = new ArrayList<TributoDTO>();
+			
+			tributosSimples.add(tributoSimplesNacional);
+			
+			tributosLucroPresumido.add(irpj);
+			tributosLucroPresumido.add(iss);
+			tributosLucroPresumido.add(cofins);
+			
+			lucroPresumido.setTributos(tributosLucroPresumido);
+			simplesNacional.setTributos(tributosSimples);
+			
+			regimeTributarioService.insert(simplesNacional);
+			regimeTributarioService.insert(lucroPresumido);
+			
+			System.out.println("############# END INITIALIZE ###################3");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			System.out.println("Erro ao inicializar as configurações de Tipos de Imposto da aplicação !");
+			System.out.println("Erro ao inicializar as configurações de Regime Tributário e Tributos da aplicacão !");
 		}
 		
 	}
