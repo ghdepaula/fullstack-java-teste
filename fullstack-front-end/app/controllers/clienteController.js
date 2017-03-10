@@ -103,6 +103,7 @@
 
 		function findAll() {
 			clienteService.findAll().success(function(result){
+				(result);
 				$scope.clientes = result;
 			});
 		}

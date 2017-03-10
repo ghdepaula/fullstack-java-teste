@@ -10,7 +10,6 @@
 		//Var initialize
 		$scope.notas = [];
 		$scope.nota;
-		$scope.codCliente;
 		$scope.clientes = [];
 		$scope.anexos = [];
 		$scope.hideAdd = false;
@@ -34,12 +33,14 @@
 		
 		function findByCodCliente(codCliente) {
 			notaFiscalService.findByCodCliente(codCliente).success(function(result){
+				(result);
 				$scope.notas = result;
 			});
 		}
 		
 		function findClientes() {
 			clienteService.findAll().success(function(result){
+				(result);
 				$scope.clientes = result;
 			});
 		}

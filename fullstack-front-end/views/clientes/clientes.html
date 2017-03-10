@@ -25,7 +25,9 @@
 					<div ng-repeat="anexo in anexos">
 						<div class="checkbox">
 							<label>
-								<input ng-required="anexosChecked.length < 1" type="checkbox" id="{{anexo.descricaoAnexo+anexo.codAnexo}}" ng-model="anx" ng-checked="checkAnexo(anexo)" ng-click="toggleChecked(anexo)" />{{anexo.descricaoAnexo}}</label>
+								<input ng-required="anexosChecked.length < 1" type="checkbox" id="{{anexo.descricaoAnexo+anexo.codAnexo}}" ng-model="anx" ng-checked="checkAnexo(anexo)" ng-click="toggleChecked(anexo)" />
+								{{anexo.descricaoAnexo}}
+							</label>
 						</div>
 					</div>
 				</div>

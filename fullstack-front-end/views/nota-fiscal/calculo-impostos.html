@@ -15,7 +15,7 @@
 				<div class="form-group">
 					<label for="dtBaseImposto">Período</label>
 					<div class="input-group date" ng-month-year-picker>
-						<input ng-model="dadosImpostos.yearMonth" ng-change="onChangeMonthYear(dadosImpostos.yearMonth)" ng-required="true" id="dtBaseImposto" type="text" class="form-control" /> 
+						<input ng-model="dadosImpostos.yearMonth" ng-required="true" id="dtBaseImposto" type="text" class="form-control" /> 
 						<span class="input-group-addon"> 
 							<i class="fa fa-calendar"></i>
 						</span>
@@ -33,34 +33,116 @@
 			</form>
 		</div>
 	</div>
-	<div ng-show="impostos.length > 0">
-		<div class="table-responsive" >
-			<table class="table table-condensed table-hover" ng-init="findByCodCliente(dadosImpostos.codCliente)">
-				<thead>
-					<th>Cliente</th>
-					<th>Período</th>
-					<th>Tipo Tributo</th>
-					<th>(R$)Valor</th>
-					<th>Pago</th>
-				</thead>
-				<tbody>
-					<tr ng-repeat="imposto in impostos">
-						<td>{{imposto.clienteDTO.nomeRazaoSocial}}</td>
-						<td>{{imposto.yearMonth}}</td>
-						<td>{{imposto.tributoDTO.descricaoTributo}}</td>
-						<td>{{imposto.valorImposto}}</td>
-						<td>{{imposto.statusPagamento}}</td>
-<!-- 						<td class="text-center"> -->
-<!-- 							<button class="btn btn-sm btn-info" ng-click="loadForm(imposto.numNotaFiscal)"> -->
-<!-- 								Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span> -->
-<!-- 							</button> -->
-<!-- 							<button class="btn btn-sm btn-danger" ng-click="remove(imposto.numNotaFiscal)"> -->
-<!-- 								Excluir&nbsp;&nbsp;<span class="fa fa-remove" aria-hidden="true"></span> -->
-<!-- 							</button> -->
-<!-- 						</td> -->
-					</tr>
-				</tbody>
-			</table>
+	<form name="tblImpostosForm" class="form-group">
+		<div ng-show="impostos.length > 0">
+			<div class="table-responsive" >
+				<table class="table table-condensed table-hover" ng-init="findByCodCliente(dadosImpostos.codCliente)">
+					<thead>
+						<th>Cliente</th>
+						<th>Período</th>
+						<th>Tipo Tributo</th>
+						<th>Vecimento</th>
+						<th>(R$)Valor</th>
+						<th class="text-center">Pago</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="imposto in impostos">
+							<td>{{imposto.clienteDTO.nomeRazaoSocial}}</td>
+							<td>{{imposto.yearMonth}}</td>
+							<td>{{imposto.tributoDTO.descricaoTributo}}</td>
+							<td>{{imposto.dataVencimento}}</td>
+							<td>{{imposto.valorImposto}}</td>
+							<td class="text-center">
+								<button class="btn btn-link" ng-click="loadModal(imposto.idImposto)">
+									<span class="{{imposto.statusPagamento ? 'fa fa-sm fa-thumbs-up text-success' : 'fa fa-sm fa-thumbs-down text-danger'}}"></span>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</form>
+	<div class="modal fade bs-example-modal-lg" ng-show-modal="showModalConfirm" name="confirmPagto" id="confirmPagto">
+		<div class="modal-dialog modal-lg" >
+			<div class="modal-content">
+				<form name="confirmPagtoForm" class="form-group">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Confirmar Pagamento</h4>
+					</div>
+					<div class="modal-body">
+						<ul>
+						  <li>
+						  	<label>Cliente:</label>&nbsp;{{imposto.clienteDTO.nomeRazaoSocial}}
+						  </li>
+						  <li>
+						  	<label>Período:</label>&nbsp;{{imposto.yearMonth}}
+						  </li>
+						  <li>
+						  	<label>Tributo:</label>&nbsp;{{imposto.tributoDTO.descricaoTributo}}
+						  </li>
+						  <li>
+						  	<label>Vencimento:</label>&nbsp;{{imposto.dataVencimento}}
+						  </li>
+						  <li>
+						  	<label>Valor(R$):</label>&nbsp;{{imposto.valorImposto}}
+						  </li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Fechar&nbsp;&nbsp;<span class="fa fa-remove" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-success" ng-click="confirmar(imposto)">
+							Confirmar&nbsp;&nbsp;<span class="fa fa-check" aria-hidden="true"></span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade bs-example-modal-lg" ng-show-modal="showModalCancel" name="cancelPagto" id="cancelPagto">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<form name="cancelPagtoForm" class="form-group">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Cancelar Pagamento</h4>
+					</div>
+					<div class="modal-body">
+						<ul>
+						  <li>
+						  	<label>Cliente:</label>&nbsp;{{imposto.clienteDTO.nomeRazaoSocial}}
+						  </li>
+						  <li>
+						  	<label>Período:</label>&nbsp;{{imposto.yearMonth}}
+						  </li>
+						  <li>
+						  	<label>Tributo:</label>&nbsp;{{imposto.tributoDTO.descricaoTributo}}
+						  </li>
+						  <li>
+						  	<label>Vencimento:</label>&nbsp;{{imposto.dataVencimento}}
+						  </li>
+						  <li>
+						  	<label>Valor(R$):</label>&nbsp;{{imposto.valorImposto}}
+						  </li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Fechar&nbsp;&nbsp;<span class="fa fa-remove" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-danger" ng-click="cancelar(imposto)">
+							Cancelar&nbsp;&nbsp;<span class="fa fa-ban" aria-hidden="true"></span>
+						</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

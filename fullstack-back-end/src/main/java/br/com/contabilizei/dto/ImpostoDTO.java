@@ -1,12 +1,12 @@
 package br.com.contabilizei.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.YearMonth;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import br.com.contabilizei.adapter.BigDecimalAdapter;
+import br.com.contabilizei.adapter.LocalDateAdapter;
 import br.com.contabilizei.adapter.YearMonthAdapter;
 
 @XmlRootElement
@@ -16,6 +16,9 @@ public class ImpostoDTO {
 	
 	@XmlJavaTypeAdapter(value = YearMonthAdapter.class)
 	private YearMonth yearMonth;
+	
+	@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+	private LocalDate dataVencimento;
 	
 	@XmlJavaTypeAdapter(BigDecimalAdapter.class)
 	private BigDecimal valorImposto;
@@ -92,6 +95,14 @@ public class ImpostoDTO {
 
 	public void setStatusPagamento(Boolean statusPagamento) {
 		this.statusPagamento = statusPagamento;
+	}
+
+	public LocalDate getDataVencimento() {
+		return dataVencimento;
+	}
+
+	public void setDataVencimento(LocalDate dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 
 }

@@ -10,6 +10,7 @@ import br.com.contabilizei.dto.ClienteDTO;
 import br.com.contabilizei.dto.DadosImpostoDTO;
 import br.com.contabilizei.dto.ImpostoDTO;
 import br.com.contabilizei.dto.NotaFiscalDTO;
+import br.com.contabilizei.dto.RegimeTributarioDTO;
 import br.com.contabilizei.dto.TributoDTO;
 import br.com.contabilizei.model.Imposto;
 
@@ -17,17 +18,20 @@ public class ImpostosService {
 	
 	private ImpostosDAO daoImpostos;
 	
-	private TributoService tipoImpostoService;
+	private TributoService tributoService;
 	
 	private NotaFiscalService notaFiscalService;
 	
 	private ClienteService clienteService;
 	
+	private RegimeTributarioService regimeTributarioService;
+	
 	public ImpostosService(){
 		this.daoImpostos = new ImpostosDAO();
-		this.tipoImpostoService = new TributoService();
+		this.tributoService = new TributoService();
 		this.notaFiscalService = new NotaFiscalService();
 		this.clienteService = new ClienteService();
+		this.regimeTributarioService = new RegimeTributarioService();
 	}
 
 	public void calculate(DadosImpostoDTO dadosImposto) {
@@ -36,14 +40,11 @@ public class ImpostosService {
 		
 		LocalDate dataInicial = dadosImposto.getYearMonth().atDay(1);
 		LocalDate dataFinal = dadosImposto.getYearMonth().atEndOfMonth();
-
-		ClienteDTO cliente = this.clienteService.findById(dadosImposto.getCodCliente());
-		List<ClienteDTO> clientes = this.clienteService.findAll();
 		
 		List<NotaFiscalDTO> notasFiscais = this.notaFiscalService.findByCodClienteAndPeriodo(dadosImposto.getCodCliente(), dataInicial, dataFinal);
 
 		if(notasFiscais != null && !notasFiscais.isEmpty() && notasFiscais.size() > 0){
-			impostos = calculateImpostos(notasFiscais, cliente, dadosImposto);
+			impostos = calculateImpostos(notasFiscais, dadosImposto);
 		}
 
 		if (impostos != null && !impostos.isEmpty() && impostos.size() > 0) {
@@ -53,10 +54,13 @@ public class ImpostosService {
 		}
 	}
 	
-	private List<Imposto> calculateImpostos(List<NotaFiscalDTO> notasFiscais, ClienteDTO clienteDTO, DadosImpostoDTO dadosImposto){
+	private List<Imposto> calculateImpostos(List<NotaFiscalDTO> notasFiscais, DadosImpostoDTO dadosImposto){
+		
+		ClienteDTO clienteDTO = this.clienteService.findById(dadosImposto.getCodCliente());
+		RegimeTributarioDTO regTributarioDTO = this.regimeTributarioService.findById(clienteDTO.getCodRegimeTributario());
 		
 		List<Imposto> impostos = new ArrayList<Imposto>();
-		List<TributoDTO> tributos = clienteDTO.getRegimeTributario().getTributos();
+		List<TributoDTO> tributos = regTributarioDTO.getTributos();
 		Boolean enabledAnexos = clienteDTO.getRegimeTributario().getEnabledAnexos();
 		
 		for(TributoDTO tributo : tributos){
@@ -64,6 +68,7 @@ public class ImpostosService {
 			BigDecimal totalTributo = BigDecimal.ZERO;
 			BigDecimal aliquota = BigDecimal.ZERO;
 			BigDecimal divisor = new BigDecimal(100);
+			LocalDate dataVencimento = dadosImposto.getYearMonth().plusMonths(1).atDay(25);
 			
 			for (NotaFiscalDTO notaFiscal : notasFiscais) {
 				
@@ -82,6 +87,7 @@ public class ImpostosService {
 			Imposto imposto = new Imposto();
 			imposto.setCodCliente(dadosImposto.getCodCliente());
 			imposto.setYearMonth(dadosImposto.getYearMonth());
+			imposto.setDataVencimento(dataVencimento);
 			imposto.setCodTributo(tributo.getCodTributo());
 			imposto.setStatusPagamento(Boolean.FALSE);
 			imposto.setValorImposto(totalTributo);
@@ -119,8 +125,9 @@ public class ImpostosService {
 		return impostosDTO;
 	}
 
-	public void update(ImpostoDTO dadosImpostos) {
-		// TODO Auto-generated method stub
+	public void update(ImpostoDTO impostoDTO) {
+		Imposto imposto = convertToModel(impostoDTO);
+		this.daoImpostos.update(imposto);
 	}
 	
 	public Imposto convertToModel(ImpostoDTO dto){
@@ -129,6 +136,7 @@ public class ImpostosService {
 		
 		imposto.setIdImposto(dto.getIdImposto());
 		imposto.setYearMonth(dto.getYearMonth());
+		imposto.setDataVencimento(dto.getDataVencimento());
 		imposto.setValorImposto(dto.getValorImposto());
 		imposto.setStatusPagamento(dto.getStatusPagamento());
 		imposto.setCodCliente(dto.getCodCliente());
@@ -140,19 +148,30 @@ public class ImpostosService {
 	public ImpostoDTO convertToDTO(Imposto imposto){
 	
 		ImpostoDTO dto = new ImpostoDTO();
-		TributoDTO tipoImpostoDTO = this.tipoImpostoService.convertToDTO(imposto.getTributo());
+		TributoDTO tributoDTO = this.tributoService.convertToDTO(imposto.getTributo());
 		ClienteDTO clienteDTO = this.clienteService.convertToDTO(imposto.getCliente());
 		
 		dto.setIdImposto(imposto.getIdImposto());
 		dto.setYearMonth(imposto.getYearMonth());
+		dto.setDataVencimento(imposto.getDataVencimento());
 		dto.setValorImposto(imposto.getValorImposto());
 		dto.setStatusPagamento(imposto.getStatusPagamento());
 		dto.setCodCliente(imposto.getCodCliente());
 		dto.setCodTributo(imposto.getCodTributo());
-		dto.setTributoDTO(tipoImpostoDTO);
+		dto.setTributoDTO(tributoDTO);
 		dto.setClienteDTO(clienteDTO);
 		
 		return dto;
+	}
+
+	public ImpostoDTO findById(Long idImposto) {
+		Imposto imposto = this.daoImpostos.find(idImposto);
+
+		if (imposto != null) {
+			ImpostoDTO impostoDTO = convertToDTO(imposto);
+			return impostoDTO;
+		}
+		return null;
 	}
 
 }

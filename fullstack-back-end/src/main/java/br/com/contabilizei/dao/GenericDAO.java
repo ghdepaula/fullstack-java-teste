@@ -96,13 +96,6 @@ public abstract class GenericDAO<T> implements Serializable {
 		closeTransaction();
 		return result;
 	}
-	
-//	public List<T> findAll() {
-//		beginTransaction();
-//		List<T> result = em.createQuery("SELECT e FROM " + this.entityClass + " e").getResultList();
-//		closeTransaction();
-//		return result;
-//	}
 
 	protected T findOneResult(String namedQuery, Map<String, Object> parameters) {
 		T result = null;

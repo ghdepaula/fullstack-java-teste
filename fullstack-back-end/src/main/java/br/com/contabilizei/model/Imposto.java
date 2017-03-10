@@ -2,6 +2,7 @@ package br.com.contabilizei.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,9 @@ public class Imposto implements Serializable {
 	
 	@Column
 	private YearMonth yearMonth;
+	
+	@Column
+	private LocalDate dataVencimento;
 	
 	@Column
 	private BigDecimal valorImposto;
@@ -67,6 +71,14 @@ public class Imposto implements Serializable {
 
 	public void setYearMonth(YearMonth yearMonth) {
 		this.yearMonth = yearMonth;
+	}
+	
+	public LocalDate getDataVencimento() {
+		return dataVencimento;
+	}
+
+	public void setDataVencimento(LocalDate dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 
 	public Long getCodCliente() {

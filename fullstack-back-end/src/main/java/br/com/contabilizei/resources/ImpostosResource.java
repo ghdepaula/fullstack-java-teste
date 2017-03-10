@@ -84,6 +84,19 @@ public class ImpostosResource {
 			throw new WebApplicationException(500);
 		}
 	}
+	
+	@GET
+	@Path("{idImposto}")
+	@Produces({ "application/json" })
+	public ImpostoDTO findById(@PathParam("idImposto") Long idImposto) {
+		try {
+			return this.impostosService.findById(idImposto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new WebApplicationException(500);
+		}
+	}
 
 
 }

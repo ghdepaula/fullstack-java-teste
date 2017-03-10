@@ -99,7 +99,6 @@ public class NotaFiscalService {
 		AnexoDTO anexoDTO = anexoService.convertoToDTO(notaFiscal.getAnexo());
 		ClienteDTO clienteDTO = clienteService.convertToDTO(notaFiscal.getCliente());
 		
-		
 		notaFiscalDTO.setNumNotaFiscal(notaFiscal.getNumNotaFiscal());;
 		notaFiscalDTO.setCodCliente(notaFiscal.getCodCliente());;
 		notaFiscalDTO.setCodAnexo(notaFiscal.getCodAnexo());

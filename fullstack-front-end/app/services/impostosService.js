@@ -22,11 +22,17 @@
 		var _findAll = function () {
 			return $http.get('http://localhost:8081/contabilizei/rest/impostos');
 		}
+		
+		var _findById = function (idImposto) {
+			return $http.get('http://localhost:8081/contabilizei/rest/impostos/' + idImposto);	
+		}
+		
 
 		return {
 			calcular : _calcular,
 			update : _update,
 			findAll : _findAll,
+			findById: _findById,
 			findByCodCliente :_findByCodCliente
 		}
 	}

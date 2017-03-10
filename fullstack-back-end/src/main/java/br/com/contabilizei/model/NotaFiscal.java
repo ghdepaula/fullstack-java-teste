@@ -117,5 +117,30 @@ public class NotaFiscal implements Serializable{
 	public void setDataEmissao(LocalDate dataEmissao) {
 		this.dataEmissao = dataEmissao;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj)
+	        return true;
+	    if (obj == null)
+	        return false;
+	    if (getClass() != obj.getClass())
+	        return false;
+	    NotaFiscal other = (NotaFiscal) obj;
+	    if (getNumNotaFiscal() == null) {
+	        if (other.getNumNotaFiscal() != null)
+	            return false;
+	    } else if (getNumNotaFiscal().equals(other.getNumNotaFiscal()))
+	        return true;
+	    return false;
+	}
+
+	@Override
+	public int hashCode() {
+	    final int prime = 43;
+	    int result = 1;
+	    result = prime * result + ((getNumNotaFiscal() == null) ? 0 : getNumNotaFiscal().hashCode());
+	    return result;
+	}
 
 }

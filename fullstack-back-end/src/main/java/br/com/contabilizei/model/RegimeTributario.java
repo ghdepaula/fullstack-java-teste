@@ -32,7 +32,7 @@ public class RegimeTributario implements Serializable {
 	private Boolean enabledAnexos;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name="regime_tributo",
+    @JoinTable(name="regime_tributos",
     		joinColumns={@JoinColumn(name="codRegimeTributario", referencedColumnName="codRegimeTributario", insertable=false, updatable=false)},
     		inverseJoinColumns={@JoinColumn(name="codTributo", referencedColumnName="codTributo", insertable=false, updatable=false)})
 	private List<Tributo> tributos;
