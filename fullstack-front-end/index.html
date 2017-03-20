@@ -42,18 +42,44 @@
 						</a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="menuNotaFiscal">
 							<li role="presentation">
-								<a role="menuitem" href="#/nota-fiscal">
+								<a role="menuitem" href="#/notas-fiscais">
 									<span class="fa fa-edit"></span>&nbsp;&nbsp;Cadastro
 								</a>
 							</li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" type="button" id="menuImpostos" data-toggle="dropdown">
+								<span class="fa fa-calendar-check-o"></span>&nbsp;&nbsp;Impostos&nbsp;&nbsp;<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="menuImpostos">
 							<li role="presentation">
-								<a role="menuitem" href="#/calculo-imposto">
-									<span class="fa fa-calculator"></span>&nbsp;&nbsp;Cálculo de Impostos
+								<a role="menuitem" href="#/impostos">
+									<span class="fa fa-calculator"></span>&nbsp;&nbsp;Cálculo Impostos
 								</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+			        	<a class="dropdown-toggle" type="button" id="menuConfigApp" data-toggle="dropdown">
+							<span class="fa fa-gears"></span>&nbsp;&nbsp;Configurações Aplicação&nbsp;&nbsp;<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="menuConfigApp">
+							<li role="presentation">
+								<a role="menuitem" href="#/regimes-tributarios">
+									<span class="fa fa-book"></span>&nbsp;&nbsp;Regimes Tributários
+								</a>
+							</li>
+							<li role="presentation">
+								<a role="menuitem" href="#/tributos">
+									<span class="fa fa-percent"></span>&nbsp;&nbsp;Tributos
+								</a>
+							</li>
+						</ul>
+					</li>
+			    </ul>
 			</div>
 		</div>
 	</nav>
@@ -69,16 +95,19 @@
 	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/angular.js"></script>
 	<script src="assets/js/angular-route.js"></script>
-	<script src="app/app.js"></script>
 	<script src="assets/js/locales/angular-locale_pt-br.js"></script>
+	<script src="app/app.js"></script>
 	<script src="app/services/clienteService.js"></script>
 	<script src="app/services/anexoService.js"></script>
-	<script src="app/services/regimeTributarioService.js"></script>
+	<script src="app/services/regimesTributariosService.js"></script>
+	<script src="app/services/tributosService.js"></script>
 	<script src="app/services/notaFiscalService.js"></script>
 	<script src="app/services/impostosService.js"></script>
 	<script src="app/controllers/notasController.js"></script>
 	<script src="app/controllers/clienteController.js"></script>
 	<script src="app/controllers/impostosController.js"></script>
+	<script src="app/controllers/regimesTributariosController.js"></script>
+	<script src="app/controllers/tributosController.js"></script>
 	
 </body>
 </html>

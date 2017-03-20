@@ -9,13 +9,13 @@ import br.com.contabilizei.dto.TributoDTO;
 import br.com.contabilizei.model.RegimeTributario;
 import br.com.contabilizei.model.Tributo;
 
-public class RegimeTributarioService {
+public class RegimesTributariosService {
 
 	private RegimeTributarioDAO daoRegimeTributario;
 	
 	private TributoService tributoService;
 
-	public RegimeTributarioService() {
+	public RegimesTributariosService() {
 		this.daoRegimeTributario = new RegimeTributarioDAO();
 		this.tributoService = new TributoService();
 	}

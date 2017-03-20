@@ -24,14 +24,14 @@ public class ImpostosService {
 	
 	private ClienteService clienteService;
 	
-	private RegimeTributarioService regimeTributarioService;
+	private RegimesTributariosService regimesTributariosService;
 	
 	public ImpostosService(){
 		this.daoImpostos = new ImpostosDAO();
 		this.tributoService = new TributoService();
 		this.notaFiscalService = new NotaFiscalService();
 		this.clienteService = new ClienteService();
-		this.regimeTributarioService = new RegimeTributarioService();
+		this.regimesTributariosService = new RegimesTributariosService();
 	}
 
 	public void calculate(DadosImpostoDTO dadosImposto) {
@@ -57,7 +57,7 @@ public class ImpostosService {
 	private List<Imposto> calculateImpostos(List<NotaFiscalDTO> notasFiscais, DadosImpostoDTO dadosImposto){
 		
 		ClienteDTO clienteDTO = this.clienteService.findById(dadosImposto.getCodCliente());
-		RegimeTributarioDTO regTributarioDTO = this.regimeTributarioService.findById(clienteDTO.getCodRegimeTributario());
+		RegimeTributarioDTO regTributarioDTO = this.regimesTributariosService.findById(clienteDTO.getCodRegimeTributario());
 		
 		List<Imposto> impostos = new ArrayList<Imposto>();
 		List<TributoDTO> tributos = regTributarioDTO.getTributos();

@@ -3,9 +3,9 @@
 
 	angular.module('nf_app').controller('clientesController', clientesController);
 
-	clientesController.$inject = ['clienteService','anexoService', 'regimeTributarioService', '$scope', '$filter'];
+	clientesController.$inject = ['clienteService','anexoService', 'regimesTributariosService', '$scope', '$filter'];
 
-	function clientesController(clienteService, anexoService, regimeTributarioService, $scope, $filter) {
+	function clientesController(clienteService, anexoService, regimesTributariosService, $scope, $filter) {
 		
 		$scope.clientes = [];
 		$scope.cliente;
@@ -40,7 +40,7 @@
 		}
 		
 		$scope.onChangeRegime = function(codRegimeTributario){
-			regimeTributarioService.findById(codRegimeTributario).success(function(data){
+			regimesTributariosService.findById(codRegimeTributario).success(function(data){
 				
 				if(data.enabledAnexos){
 					$scope.showAnexos = true;
@@ -115,7 +115,7 @@
 		}
 		
 		function findRegimesTributarios(){
-			regimeTributarioService.findAll().success(function(result){
+			regimesTributariosService.findAll().success(function(result){
 				$scope.regimesTributarios = result;
 			});
 		}

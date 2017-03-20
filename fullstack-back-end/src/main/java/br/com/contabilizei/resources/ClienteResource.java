@@ -81,7 +81,7 @@ public class ClienteResource {
 	@GET
 	@Path("{idCliente}")
 	@Produces({ "application/json" })
-	public ClienteDTO buscarPorCodigo(@PathParam("idCliente") Long idCliente) {
+	public ClienteDTO findById(@PathParam("idCliente") Long idCliente) {
 		try {
 			return this.clienteService.findById(idCliente);
 		} catch (Exception e) {

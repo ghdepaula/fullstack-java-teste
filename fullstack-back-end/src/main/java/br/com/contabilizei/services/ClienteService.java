@@ -16,12 +16,12 @@ public class ClienteService {
 	
 	private AnexoService anexoService;
 	
-	private RegimeTributarioService regimeTributarioService;
+	private RegimesTributariosService regimesTributariosService;
 
 	public ClienteService() {
 		this.daoCliente = new ClienteDAO();
 		this.anexoService = new AnexoService();
-		this.regimeTributarioService = new RegimeTributarioService();
+		this.regimesTributariosService = new RegimesTributariosService();
 	}
 
 	public void insert(ClienteDTO clienteDTO) {
@@ -72,7 +72,7 @@ public class ClienteService {
 	public ClienteDTO convertToDTO(Cliente cliente) {
 		ClienteDTO dto = new ClienteDTO();
 		List<AnexoDTO> anexos = anexoService.convertoToDTO(cliente.getAnexos());
-		RegimeTributarioDTO regimeTributario = this.regimeTributarioService.convertToDTO(cliente.getRegimeTributario());
+		RegimeTributarioDTO regimeTributario = this.regimesTributariosService.convertToDTO(cliente.getRegimeTributario());
 
 		dto.setIdCliente(cliente.getIdCliente());
 		dto.setCnpjCliente(cliente.getCnpjCliente());

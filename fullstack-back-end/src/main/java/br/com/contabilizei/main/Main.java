@@ -1,3 +1,4 @@
+
 package br.com.contabilizei.main;
 
 import java.net.MalformedURLException;
@@ -19,14 +20,14 @@ import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.dto.RegimeTributarioDTO;
 import br.com.contabilizei.dto.TributoDTO;
 import br.com.contabilizei.services.AnexoService;
-import br.com.contabilizei.services.RegimeTributarioService;
+import br.com.contabilizei.services.RegimesTributariosService;
 import br.com.contabilizei.services.TributoService;
 
 public class Main {
 
 	private static final String CTX_BACK_END_APP = "/contabilizei";
 	private static final String CTX_FRONT_END_APP = "/";
-	private static final String PATH_FRONT_END_APP = "/home/desenv/personal-workspace/fullstack-front-end";
+	private static final String PATH_FRONT_END_APP = "C:\\Users\\cliente\\workspace\\fullstack-front-end";
 
 	public static void main(String[] args) throws Exception, LifecycleException {
 		Main.start();
@@ -158,7 +159,7 @@ public class Main {
 		try {
 			
 			TributoService tributoService = new TributoService();
-			RegimeTributarioService regimeTributarioService = new RegimeTributarioService();
+			RegimesTributariosService regimesTributariosService = new RegimesTributariosService();
 			
 			tributoService.insert(irpj);
 			tributoService.insert(iss);
@@ -177,10 +178,8 @@ public class Main {
 			lucroPresumido.setTributos(tributosLucroPresumido);
 			simplesNacional.setTributos(tributosSimples);
 			
-			regimeTributarioService.insert(simplesNacional);
-			regimeTributarioService.insert(lucroPresumido);
-			
-			System.out.println("############# END INITIALIZE ###################3");
+			regimesTributariosService.insert(simplesNacional);
+			regimesTributariosService.insert(lucroPresumido);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

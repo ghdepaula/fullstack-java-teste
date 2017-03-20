@@ -13,15 +13,15 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import br.com.contabilizei.dto.RegimeTributarioDTO;
-import br.com.contabilizei.services.RegimeTributarioService;
+import br.com.contabilizei.services.RegimesTributariosService;
 
 @Path("/regtributarios")
 public class RegimeTributarioResource {
 	
-	private RegimeTributarioService regimeTributarioService;
+	private RegimesTributariosService regimesTributariosService;
 	
 	public RegimeTributarioResource() {
-		this.regimeTributarioService = new RegimeTributarioService();
+		this.regimesTributariosService = new RegimesTributariosService();
 	}
 
 	@POST
@@ -29,7 +29,7 @@ public class RegimeTributarioResource {
 	@Produces({ "application/json" })
 	public Response insert(RegimeTributarioDTO regimeTributario) {
 		try {
-			this.regimeTributarioService.insert(regimeTributario);
+			this.regimesTributariosService.insert(regimeTributario);
 
 			return Response.ok(regimeTributario).build();
 		} catch (Exception e) {
@@ -42,7 +42,7 @@ public class RegimeTributarioResource {
 	@Produces({ "application/json" })
 	public Response update(RegimeTributarioDTO regimeTributario) {
 		try {
-			this.regimeTributarioService.update(regimeTributario);
+			this.regimesTributariosService.update(regimeTributario);
 
 			return Response.ok(regimeTributario).build();
 		} catch (Exception e) {
@@ -54,7 +54,7 @@ public class RegimeTributarioResource {
 	@Produces({ "application/json" })
 	public List<RegimeTributarioDTO> findAll() {
 		try {
-			return this.regimeTributarioService.findAll();
+			return this.regimesTributariosService.findAll();
 		} catch (Exception e) {
 			throw new WebApplicationException(500);
 		}
@@ -63,9 +63,9 @@ public class RegimeTributarioResource {
 	@GET
 	@Path("{codRegTributario}")
 	@Produces({ "application/json" })
-	public RegimeTributarioDTO buscarPorCodigo(@PathParam("codRegTributario") Long codRegTributario) {
+	public RegimeTributarioDTO findById(@PathParam("codRegTributario") Long codRegTributario) {
 		try {
-			return this.regimeTributarioService.findById(codRegTributario);
+			return this.regimesTributariosService.findById(codRegTributario);
 		} catch (Exception e) {
 			throw new WebApplicationException(500);
 		}

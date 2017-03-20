@@ -1,3 +1,4 @@
+
 var app = angular.module('nf_app', ['ngRoute']);
 
 app.directive('ngMask', function() {
@@ -98,14 +99,24 @@ app.config(function($routeProvider) {
 	    controller  : 'clientesController'
 	})
 	
-	$routeProvider.when('/nota-fiscal', {
-	    templateUrl : 'views/nota-fiscal/nota-fiscal.html',
+	$routeProvider.when('/notas-fiscais', {
+	    templateUrl : 'views/notas-fiscais/notas-fiscais.html',
 	    controller  : 'notasController'
 	})
 	
-	$routeProvider.when('/calculo-imposto', {
-	    templateUrl : 'views/nota-fiscal/calculo-impostos.html',
+	$routeProvider.when('/impostos', {
+	    templateUrl : 'views/impostos/impostos.html',
 	    controller  : 'impostosController'
+	})
+	
+	$routeProvider.when('/regimes-tributarios', {
+	    templateUrl : 'views/regimes-tributarios/regimes-tributarios.html',
+	    controller  : 'regimesTributariosController'
+	})
+	
+	$routeProvider.when('/tributos', {
+	    templateUrl : 'views/tributos/tributos.html',
+	    controller  : 'tributosController'
 	})
 	
 	$routeProvider.otherwise({redirectTo: '/'});
