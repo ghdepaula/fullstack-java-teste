@@ -54,10 +54,13 @@ public abstract class GenericDAO<T> implements Serializable {
 		this.em.joinTransaction();
 	}
 	
-	public void save(T entity) {
+	public T save(T entity) {
 		beginTransaction();
 		this.em.persist(entity);
+		flush();
 		commitAndCloseTransaction();
+		
+		return entity;
 	}
 
 	public void delete(Long id, Class<T> clazz) {

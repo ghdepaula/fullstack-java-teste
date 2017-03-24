@@ -1,14 +1,12 @@
 
 package br.com.contabilizei.main;
 
-import java.net.MalformedURLException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletException;
-
 import org.apache.catalina.Context;
-import org.apache.catalina.LifecycleException;
 import org.apache.catalina.filters.CorsFilter;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
@@ -26,70 +24,86 @@ import br.com.contabilizei.services.TributoService;
 public class Main {
 
 	private static final String CTX_BACK_END_APP = "/contabilizei";
-	private static final String CTX_FRONT_END_APP = "/";
-	private static final String PATH_FRONT_END_APP = "C:\\Users\\cliente\\workspace\\fullstack-front-end";
+	private static final String FRONT_END_APP_PATH = "/home/desenv/personal-workspace/fullstack-front-end"; //Definir path da aplicação front-end
 
-	public static void main(String[] args) throws Exception, LifecycleException {
-		Main.start();
-	}
+	public static void main(String[] args){
 
-	public static void start() throws ServletException, LifecycleException, MalformedURLException, Exception {
+		try {
+			
+			String frontEndAppPath = args.length > 0 ? args[0] : FRONT_END_APP_PATH;
+			String appBase = ".";
+			Tomcat tomcat = new Tomcat();
+			tomcat.getHost().setAppBase(appBase);
+			
+			File file = new File(frontEndAppPath);
+			
+			if(!file.exists() && !file.isDirectory()){
+				throw new FileNotFoundException();
+			}
+			
+			// Define port number for the web application
+			String webPort = System.getenv("PORT");
+			if (webPort == null || webPort.isEmpty()) {
+				webPort = "8081";
+			}
+			// Bind the port to Tomcat server and enable naming
+			tomcat.setPort(Integer.valueOf(webPort));
+			
+			// Define a web application ctxBack and bind web.xml file location.
+			Context ctxBack = tomcat.addWebapp(CTX_BACK_END_APP , appBase);
+			ctxBack.setReloadable(true);
+			
+		    ServletContainer servletContainer = new ServletContainer(new RestApplication());
+		    
+		    Tomcat.addServlet(ctxBack, "jersey-servlet", servletContainer);
+		    
+		    ctxBack.addServletMapping("/rest/", "jersey-servlet");
+		    
+		    FilterDef corsFilter = new FilterDef();
+		    corsFilter.setFilterName(CorsFilter.class.getName());
+		    corsFilter.setFilterClass(CorsFilter.class.getName());
+		    corsFilter.addInitParameter("cors.allowed.origins", "*");
+		    corsFilter.addInitParameter("cors.allowed.methods", "GET,POST,HEAD,OPTIONS,PUT,DELETE");
+		    corsFilter.addInitParameter("cors.allowed.headers", "Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers");
+		    corsFilter.addInitParameter("cors.exposed.headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
+		    corsFilter.addInitParameter("cors.support.credentials", "true");
+		    corsFilter.addInitParameter("cors.preflight.maxage", "10");
+		    ctxBack.addFilterDef(corsFilter);
+		    
+		    FilterMap filterMap = new FilterMap();
+		    filterMap.setFilterName(CorsFilter.class.getName());
+		    filterMap.addURLPattern("/*");
+		 
+		    ctxBack.addFilterMap(filterMap);
+		    
+			Context ctxFront = tomcat.addWebapp("/" , frontEndAppPath);
+			ctxFront.addWelcomeFile("index.html");
+			ctxFront.setReloadable(true);
 
-		String appBase = ".";
-		Tomcat tomcat = new Tomcat();
-		tomcat.getHost().setAppBase(appBase);
-
-		// Define port number for the web application
-		String webPort = System.getenv("PORT");
-		if (webPort == null || webPort.isEmpty()) {
-			webPort = "8081";
+			//Initialize server
+			tomcat.start();
+			defineApplicationDefaultSettings();
+			tomcat.getServer().await();
+			
+		}catch (FileNotFoundException e) {
+			System.out.println("#####################################################################");
+			System.out.println("ERRO: Aplicação front-end não localizada");
+			System.out.println("#####################################################################");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}catch (Exception e) {
+			System.out.println("#####################################################################");
+			System.out.println("ERRO: Ocorreu um erro ao inicializar a aplicação");
+			System.out.println("#####################################################################");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
-		// Bind the port to Tomcat server and enable naming
-		tomcat.setPort(Integer.valueOf(webPort));
-		
-		// Define a web application ctxBack and bind web.xml file location.
-		Context ctxBack = tomcat.addWebapp(CTX_BACK_END_APP , appBase);
-		ctxBack.setReloadable(true);
-		
-	    ServletContainer servletContainer = new ServletContainer(new RestApplication());
-	    
-	    Tomcat.addServlet(ctxBack, "jersey-servlet", servletContainer);
-	    
-	    ctxBack.addServletMapping("/rest/", "jersey-servlet");
-	    
-	    FilterDef corsFilter = new FilterDef();
-	    corsFilter.setFilterName(CorsFilter.class.getName());
-	    corsFilter.setFilterClass(CorsFilter.class.getName());
-	    corsFilter.addInitParameter("cors.allowed.origins", "*");
-	    corsFilter.addInitParameter("cors.allowed.methods", "GET,POST,HEAD,OPTIONS,PUT,DELETE");
-	    corsFilter.addInitParameter("cors.allowed.headers", "Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers");
-	    corsFilter.addInitParameter("cors.exposed.headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
-	    corsFilter.addInitParameter("cors.support.credentials", "true");
-	    corsFilter.addInitParameter("cors.preflight.maxage", "10");
-	    ctxBack.addFilterDef(corsFilter);
-	    
-	    FilterMap filterMap = new FilterMap();
-	    filterMap.setFilterName(CorsFilter.class.getName());
-	    filterMap.addURLPattern("/*");
-	    
-	    ctxBack.addFilterMap(filterMap);
-		
-		// Define a web application ctxFront.
-		Context ctxFront = tomcat.addWebapp(CTX_FRONT_END_APP , PATH_FRONT_END_APP);
-		ctxFront.addWelcomeFile("index.html");
-		ctxFront.setReloadable(true);
 
-		//Initialize server
-		tomcat.start();
-		defineApplicationDefaultSettings();
-		tomcat.getServer().await();
 	}
 	
-	public static void defineApplicationDefaultSettings(){
-		
+	private static void defineApplicationDefaultSettings(){
 		initializeAnexoSettings();
 		initializeRegimeTributarioAndTributosSettings();
-		
 	}
 	
 	private static void initializeAnexoSettings(){

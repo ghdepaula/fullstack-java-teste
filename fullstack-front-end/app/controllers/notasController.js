@@ -3,9 +3,9 @@
 
 	angular.module('nf_app').controller('notasController', notasController);
 
-	notasController.$inject = ['clienteService','anexoService', 'notaFiscalService', '$scope', '$filter'];
+	notasController.$inject = ['clienteService','anexoService', 'notaFiscalService', '$scope', '$filter', '$timeout', '$window'];
 
-	function notasController(clienteService, anexoService, notaFiscalService, $scope, $filter) {
+	function notasController(clienteService, anexoService, notaFiscalService, $scope, $filter, $timeout, $window) {
 		
 		//Var initialize
 		$scope.notas = [];
@@ -13,6 +13,7 @@
 		$scope.clientes = [];
 		$scope.anexos = [];
 		$scope.hideAdd = false;
+		$scope.showAlert = false;
 		$scope.clienteDisabled = true;
 
 		
@@ -119,36 +120,66 @@
 			$('#vlrNotaFiscal').val('');
 		}
 
-		function showError(data) {
-			alert("Infelizmente ocorreu um erro. Verifique seus dados e tente novamente mais tarde");
-		}
-
 		//Form operations
 		$scope.insert = function (nota) {
 			notaFiscalService.insert(nota).success(function (data) {
 				clearData();
+				showAlert(status);
 			})
-			.error(function (data) {
-				showError(data);
+			.error(function (error, status) {
+				showAlert(status);
 			});
 		}
 
 		$scope.update = function (nota) {
 			notaFiscalService.update(nota).success(function (data) {
 				clearData();
+				showAlert(status);
 			})
-			.error(function (data) {
-				showError(data);
+			.error(function (error, status) {
+				showAlert(status);
 			});
 		}
 
 		$scope.remove = function (numNotaFiscal) {
 			notaFiscalService.remove(numNotaFiscal).success(function (data) {				
 				clearData();
+				showAlert(status);
 			})
-			.error(function (data) {
-				showError(data);
+			.error(function (error, status) {
+				showAlert(status);
 			});
+		}
+		
+		function showAlert(status) {
+			
+			var alertMessage = {};
+			
+			if(status === 404){
+				alertMessage.status = status;
+				alertMessage.typeAlert = 'alert-danger';
+				alertMessage.typeMessage = 'ERRO:'
+				alertMessage.message = 'Serviço indisponível no momento, tente novamente !.'
+			}else if (status === 500){
+				alertMessage.status = status;
+				alertMessage.typeAlert = 'alert-danger';
+				alertMessage.typeMessage = 'ERRO:'
+				alertMessage.message = 'Ocorreu um erro ao realizar essa operação, tente novamente !.'
+			}else{
+				alertMessage.typeAlert = 'alert-success';
+				alertMessage.typeMessage = 'SUCESSO:'
+				alertMessage.message = 'Operação realizada com sucesso !.'
+			}
+			
+			$scope.alertMessage = alertMessage;
+			$scope.showAlert = true;
+			$window.scrollTo(0, 0);
+			
+			$timeout(function(){
+				$scope.showAlert = false;
+				$scope.alertMessage = null;
+			}, 5000);
+			
 		}
 	}
 

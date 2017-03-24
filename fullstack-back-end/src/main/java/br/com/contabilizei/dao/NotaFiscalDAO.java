@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import br.com.contabilizei.model.NotaFiscal;
 
 public class NotaFiscalDAO extends GenericDAO<NotaFiscal> {

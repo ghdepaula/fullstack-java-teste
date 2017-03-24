@@ -3,12 +3,11 @@
 
 	angular.module('nf_app').controller('regimesTributariosController', regimesTributariosController);
 
-	regimesTributariosController.$inject = ['regimesTributariosService', '$scope', '$filter'];
+	regimesTributariosController.$inject = ['regimesTributariosService', 'tributosService', '$scope', '$filter', '$timeout', '$window'];
 
-	function regimesTributariosController(regimesTributariosService , $scope, $filter) {
+	function regimesTributariosController(regimesTributariosService, tributosService, $scope, $filter, $timeout, $window) {
 		
 		$scope.regimesTributarios = [];
-		$scope.regimeTributario;
 		
 		$scope.findAll = function(){
 			findAll();

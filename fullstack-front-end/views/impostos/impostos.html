@@ -5,6 +5,10 @@
 		</div>
 		<div class="panel-body">
 			<form name="calculaImpostoForm" class="form-group">
+				<div class="alert {{alertMessage.typeAlert}} alert-dismissable fade in" ng-show="showAlert">
+				   <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				   <strong>{{alertMessage.typeMessage}} </strong>{{alertMessage.status}} {{alertMessage.message}}
+				</div>
 				<div class="form-group" ng-init="findClientes()">
 					<label for="clienteImposto">Cliente</label> 
 						<select ng-model="dadosImpostos.codCliente" ng-change="onSelectCliente(dadosImpostos.codCliente)" ng-required="true" ng-disabled="clientes.length < 1" ng-options="cliente.idCliente as cliente.nomeRazaoSocial for cliente in clientes" class="form-control" id="clienteImposto">
@@ -26,7 +30,7 @@
 					<button id="resetNotaFiscal" type="button" class="btn btn-default" ng-click="cancel()">
 						Cancelar&nbsp;&nbsp;<span class="fa fa-ban" aria-hidden="true"></span>
 					</button>
-					<button type="button" class="btn btn-success" ng-disabled="calculaImpostoForm.$invalid" ng-click="calcularImpostos(dadosImpostos)">
+					<button type="button" class="btn btn-success" ng-disabled="calculaImpostoForm.$invalid" ng-click="calculateImpostos(dadosImpostos)">
 						Calcular&nbsp;&nbsp;<span class="fa fa-calculator" aria-hidden="true"></span>
 					</button>
 				</div>

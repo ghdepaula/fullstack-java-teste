@@ -3,9 +3,9 @@
 
 	angular.module('nf_app').controller('tributosController', tributosController);
 
-	tributosController.$inject = ['tributosService', '$scope', '$filter'];
+	tributosController.$inject = ['tributosService', '$scope', '$filter', '$timeout', '$window'];
 
-	function tributosController(tributosService , $scope, $filter) {
+	function tributosController(tributosService , $scope, $filter, $timeout, $window) {
 		
 		$scope.tributos = [];
 		$scope.tributo;

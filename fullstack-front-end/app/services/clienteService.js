@@ -13,7 +13,6 @@
 		var _insert = function (cliente) {
 			return $http.post('http://localhost:8081/contabilizei/rest/clientes', cliente);	
 		}
-
 		
 		var _update = function (cliente) {
 			return $http.put('http://localhost:8081/contabilizei/rest/clientes', cliente);	

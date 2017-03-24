@@ -3,6 +3,7 @@ package br.com.contabilizei.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import br.com.contabilizei.model.Imposto;
 
 public class ImpostosDAO extends GenericDAO<Imposto> {

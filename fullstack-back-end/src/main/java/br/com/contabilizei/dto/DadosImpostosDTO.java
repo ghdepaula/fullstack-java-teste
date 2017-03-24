@@ -1,8 +1,10 @@
 package br.com.contabilizei.dto;
 
 import java.time.YearMonth;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import br.com.contabilizei.adapter.YearMonthAdapter;
 
 @XmlRootElement

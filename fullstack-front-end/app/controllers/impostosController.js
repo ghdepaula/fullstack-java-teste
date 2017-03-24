@@ -3,9 +3,9 @@
 
 	angular.module('nf_app').controller('impostosController', impostosController);
 
-	impostosController.$inject = ['clienteService','impostosService', 'notaFiscalService', '$scope', '$filter'];
+	impostosController.$inject = ['clienteService','impostosService', 'notaFiscalService', '$scope', '$filter', '$timeout', '$window'];
 
-	function impostosController(clienteService, impostosService, notaFiscalService, $scope, $filter) {
+	function impostosController(clienteService, impostosService, notaFiscalService, $scope, $filter, $timeout, $window) {
 		
 		$scope.dadosImpostos;
 		$scope.imposto;
@@ -13,13 +13,18 @@
 		$scope.clientes = [];
 		$scope.showModalConfirm = false;
 		$scope.showModalCancel = false;
+		$scope.showAlert = false;
 		
-		$scope.calcularImpostos = function(dadosImpostos){
+		$scope.calculateImpostos = function(dadosImpostos){
 			impostosService.calcular(dadosImpostos).success(function (data) {
 				clearDadosImpostos();
+				
+				console.log(data);
+				
+				showAlert(status);
 			})
-			.error(function (data) {
-				showError(data);
+			.error(function (error, status) {
+				showAlert(status);
 			});
 		}
 		
@@ -40,9 +45,10 @@
 			impostosService.update(imposto).success(function (data) {
 				$scope.showModalConfirm = false;
 				clearImposto();
+				showAlert(status);
 			})
-			.error(function (data) {
-				showError(data);
+			.error(function (error, status) {
+				showAlert(status);
 			});
 		}
 		
@@ -54,8 +60,8 @@
 				$scope.showModalCancel = false;
 				clearImposto();
 			})
-			.error(function (data) {
-				showError(data);
+			.error(function (error, status) {
+				showAlert(status);
 			});
 		}
 		
@@ -92,8 +98,8 @@
 				}else{
 					$scope.showModalCancel = true;
 				}
-			}).error(function (data) {
-				showError(data);
+			}).error(function (error, status) {
+				showAlert(status);
 			});
 		}
 		
@@ -102,12 +108,8 @@
 		}
 		
 		function clearImposto(){
-			
 			var codCliente = $scope.imposto.codCliente;
 			findByCodCliente(codCliente);
-			
-			console.log($scope.impostos)
-
 			$scope.imposto = null;
 		}
 		
@@ -124,8 +126,35 @@
 			$('#dtBaseImposto').val('');
 		}
 		
-		function showError(data) {
-			alert("Infelizmente ocorreu um erro. Verifique seus dados e tente novamente mais tarde");
+		function showAlert(status) {
+			
+			var alertMessage = {};
+			
+			if(status === 404){
+				alertMessage.status = status;
+				alertMessage.typeAlert = 'alert-danger';
+				alertMessage.typeMessage = 'ERRO:'
+				alertMessage.message = 'Serviço indisponível no momento, tente novamente !.'
+			}else if (status === 500){
+				alertMessage.status = status;
+				alertMessage.typeAlert = 'alert-danger';
+				alertMessage.typeMessage = 'ERRO:'
+				alertMessage.message = 'Ocorreu um erro ao realizar essa operação, tente novamente !.'
+			}else{
+				alertMessage.typeAlert = 'alert-success';
+				alertMessage.typeMessage = 'SUCESSO:'
+				alertMessage.message = 'Operação realizada com sucesso !.'
+			}
+			
+			$scope.alertMessage = alertMessage;
+			$scope.showAlert = true;
+			$window.scrollTo(0, 0);
+			
+			$timeout(function(){
+				$scope.showAlert = false;
+				$scope.alertMessage = null;
+			}, 5000);
+			
 		}
 		
 	}

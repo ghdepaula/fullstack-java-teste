@@ -21,7 +21,7 @@ public class RegimeTributario implements Serializable {
 	private static final long serialVersionUID = 4840779789660211865L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(nullable = false, length = 11)
 	private Long codRegimeTributario;
 	

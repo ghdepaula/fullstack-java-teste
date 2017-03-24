@@ -3,8 +3,10 @@ package br.com.contabilizei.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import br.com.contabilizei.adapter.BigDecimalAdapter;
 import br.com.contabilizei.adapter.LocalDateAdapter;
 import br.com.contabilizei.adapter.YearMonthAdapter;

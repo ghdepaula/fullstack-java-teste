@@ -1,39 +1,7 @@
 <div id="panelCalculo" class="content" ng-controller="regimesTributariosController">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<span class="fa fa-edit"></span>&nbsp;&nbsp;Cadastro de Regimes Tributários
-		</div>
-		<div class="panel-body">
-			<form name="regTributariosForm" class="form-group">
-				<div class="form-group">
-					<label for="descrRegTributario">Descrição</label> 
-					<input id="descrRegTributario" name="descrRegTributario" ng-model="regimeTributario.descricaoRegimeTributario" type="text" class="form-control" ng-required="true">
-				</div>
-				<div class="form-group">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="enableAnexos" ng-model="regimeTributario.enabledAnexos" ng-checked="regimeTributario.enabledAnexos" />
-							Possui Anexos
-						</label>
-					</div>
-				</div>
-<!-- 				<div class="form-group"> -->
-<!-- 					<div class="checkbox"> -->
-<!-- 						<label> -->
-<!-- 							<input ng-required="anexosChecked.length < 1" type="checkbox" id="{{anexo.descricaoAnexo+anexo.codAnexo}}" ng-model="anx" ng-checked="checkAnexo(anexo)" ng-click="toggleChecked(anexo)" /> -->
-<!-- 							{{anexo.descricaoAnexo}} -->
-<!-- 						</label> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				<div class="text-right">
-					<button id="resetRegimeTributario" type="button" class="btn btn-default">
-						Cancelar&nbsp;&nbsp;<span class="fa fa-ban" aria-hidden="true"></span>
-					</button>
-					<button type="button" class="btn btn-success" ng-disabled="regTributariosForm.$invalid">
-						Salvar&nbsp;&nbsp;<span class="fa fa-save" aria-hidden="true"></span>
-					</button>
-				</div>
-			</form>
+			<span class="fa fa-book"></span>&nbsp;&nbsp;Regimes Tributários
 		</div>
 	</div>
 	<div ng-show="regimesTributarios.length > 0">
@@ -43,7 +11,6 @@
 					<th>Cód.Regime</th>
 					<th>Descrição</th>
 					<th class="text-center">Possui Anexos</th>
-					<th class="text-center">Ações</th>
 				</thead>
 				<tbody>
 					<tr ng-repeat="regimeTributario in regimesTributarios">
@@ -54,7 +21,6 @@
 								<span class="{{regimeTributario.enabledAnexos ? 'fa fa-sm fa-thumbs-up text-success' : 'fa fa-sm fa-thumbs-down text-danger'}}"></span>
 							</button>							
 						</td>
-						<td></td>
 					</tr>
 				</tbody>
 			</table>

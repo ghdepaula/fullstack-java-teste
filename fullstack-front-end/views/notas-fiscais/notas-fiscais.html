@@ -3,6 +3,10 @@
 		<div class="panel-heading"><span class="fa fa-edit"></span>&nbsp;&nbsp;Cadastro de Notas Fiscais</div>
 		<div class="panel-body">
 			<form name="notaFiscalForm" class="form-group">
+				<div class="alert {{alertMessage.typeAlert}} alert-dismissable fade in" ng-show="showAlert">
+				   <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				   <strong>{{alertMessage.typeMessage}} </strong>{{alertMessage.status}} {{alertMessage.message}}
+				</div>
 				<div class="form-group" ng-init="findClientes()">
 					<label for="clienteNotaFiscal">Cliente</label>
 					<select ng-model="nota.codCliente" ng-change="onSelectCliente(nota.codCliente)" ng-required="true" ng-disabled="clientes.length < 1" ng-options="cliente.idCliente as cliente.nomeRazaoSocial for cliente in clientes" class="form-control" id="clienteNotaFiscal">

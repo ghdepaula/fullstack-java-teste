@@ -3,9 +3,9 @@
 
 	angular.module('nf_app').controller('clientesController', clientesController);
 
-	clientesController.$inject = ['clienteService','anexoService', 'regimesTributariosService', '$scope', '$filter'];
+	clientesController.$inject = ['clienteService','anexoService', 'regimesTributariosService', '$scope', '$filter', '$timeout', '$window'];
 
-	function clientesController(clienteService, anexoService, regimesTributariosService, $scope, $filter) {
+	function clientesController(clienteService, anexoService, regimesTributariosService, $scope, $filter, $timeout, $window) {
 		
 		$scope.clientes = [];
 		$scope.cliente;
@@ -14,6 +14,8 @@
 		$scope.anexosChecked = [];
 		$scope.hideAdd = false;
 		$scope.showAnexos = false;
+		$scope.showAlert = false;
+		$scope.alertMessage;
 
 		$scope.findAll = function () {
 			findAll();
@@ -58,9 +60,9 @@
 			
 			clienteService.insert(cliente).success(function (data) {
 				clearData();
-			})
-			.error(function (data) {
-				showError(data);
+				showAlert(status);
+			}).error(function (error, status) {
+				showAlert(status);
 			});
 		}
 
@@ -70,18 +72,20 @@
 			
 			clienteService.update(cliente).success(function (data) {
 				clearData();
+				showAlert(status);
 			})
-			.error(function (data) {
-				showError(data);
+			.error(function (error, status) {
+				showAlert(status);
 			});
 		}
 
 		$scope.remove = function (idCliente) {
 			clienteService.remove(idCliente).success(function (data) {				
 				clearData();
+				showAlert(status);
 			})
-			.error(function (data) {
-				showError(data);
+			.error(function (error, status) {
+				showAlert(status);
 			});
 		}
 
@@ -145,9 +149,36 @@
 			$('#email').val('');
 			$('#cnpjCliente').removeAttr('readonly', 'cnpjCliente');
 		}
-
-		function showError(data) {
-			alert("Infelizmente ocorreu um erro. Verifique seus dados e tente novamente mais tarde");
+		
+		function showAlert(status) {
+			
+			var alertMessage = {};
+			
+			if(status === 404){
+				alertMessage.status = status;
+				alertMessage.typeAlert = 'alert-danger';
+				alertMessage.typeMessage = 'ERRO:'
+				alertMessage.message = 'Serviço indisponível no momento, tente novamente !.'
+			}else if (status === 500){
+				alertMessage.status = status;
+				alertMessage.typeAlert = 'alert-danger';
+				alertMessage.typeMessage = 'ERRO:'
+				alertMessage.message = 'Ocorreu um erro ao realizar essa operação, tente novamente !.'
+			}else{
+				alertMessage.typeAlert = 'alert-success';
+				alertMessage.typeMessage = 'SUCESSO:'
+				alertMessage.message = 'Operação realizada com sucesso !.'
+			}
+			
+			$scope.alertMessage = alertMessage;
+			$scope.showAlert = true;
+			$window.scrollTo(0, 0);
+			
+			$timeout(function(){
+				$scope.showAlert = false;
+				$scope.alertMessage = null;
+			}, 5000);
+			
 		}
 	}
 
