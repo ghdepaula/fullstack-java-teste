@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('nf_app').controller('notasController', notasController);
+	angular.module('contabilizeiApp').controller('notasController', notasController);
 
 	notasController.$inject = ['clienteService','anexoService', 'notaFiscalService', '$scope', '$filter', '$timeout', '$window'];
 
@@ -157,15 +157,18 @@
 			
 			if(status === 404){
 				alertMessage.status = status;
+				alertMessage.alertIcon = 'fa fa-close text-danger';
 				alertMessage.typeAlert = 'alert-danger';
 				alertMessage.typeMessage = 'ERRO:'
 				alertMessage.message = 'Serviço indisponível no momento, tente novamente !.'
 			}else if (status === 500){
 				alertMessage.status = status;
+				alertMessage.alertIcon = 'fa fa-close text-danger';
 				alertMessage.typeAlert = 'alert-danger';
 				alertMessage.typeMessage = 'ERRO:'
 				alertMessage.message = 'Ocorreu um erro ao realizar essa operação, tente novamente !.'
 			}else{
+				alertMessage.alertIcon = 'fa fa-check text-success'
 				alertMessage.typeAlert = 'alert-success';
 				alertMessage.typeMessage = 'SUCESSO:'
 				alertMessage.message = 'Operação realizada com sucesso !.'
@@ -179,8 +182,8 @@
 				$scope.showAlert = false;
 				$scope.alertMessage = null;
 			}, 5000);
-			
 		}
+			
 	}
 
 })();

@@ -1,9 +1,11 @@
 package br.com.contabilizei.services;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.contabilizei.adapter.YearMonthAdapter;
 import br.com.contabilizei.dao.NotaFiscalDAO;
 import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.dto.ClienteDTO;
@@ -17,11 +19,14 @@ public class NotaFiscalService {
 	private AnexoService anexoService;
 	
 	private ClienteService clienteService;
+	
+	private YearMonthAdapter yearMonthAdapter;
 
 	public NotaFiscalService() {
 		this.daoNotaFiscal = new NotaFiscalDAO();
 		this.anexoService = new AnexoService();
 		this.clienteService = new ClienteService();
+		this.yearMonthAdapter = new YearMonthAdapter();
 	}
 
 	public void insert(NotaFiscalDTO notaFiscalDTO) {
@@ -81,9 +86,30 @@ public class NotaFiscalService {
 		return notasFiscaisDTO;
 	}
 	
-	public List<NotaFiscalDTO> findByCodClienteAndPeriodo(Long codCliente, LocalDate dataInicial, LocalDate dataFinal) {
+	public List<NotaFiscalDTO> findByCodClienteAndMes(Long codCliente, YearMonth month) {
 		
-		List<NotaFiscal> notasFiscais = this.daoNotaFiscal.findByCodClienteAndPeriodo(codCliente, dataInicial, dataFinal);
+		LocalDate dataInicial = month.atDay(1);
+		LocalDate dataFinal = month.atEndOfMonth();
+		
+		List<NotaFiscal> notasFiscais = this.daoNotaFiscal.findByCodClienteAndMes(codCliente, dataInicial, dataFinal);
+
+		List<NotaFiscalDTO> notasFiscaisDTO = new ArrayList<NotaFiscalDTO>();
+		for (NotaFiscal notaFiscal : notasFiscais) {
+			NotaFiscalDTO notaFiscalDTO = convertToDTO(notaFiscal);
+			notasFiscaisDTO.add(notaFiscalDTO);
+		}
+		return notasFiscaisDTO;
+	}
+	
+	public List<NotaFiscalDTO> findByCodClienteAndMes(Long codCliente, String month, String year) throws Exception {
+		
+		String yearMth = month + "/" + year;
+		YearMonth ymt = this.yearMonthAdapter.unmarshal(yearMth);
+		
+		LocalDate dataInicial = ymt.atDay(1);
+		LocalDate dataFinal = ymt.atEndOfMonth();
+		
+		List<NotaFiscal> notasFiscais = this.daoNotaFiscal.findByCodClienteAndMes(codCliente, dataInicial, dataFinal);
 
 		List<NotaFiscalDTO> notasFiscaisDTO = new ArrayList<NotaFiscalDTO>();
 		for (NotaFiscal notaFiscal : notasFiscais) {

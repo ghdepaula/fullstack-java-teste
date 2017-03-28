@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('nf_app').factory('regimesTributariosService', regimesTributariosService);
+	angular.module('contabilizeiApp').factory('regimesTributariosService', regimesTributariosService);
 
 	regimesTributariosService.$inject = ['$http'];
 

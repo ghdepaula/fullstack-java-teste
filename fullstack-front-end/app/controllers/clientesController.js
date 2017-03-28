@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('nf_app').controller('clientesController', clientesController);
+	angular.module('contabilizeiApp').controller('clientesController', clientesController);
 
 	clientesController.$inject = ['clienteService','anexoService', 'regimesTributariosService', '$scope', '$filter', '$timeout', '$window'];
 
@@ -156,15 +156,18 @@
 			
 			if(status === 404){
 				alertMessage.status = status;
+				alertMessage.alertIcon = 'fa fa-close text-danger';
 				alertMessage.typeAlert = 'alert-danger';
 				alertMessage.typeMessage = 'ERRO:'
 				alertMessage.message = 'Serviço indisponível no momento, tente novamente !.'
 			}else if (status === 500){
 				alertMessage.status = status;
+				alertMessage.alertIcon = 'fa fa-close text-danger';
 				alertMessage.typeAlert = 'alert-danger';
 				alertMessage.typeMessage = 'ERRO:'
 				alertMessage.message = 'Ocorreu um erro ao realizar essa operação, tente novamente !.'
 			}else{
+				alertMessage.alertIcon = 'fa fa-check text-success'
 				alertMessage.typeAlert = 'alert-success';
 				alertMessage.typeMessage = 'SUCESSO:'
 				alertMessage.message = 'Operação realizada com sucesso !.'

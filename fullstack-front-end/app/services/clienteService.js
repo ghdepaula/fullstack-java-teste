@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('nf_app').factory('clienteService', clienteService);
+	angular.module('contabilizeiApp').factory('clienteService', clienteService);
 
 	clienteService.$inject = ['$http'];
 

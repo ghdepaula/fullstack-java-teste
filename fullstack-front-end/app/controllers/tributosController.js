@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('nf_app').controller('tributosController', tributosController);
+	angular.module('contabilizeiApp').controller('tributosController', tributosController);
 
 	tributosController.$inject = ['tributosService', '$scope', '$filter', '$timeout', '$window'];
 

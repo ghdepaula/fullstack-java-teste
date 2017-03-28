@@ -86,6 +86,22 @@ public class ImpostosResource {
 	}
 	
 	@GET
+	@Path("cliente/{codCliente}/mes/{mes}/{ano}")
+	@Produces({ "application/json" })
+	public List<ImpostoDTO> findByCodClienteMes(@PathParam("codCliente") Long codCliente, @PathParam("mes")String mes, @PathParam("ano")String ano) {
+		try {
+			
+			List<ImpostoDTO> impostos = this.impostosService.findByCodClienteMesAno(codCliente, mes, ano);
+			return impostos;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new WebApplicationException(500);
+		}
+	}
+	
+	@GET
 	@Path("{idImposto}")
 	@Produces({ "application/json" })
 	public ImpostoDTO findById(@PathParam("idImposto") Long idImposto) {

@@ -20,12 +20,15 @@ import javax.persistence.Table;
 @Table(name="impostos")
 @NamedQueries({
 	 @NamedQuery(name="Imposto.findByCodCliente", query="SELECT i FROM Imposto i WHERE i.codCliente = :codCliente"),
+	 @NamedQuery(name="Imposto.findByCodClienteMes", query="SELECT i FROM Imposto i WHERE i.codCliente = :codCliente AND i.yearMonth = :yearMonth")
 })
 public class Imposto implements Serializable {
 	
 	private static final long serialVersionUID = 201057454934560392L;
 
 	public static final String FIND_BY_COD_CLIENTE = "Imposto.findByCodCliente";
+	
+	public static final String FIND_BY_COD_CLIENTE_MES = "Imposto.findByCodClienteMes";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

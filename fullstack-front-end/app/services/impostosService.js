@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('nf_app').factory('impostosService', impostosService);
+	angular.module('contabilizeiApp').factory('impostosService', impostosService);
 
 	impostosService.$inject = ['$http'];
 
@@ -27,13 +27,18 @@
 			return $http.get('http://localhost:8081/contabilizei/rest/impostos/' + idImposto);	
 		}
 		
+		var _findByCodClienteMes = function (codCli, periodo) {
+			return $http.get('http://localhost:8081/contabilizei/rest/impostos/cliente/' + codCli + '/mes/' + periodo);	
+		}
+		
 
 		return {
 			calcular : _calcular,
 			update : _update,
 			findAll : _findAll,
 			findById: _findById,
-			findByCodCliente :_findByCodCliente
+			findByCodCliente :_findByCodCliente,
+			findByCodClienteMes: _findByCodClienteMes
 		}
 	}
 

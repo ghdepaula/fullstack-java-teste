@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('nf_app').factory('notaFiscalService', notaFiscalService);
+	angular.module('contabilizeiApp').factory('notaFiscalService', notaFiscalService);
 
 	notaFiscalService.$inject = ['$http'];
 
@@ -30,14 +30,19 @@
 		var _findByCodCliente = function (codCliente) {
 			return $http.get('http://localhost:8081/contabilizei/rest/notas/cliente/' + codCliente);	
 		}
-
+		
+		var _findByCodClienteMes = function (codCliente, mes) {
+			return $http.get('http://localhost:8081/contabilizei/rest/notas/cliente/' + codCliente + '/mes/' + mes);	
+		}
+		
 		return {
 			insert : _insert,
 			update : _update,
 			remove : _remove,
 			findAll : _findAll,
 			findById : _findById,
-			findByCodCliente :_findByCodCliente
+			findByCodCliente :_findByCodCliente,
+			findByCodClienteMes : _findByCodClienteMes
 		}
 	}
 

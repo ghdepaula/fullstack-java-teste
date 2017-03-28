@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('nf_app').controller('impostosController', impostosController);
+	angular.module('contabilizeiApp').controller('impostosController', impostosController);
 
 	impostosController.$inject = ['clienteService','impostosService', 'notaFiscalService', '$scope', '$filter', '$timeout', '$window'];
 
@@ -13,13 +13,12 @@
 		$scope.clientes = [];
 		$scope.showModalConfirm = false;
 		$scope.showModalCancel = false;
+		$scope.showCalcular = false;
 		$scope.showAlert = false;
 		
 		$scope.calculateImpostos = function(dadosImpostos){
 			impostosService.calcular(dadosImpostos).success(function (data) {
 				clearDadosImpostos();
-				
-				console.log(data);
 				
 				showAlert(status);
 			})
@@ -83,9 +82,40 @@
 			}
 		}
 		
+		$scope.validateImpostosMes = function(){
+			
+			var codCli = $scope.dadosImpostos.codCliente;
+			var periodo = $scope.dadosImpostos.yearMonth;
+			
+			if(codCli && periodo){
+				notaFiscalService.findByCodClienteMes(codCli, periodo).success(function (result) {
+					if(result.length < 1){
+						console.log('SEM NOTAS MÊS');
+						$scope.calculaImpostoForm.dtBaseImposto.$setValidity("dtBaseImposto", false);
+					}else{
+						$scope.calculaImpostoForm.dtBaseImposto.$setValidity("dtBaseImposto", true);
+					}
+				});
+				
+				impostosService.findByCodClienteMes(codCli, periodo).success(function (result) {
+					if(result.length > 1){
+						console.log('IMPOSTO MÊS JÁ CALCULADO');
+						$scope.calculaImpostoForm.dtBaseImposto.$setValidity("dtBaseImposto", false);
+					}else{
+						$scope.calculaImpostoForm.dtBaseImposto.$setValidity("dtBaseImposto", true);
+					}
+				});
+			}
+		}
+		
 		$scope.onSelectCliente = function(codCliente){
 			if(codCliente){
 				findByCodCliente(codCliente);
+				$scope.showCalcular = true;
+			}else{
+				$scope.impostos = [];
+				$scope.imposto = null;
+				$scope.showCalcular = false;
 			}
 		}
 		
@@ -132,15 +162,18 @@
 			
 			if(status === 404){
 				alertMessage.status = status;
+				alertMessage.alertIcon = 'fa fa-close text-danger';
 				alertMessage.typeAlert = 'alert-danger';
 				alertMessage.typeMessage = 'ERRO:'
 				alertMessage.message = 'Serviço indisponível no momento, tente novamente !.'
 			}else if (status === 500){
 				alertMessage.status = status;
+				alertMessage.alertIcon = 'fa fa-close text-danger';
 				alertMessage.typeAlert = 'alert-danger';
 				alertMessage.typeMessage = 'ERRO:'
 				alertMessage.message = 'Ocorreu um erro ao realizar essa operação, tente novamente !.'
 			}else{
+				alertMessage.alertIcon = 'fa fa-check text-success'
 				alertMessage.typeAlert = 'alert-success';
 				alertMessage.typeMessage = 'SUCESSO:'
 				alertMessage.message = 'Operação realizada com sucesso !.'

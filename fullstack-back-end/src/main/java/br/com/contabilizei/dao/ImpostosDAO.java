@@ -1,5 +1,6 @@
 package br.com.contabilizei.dao;
 
+import java.time.YearMonth;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,14 @@ public class ImpostosDAO extends GenericDAO<Imposto> {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("codCliente", codCliente);
 		List<Imposto> impostos = findManyResults(Imposto.FIND_BY_COD_CLIENTE, params);
+		return impostos;
+	}
+	
+	public List<Imposto> findByCodClienteMes(Long codCliente, YearMonth month) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codCliente", codCliente);
+		params.put("yearMonth", month);
+		List<Imposto> impostos = findManyResults(Imposto.FIND_BY_COD_CLIENTE_MES, params);
 		return impostos;
 	}
 

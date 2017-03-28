@@ -12,7 +12,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-
 import br.com.contabilizei.dto.NotaFiscalDTO;
 import br.com.contabilizei.services.NotaFiscalService;
 
@@ -64,6 +63,7 @@ public class NotaFiscalResource {
 			}
 			return Response.ok().build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new WebApplicationException(500);
 		}
 	}
@@ -74,6 +74,7 @@ public class NotaFiscalResource {
 		try {
 			return this.notaFiscalService.findAll();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new WebApplicationException(500);
 		}
 	}
@@ -85,6 +86,7 @@ public class NotaFiscalResource {
 		try {
 			return this.notaFiscalService.findById(numNotaFiscal);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new WebApplicationException(500);
 		}
 	}
@@ -97,6 +99,19 @@ public class NotaFiscalResource {
 		try {
 			return this.notaFiscalService.findByCodCliente(codCliente);
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
+	@GET
+	@Path("cliente/{codCliente}/mes/{mes}/{ano}")
+	@Produces({ "application/json" })
+	public List<NotaFiscalDTO> findByCodClienteMes(@PathParam("codCliente") Long codCliente, @PathParam("mes")String mes, @PathParam("ano")String ano) {
+		try {
+			return this.notaFiscalService.findByCodClienteAndMes(codCliente, mes, ano);
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new WebApplicationException(500);
 		}
 	}

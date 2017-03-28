@@ -24,7 +24,7 @@ public class NotaFiscalDAO extends GenericDAO<NotaFiscal> {
 		return notasFiscais;
 	}
 
-	public List<NotaFiscal> findByCodClienteAndPeriodo(Long codCliente, LocalDate dataInicio, LocalDate dataFim) {
+	public List<NotaFiscal> findByCodClienteAndMes(Long codCliente, LocalDate dataInicio, LocalDate dataFim) {
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("codCliente", codCliente);

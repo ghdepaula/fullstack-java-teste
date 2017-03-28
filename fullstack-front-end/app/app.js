@@ -1,5 +1,5 @@
 
-var app = angular.module('nf_app', ['ngRoute']);
+var app = angular.module('contabilizeiApp', ['ngRoute']);
 
 app.directive('ngMask', function() {
 	return {
@@ -49,6 +49,7 @@ app.directive('ngMonthYearPicker', function() {
 			
 			var options = {
 				format: "MM/yyyy",
+				endDate: "-1m",
 			    startView: 1,
 			    minViewMode: 1,
 			    maxViewMode: 1,

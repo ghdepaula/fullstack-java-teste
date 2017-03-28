@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name="nota_fiscal")
 @NamedQueries({
 	 @NamedQuery(name="NotaFiscal.findByCodCliente", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente"),
-	 @NamedQuery(name="NotaFiscal.findByCodClienteAndPeriodo", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente AND n.dataEmissao BETWEEN :dataInicial AND :dataFinal")
+	 @NamedQuery(name="NotaFiscal.findByCodClienteAndMes", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente AND n.dataEmissao BETWEEN :dataInicial AND :dataFinal")
 })
 public class NotaFiscal implements Serializable{
 	
@@ -25,7 +25,7 @@ public class NotaFiscal implements Serializable{
 
 	public static final String FIND_BY_COD_CLIENTE = "NotaFiscal.findByCodCliente";
 	
-	public static final String FIND_BY_COD_CLIENTE_PERIODO = "NotaFiscal.findByCodClienteAndPeriodo";
+	public static final String FIND_BY_COD_CLIENTE_PERIODO = "NotaFiscal.findByCodClienteAndMes";
 
 	@Id
 	@Column(nullable = false, length = 11)

@@ -7,7 +7,7 @@
 			<form name="calculaImpostoForm" class="form-group">
 				<div class="alert {{alertMessage.typeAlert}} alert-dismissable fade in" ng-show="showAlert">
 				   <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				   <strong>{{alertMessage.typeMessage}} </strong>{{alertMessage.status}} {{alertMessage.message}}
+				   <i class="{{alertMessage.alertIcon}}"></i>&nbsp;&nbsp;<strong>{{alertMessage.typeMessage}} </strong>{{alertMessage.status}} {{alertMessage.message}}
 				</div>
 				<div class="form-group" ng-init="findClientes()">
 					<label for="clienteImposto">Cliente</label> 
@@ -16,23 +16,25 @@
 					</select>
 				</div>
 				
-				<div class="form-group">
-					<label for="dtBaseImposto">Período</label>
-					<div class="input-group date" ng-month-year-picker>
-						<input ng-model="dadosImpostos.yearMonth" ng-required="true" id="dtBaseImposto" type="text" class="form-control" /> 
-						<span class="input-group-addon"> 
-							<i class="fa fa-calendar"></i>
-						</span>
+				<div ng-show="showCalcular">
+					<div class="form-group">
+						<label for="dtBaseImposto">Período</label>
+						<div class="input-group date" ng-month-year-picker>
+							<input ng-model="dadosImpostos.yearMonth" ng-required="true" ng-change="validateImpostosMes()" id="dtBaseImposto" name="dtBaseImposto" type="text" class="form-control" /> 
+							<span class="input-group-addon"> 
+								<i class="fa fa-calendar"></i>
+							</span>
+						</div>
 					</div>
-				</div>
-				
-				<div class="text-right">
-					<button id="resetNotaFiscal" type="button" class="btn btn-default" ng-click="cancel()">
-						Cancelar&nbsp;&nbsp;<span class="fa fa-ban" aria-hidden="true"></span>
-					</button>
-					<button type="button" class="btn btn-success" ng-disabled="calculaImpostoForm.$invalid" ng-click="calculateImpostos(dadosImpostos)">
-						Calcular&nbsp;&nbsp;<span class="fa fa-calculator" aria-hidden="true"></span>
-					</button>
+					
+					<div class="text-right">
+						<button id="resetImposto" type="button" class="btn btn-default" ng-show="showCalcular" ng-click="cancel()">
+							Cancelar&nbsp;&nbsp;<span class="fa fa-ban" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-success" ng-disabled="calculaImpostoForm.$invalid"  ng-click="calculateImpostos(dadosImpostos)">
+							Calcular&nbsp;&nbsp;<span class="fa fa-calculator" aria-hidden="true"></span>
+						</button>
+					</div>
 				</div>
 			</form>
 		</div>

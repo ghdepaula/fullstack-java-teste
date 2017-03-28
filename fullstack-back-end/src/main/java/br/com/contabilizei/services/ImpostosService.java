@@ -2,9 +2,11 @@ package br.com.contabilizei.services;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.contabilizei.adapter.YearMonthAdapter;
 import br.com.contabilizei.dao.ImpostosDAO;
 import br.com.contabilizei.dto.ClienteDTO;
 import br.com.contabilizei.dto.DadosImpostoDTO;
@@ -26,22 +28,25 @@ public class ImpostosService {
 	
 	private RegimesTributariosService regimesTributariosService;
 	
+	private YearMonthAdapter yearMonthAdapter;
+	
 	public ImpostosService(){
 		this.daoImpostos = new ImpostosDAO();
 		this.tributoService = new TributoService();
 		this.notaFiscalService = new NotaFiscalService();
 		this.clienteService = new ClienteService();
 		this.regimesTributariosService = new RegimesTributariosService();
+		this.yearMonthAdapter = new YearMonthAdapter();
 	}
 
 	public void calculate(DadosImpostoDTO dadosImposto) {
 		
 		List<Imposto> impostos = new ArrayList<Imposto>();
 		
-		LocalDate dataInicial = dadosImposto.getYearMonth().atDay(1);
-		LocalDate dataFinal = dadosImposto.getYearMonth().atEndOfMonth();
+		Long codCli = dadosImposto.getCodCliente();
+		YearMonth month = dadosImposto.getYearMonth();
 		
-		List<NotaFiscalDTO> notasFiscais = this.notaFiscalService.findByCodClienteAndPeriodo(dadosImposto.getCodCliente(), dataInicial, dataFinal);
+		List<NotaFiscalDTO> notasFiscais = this.notaFiscalService.findByCodClienteAndMes(codCli, month);
 
 		if(notasFiscais != null && !notasFiscais.isEmpty() && notasFiscais.size() > 0){
 			impostos = calculateImpostos(notasFiscais, dadosImposto);
@@ -124,6 +129,22 @@ public class ImpostosService {
 		
 		return impostosDTO;
 	}
+	
+	public List<ImpostoDTO> findByCodClienteMesAno(Long codCliente, String mes, String ano) throws Exception {
+		
+		String yearMth = mes + "/" + ano;
+		YearMonth month = this.yearMonthAdapter.unmarshal(yearMth);
+		
+		List<Imposto> impostos = this.daoImpostos.findByCodClienteMes(codCliente, month);
+		List<ImpostoDTO> impostosDTO = new ArrayList<ImpostoDTO>();
+		
+		for(Imposto imposto : impostos){
+			ImpostoDTO dto = convertToDTO(imposto);
+			impostosDTO.add(dto);
+		}
+		
+		return impostosDTO;
+	}
 
 	public void update(ImpostoDTO impostoDTO) {
 		Imposto imposto = convertToModel(impostoDTO);
@@ -173,5 +194,7 @@ public class ImpostosService {
 		}
 		return null;
 	}
+
+
 
 }

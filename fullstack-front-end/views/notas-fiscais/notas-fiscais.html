@@ -5,7 +5,7 @@
 			<form name="notaFiscalForm" class="form-group">
 				<div class="alert {{alertMessage.typeAlert}} alert-dismissable fade in" ng-show="showAlert">
 				   <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				   <strong>{{alertMessage.typeMessage}} </strong>{{alertMessage.status}} {{alertMessage.message}}
+				   <i class="{{alertMessage.alertIcon}}"></i>&nbsp;&nbsp;<strong>{{alertMessage.typeMessage}} </strong>{{alertMessage.status}} {{alertMessage.message}}
 				</div>
 				<div class="form-group" ng-init="findClientes()">
 					<label for="clienteNotaFiscal">Cliente</label>
