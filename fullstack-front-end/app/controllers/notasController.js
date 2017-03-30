@@ -3,9 +3,9 @@
 
 	angular.module('contabilizeiApp').controller('notasController', notasController);
 
-	notasController.$inject = ['clienteService','anexoService', 'notaFiscalService', '$scope', '$filter', '$timeout', '$window'];
+	notasController.$inject = ['clienteService','anexoService', 'notaFiscalService', 'alertsService', '$scope', '$filter', '$timeout', '$window'];
 
-	function notasController(clienteService, anexoService, notaFiscalService, $scope, $filter, $timeout, $window) {
+	function notasController(clienteService, anexoService, notaFiscalService, alertsService, $scope, $filter, $timeout, $window) {
 		
 		//Var initialize
 		$scope.notas = [];
@@ -18,10 +18,8 @@
 
 		
 		//Data Load
-		$scope.findByCodCliente = function (codCliente) {
-			if(codCliente){
-				findByCodCliente(codCliente);	
-			}
+		$scope.findAll = function () {
+			findAll();	
 		}
 		
 		$scope.findClientes = function(){
@@ -32,16 +30,14 @@
 			findAnexos();
 		}
 		
-		function findByCodCliente(codCliente) {
-			notaFiscalService.findByCodCliente(codCliente).success(function(result){
-				(result);
+		function findAll() {
+			notaFiscalService.findAll().success(function(result){
 				$scope.notas = result;
 			});
 		}
 		
 		function findClientes() {
 			clienteService.findAll().success(function(result){
-				(result);
 				$scope.clientes = result;
 			});
 		}
@@ -68,9 +64,6 @@
 		
 		$scope.onSelectCliente = function(codCliente){
 			if(codCliente){
-				
-				findByCodCliente(codCliente);
-				
 				clienteService.findById(codCliente).success(function (data) {
 					if(data.anexos.length > 0){
 						$scope.anexos = data.anexos;
@@ -78,17 +71,22 @@
 						findAnexos();
 					}
 				});
-				
 			}
 		}
 		
 		$scope.validateNumNota = function(numNotaFiscal){
+			
+			var msg;
+			
 			if(numNotaFiscal){
 				notaFiscalService.findById(numNotaFiscal).success(function (data) {
 					if(data.numNotaFiscal){
 						$scope.notaFiscalForm.numNotaFiscal.$setValidity("numNotaFiscal", false);
+						msg = alertsService.alertWarning("Número da nota fiscal já cadastrado", status);
+						showAlert(msg);
 					}else{
 						$scope.notaFiscalForm.numNotaFiscal.$setValidity("numNotaFiscal", true);
+						hideAlert();
 					}
 				});
 			}
@@ -97,7 +95,7 @@
 		function clearData() {
 			var codCliente = $scope.nota.codCliente;
 			resetNotaFiscal();
-			findByCodCliente(codCliente);
+			findAll();
 			$scope.hideAdd = false;
 		}
 		
@@ -122,68 +120,55 @@
 
 		//Form operations
 		$scope.insert = function (nota) {
+			
+			var msg;
+			
 			notaFiscalService.insert(nota).success(function (data) {
+				
+				msg = alertsService.alertSuccess("Nota fiscal cadastrada com sucesso !");
+				showAlert(msg);
 				clearData();
-				showAlert(status);
-			})
-			.error(function (error, status) {
-				showAlert(status);
+				
+			}).error(function (error, status) {
+				msg = alertsService.alertError("Ocorreu um problema ao atualizar a nota fiscal", status);
+				showAlert(msg);
 			});
 		}
 
 		$scope.update = function (nota) {
+			
+			var msg;
+			
 			notaFiscalService.update(nota).success(function (data) {
+				
+				msg = alertsService.alertSuccess("Nota fiscal atualizada com sucesso !");
+				showAlert(msg);
 				clearData();
-				showAlert(status);
-			})
-			.error(function (error, status) {
-				showAlert(status);
+				
+			}).error(function (error, status) {
+				msg = alertsService.alertError("Ocorreu um problema ao atualizar a nota fiscal", status);
+				showAlert(msg);
 			});
 		}
 
-		$scope.remove = function (numNotaFiscal) {
-			notaFiscalService.remove(numNotaFiscal).success(function (data) {				
-				clearData();
-				showAlert(status);
-			})
-			.error(function (error, status) {
-				showAlert(status);
-			});
-		}
-		
-		function showAlert(status) {
+		function showAlert(alertMessage) {
 			
-			var alertMessage = {};
-			
-			if(status === 404){
-				alertMessage.status = status;
-				alertMessage.alertIcon = 'fa fa-close text-danger';
-				alertMessage.typeAlert = 'alert-danger';
-				alertMessage.typeMessage = 'ERRO:'
-				alertMessage.message = 'Serviço indisponível no momento, tente novamente !.'
-			}else if (status === 500){
-				alertMessage.status = status;
-				alertMessage.alertIcon = 'fa fa-close text-danger';
-				alertMessage.typeAlert = 'alert-danger';
-				alertMessage.typeMessage = 'ERRO:'
-				alertMessage.message = 'Ocorreu um erro ao realizar essa operação, tente novamente !.'
-			}else{
-				alertMessage.alertIcon = 'fa fa-check text-success'
-				alertMessage.typeAlert = 'alert-success';
-				alertMessage.typeMessage = 'SUCESSO:'
-				alertMessage.message = 'Operação realizada com sucesso !.'
-			}
-			
+			$scope.alertMessage = {};
 			$scope.alertMessage = alertMessage;
 			$scope.showAlert = true;
-			$window.scrollTo(0, 0);
 			
-			$timeout(function(){
-				$scope.showAlert = false;
-				$scope.alertMessage = null;
-			}, 5000);
+			if(alertMessage.typeMessage === 'SUCCESS'){
+				$window.scrollTo(0, 0);
+				$timeout(function(){
+					hideAlert();
+				}, 5000);
+			}
 		}
-			
+		
+		function hideAlert(){
+			$scope.showAlert = false;
+			$scope.alertMessage = null;
+		}
 	}
 
 })();

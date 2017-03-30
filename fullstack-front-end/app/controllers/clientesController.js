@@ -150,29 +150,7 @@
 			$('#cnpjCliente').removeAttr('readonly', 'cnpjCliente');
 		}
 		
-		function showAlert(status) {
-			
-			var alertMessage = {};
-			
-			if(status === 404){
-				alertMessage.status = status;
-				alertMessage.alertIcon = 'fa fa-close text-danger';
-				alertMessage.typeAlert = 'alert-danger';
-				alertMessage.typeMessage = 'ERRO:'
-				alertMessage.message = 'Serviço indisponível no momento, tente novamente !.'
-			}else if (status === 500){
-				alertMessage.status = status;
-				alertMessage.alertIcon = 'fa fa-close text-danger';
-				alertMessage.typeAlert = 'alert-danger';
-				alertMessage.typeMessage = 'ERRO:'
-				alertMessage.message = 'Ocorreu um erro ao realizar essa operação, tente novamente !.'
-			}else{
-				alertMessage.alertIcon = 'fa fa-check text-success'
-				alertMessage.typeAlert = 'alert-success';
-				alertMessage.typeMessage = 'SUCESSO:'
-				alertMessage.message = 'Operação realizada com sucesso !.'
-			}
-			
+		function showAlert(alertMessage) {
 			$scope.alertMessage = alertMessage;
 			$scope.showAlert = true;
 			$window.scrollTo(0, 0);

@@ -3,8 +3,8 @@
 		<div class="panel-heading"><span class="fa fa-edit"></span>&nbsp;&nbsp;Cadatro de Clientes</div>
 		<div class="panel-body">
 			<div class="alert {{alertMessage.typeAlert}} alert-dismissable fade in" ng-show="showAlert">
-			   <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			   <i class="{{alertMessage.alertIcon}}"></i>&nbsp;&nbsp;<strong>{{alertMessage.typeMessage}} </strong>{{alertMessage.status}} {{alertMessage.message}}
+				   <a class="close" data-dismiss="alert" ng-show="alertMessage.closable" aria-label="close">&times;</a>
+				   <i class="{{alertMessage.alertIcon}}"></i>&nbsp;&nbsp;<strong>{{alertMessage.typeDescription}} </strong>{{alertMessage.status}} {{alertMessage.message}}
 			</div>
 			<form name="clienteForm" class="form-group">
 				<div class="form-group">
