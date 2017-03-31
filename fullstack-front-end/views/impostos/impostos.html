@@ -1,4 +1,4 @@
-<div id="panelCalculo" class="content" ng-controller="impostosController">
+<div id="panelCalculo" class="content" ng-controller="impostosController" ng-hide="loadIntro">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<span class="fa fa-calculator"></span>&nbsp;&nbsp;Cálculo de Impostos
@@ -20,7 +20,7 @@
 					<div class="form-group">
 						<label for="dtBaseImposto">Período</label>
 						<div class="input-group date" ng-month-year-picker>
-							<input ng-model="dadosImpostos.yearMonth" ng-required="true" ng-change="validateImpostosMes()" id="dtBaseImposto" name="dtBaseImposto" type="text" class="form-control" /> 
+							<input ng-model="dadosImpostos.yearMonth" ng-required="true" ng-change="validateImpostosMes()" ng-blur="validateImpostosMes()" id="dtBaseImposto" name="dtBaseImposto" type="text" class="form-control" /> 
 							<span class="input-group-addon"> 
 								<i class="fa fa-calendar"></i>
 							</span>
@@ -37,38 +37,51 @@
 					</div>
 				</div>
 			</form>
-		</div>
-	</div>
-	<form name="tblImpostosForm" class="form-group">
-		<div ng-show="impostos.length > 0">
-			<div class="table-responsive" >
-				<table class="table table-condensed table-hover" ng-init="findByCodCliente(dadosImpostos.codCliente)">
-					<thead>
-						<th>Cliente</th>
-						<th>Período</th>
-						<th>Tipo Tributo</th>
-						<th>Vecimento</th>
-						<th>(R$)Valor</th>
-						<th class="text-center">Pago</th>
-					</thead>
-					<tbody>
-						<tr ng-repeat="imposto in impostos">
-							<td>{{imposto.clienteDTO.nomeRazaoSocial}}</td>
-							<td>{{imposto.yearMonth}}</td>
-							<td>{{imposto.tributoDTO.descricaoTributo}}</td>
-							<td>{{imposto.dataVencimento}}</td>
-							<td>{{imposto.valorImposto}}</td>
-							<td class="text-center">
-								<button class="btn btn-link" ng-click="loadModal(imposto.idImposto)">
-									<span class="{{imposto.statusPagamento ? 'fa fa-sm fa-thumbs-up text-success' : 'fa fa-sm fa-thumbs-down text-danger'}}"></span>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<div ng-show="dadosImpostos.codCliente">
+				<hr />
+				<div class="row">
+					<div class="col-sm-push-9 col-sm-3">
+						<form id="frmFilterImpostos">
+							<div class="form-group">
+								<div class="input-group date" ng-month-year-picker>
+									<input ng-model="dtFilterImpostos" id="dtFilterImpst" name="dtFilterImpst" ng-change="onChangeDtFilterImpostos(dadosImpostos.codCliente)" ng-blur="onChangeDtFilterImpostos(dadosImpostos.codCliente)" type="text" class="form-control" /> 
+									<span class="input-group-addon"> 
+										<i class="fa fa-calendar"></i>
+									</span>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="table-responsive" >
+					<table class="table table-condensed table-hover" ng-init="findByCodCliente(dadosImpostos.codCliente)">
+						<thead>
+							<th>Cliente</th>
+							<th>Período</th>
+							<th>Tipo Tributo</th>
+							<th>Vecimento</th>
+							<th>(R$)Valor</th>
+							<th class="text-center">Pago</th>
+						</thead>
+						<tbody>
+							<tr ng-repeat="imposto in impostos">
+								<td>{{imposto.clienteDTO.nomeRazaoSocial}}</td>
+								<td>{{imposto.yearMonth}}</td>
+								<td>{{imposto.tributoDTO.descricaoTributo}}</td>
+								<td>{{imposto.dataVencimento}}</td>
+								<td>{{imposto.valorImposto}}</td>
+								<td class="text-center">
+									<button class="btn btn-link" ng-click="loadModal(imposto.idImposto)">
+										<span class="{{imposto.statusPagamento ? 'fa fa-sm fa-thumbs-up text-success' : 'fa fa-sm fa-thumbs-down text-danger'}}"></span>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</form>
+	</div>
 	<div class="modal fade bs-example-modal-lg" ng-show-modal="showModalConfirm" name="confirmPagto" id="confirmPagto">
 		<div class="modal-dialog modal-lg" >
 			<div class="modal-content">

@@ -2,7 +2,6 @@
 package br.com.contabilizei.main;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +35,6 @@ public class Main {
 			tomcat.getHost().setAppBase(appBase);
 			
 			File file = new File(frontEndAppPath);
-			
-			if(!file.exists() && !file.isDirectory()){
-				throw new FileNotFoundException();
-			}
 			
 			// Define port number for the web application
 			String webPort = System.getenv("PORT");
@@ -76,21 +71,18 @@ public class Main {
 		 
 		    ctxBack.addFilterMap(filterMap);
 		    
-			Context ctxFront = tomcat.addWebapp("/" , frontEndAppPath);
-			ctxFront.addWelcomeFile("index.html");
-			ctxFront.setReloadable(true);
+		    
+			if(file.exists() && file.isDirectory()){
+				Context ctxFront = tomcat.addWebapp("/" , frontEndAppPath);
+				ctxFront.addWelcomeFile("index.html");
+				ctxFront.setReloadable(true);
+			}
 
 			//Initialize server
 			tomcat.start();
 			defineApplicationDefaultSettings();
 			tomcat.getServer().await();
 			
-		}catch (FileNotFoundException e) {
-			System.out.println("#####################################################################");
-			System.out.println("ERRO: Aplicação front-end não localizada");
-			System.out.println("#####################################################################");
-			System.out.println(e.getMessage());
-			e.printStackTrace();
 		}catch (Exception e) {
 			System.out.println("#####################################################################");
 			System.out.println("ERRO: Ocorreu um erro ao inicializar a aplicação");

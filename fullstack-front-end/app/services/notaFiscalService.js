@@ -31,8 +31,8 @@
 			return $http.get('http://localhost:8081/contabilizei/rest/notas/cliente/' + codCliente);	
 		}
 		
-		var _findByCodClienteMes = function (codCliente, mes) {
-			return $http.get('http://localhost:8081/contabilizei/rest/notas/cliente/' + codCliente + '/mes/' + mes);	
+		var _findByCodClienteMes = function (codCliente, mesAno) {
+			return $http.get('http://localhost:8081/contabilizei/rest/notas/cliente/' + codCliente + '/mes/' + mesAno);	
 		}
 		
 		return {

@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-select.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datepicker.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+ <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
 </head>
 <body ng-app="contabilizeiApp">
 	<nav class="navbar navbar-default">
@@ -46,11 +47,6 @@
 									<span class="fa fa-edit"></span>&nbsp;&nbsp;Cadastro
 								</a>
 							</li>
-							<li role="presentation">
-								<a role="menuitem" href="#/notas-fiscais">
-									<span class="fa fa-search"></span>&nbsp;&nbsp;Consulta
-								</a>
-							</li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -61,11 +57,6 @@
 							<li role="presentation">
 								<a role="menuitem" href="#/impostos">
 									<span class="fa fa-calculator"></span>&nbsp;&nbsp;Cálculo Impostos
-								</a>
-							</li>
-							<li>
-								<a role="menuitem" href="#/impostos">
-									<span class="fa fa-search"></span>&nbsp;&nbsp;Consulta
 								</a>
 							</li>
 						</ul>
@@ -105,6 +96,7 @@
 	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/angular.js"></script>
 	<script src="assets/js/angular-route.js"></script>
+	<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
 	<script src="assets/js/locales/angular-locale_pt-br.js"></script>
 	<script src="app/app.js"></script>
 	<script src="app/services/clienteService.js"></script>

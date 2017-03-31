@@ -3,23 +3,24 @@
 
 	angular.module('contabilizeiApp').controller('notasController', notasController);
 
-	notasController.$inject = ['clienteService','anexoService', 'notaFiscalService', 'alertsService', '$scope', '$filter', '$timeout', '$window'];
+	notasController.$inject = ['clienteService','anexoService', 'notaFiscalService', 'alertsService', 'cfpLoadingBar', '$scope', '$filter', '$timeout', '$window'];
 
-	function notasController(clienteService, anexoService, notaFiscalService, alertsService, $scope, $filter, $timeout, $window) {
+	function notasController(clienteService, anexoService, notaFiscalService, alertsService, cfpLoadingBar, $scope, $filter, $timeout, $window) {
 		
 		//Var initialize
 		$scope.notas = [];
 		$scope.nota;
 		$scope.clientes = [];
 		$scope.anexos = [];
+		$scope.dtFiltroNotas = null; 
 		$scope.hideAdd = false;
 		$scope.showAlert = false;
 		$scope.clienteDisabled = true;
 
 		
 		//Data Load
-		$scope.findAll = function () {
-			findAll();	
+		$scope.findByCodCliente = function(codCliente) {
+			findByCodCliente(codCliente);
 		}
 		
 		$scope.findClientes = function(){
@@ -30,10 +31,12 @@
 			findAnexos();
 		}
 		
-		function findAll() {
-			notaFiscalService.findAll().success(function(result){
-				$scope.notas = result;
-			});
+		function findByCodCliente(codCliente) {
+			if(codCliente){
+				notaFiscalService.findByCodCliente(codCliente).success(function(result){
+					$scope.notas = result;
+				});
+			}
 		}
 		
 		function findClientes() {
@@ -50,6 +53,9 @@
 		
 		//Form Events
 		$scope.loadForm = function (numNotaFiscal) {
+			
+			cfpLoadingBar.start();
+			
 			notaFiscalService.findById(numNotaFiscal).success(function (data) {
 				$scope.nota = data;
 				$scope.hideAdd = true;
@@ -60,10 +66,18 @@
 					findAnexos();
 				}
 			});
+			
+			cfpLoadingBar.complete();
 		}
 		
 		$scope.onSelectCliente = function(codCliente){
+			
+			cfpLoadingBar.start();
+			
 			if(codCliente){
+				
+				$scope.dtFiltroNotas = null;
+
 				clienteService.findById(codCliente).success(function (data) {
 					if(data.anexos.length > 0){
 						$scope.anexos = data.anexos;
@@ -71,7 +85,30 @@
 						findAnexos();
 					}
 				});
+				
+				findByCodCliente(codCliente);
 			}
+			
+			cfpLoadingBar.complete();
+		}
+		
+		$scope.onChangeDtFiltroNotas = function(codCliente){
+			
+			cfpLoadingBar.start();
+			
+			var mesAno = $scope.dtFiltroNotas;
+			
+			if(codCliente && mesAno){
+				notaFiscalService.findByCodClienteMes(codCliente, mesAno).success(function (result) {
+					$scope.notas = result;
+				});
+			}else if(codCliente && !mesAno){
+				findByCodCliente(codCliente);
+			}else{
+				$scope.notas = [];
+			}
+			
+			cfpLoadingBar.complete();
 		}
 		
 		$scope.validateNumNota = function(numNotaFiscal){
@@ -79,6 +116,9 @@
 			var msg;
 			
 			if(numNotaFiscal){
+				
+				cfpLoadingBar.start();
+				
 				notaFiscalService.findById(numNotaFiscal).success(function (data) {
 					if(data.numNotaFiscal){
 						$scope.notaFiscalForm.numNotaFiscal.$setValidity("numNotaFiscal", false);
@@ -86,16 +126,18 @@
 						showAlert(msg);
 					}else{
 						$scope.notaFiscalForm.numNotaFiscal.$setValidity("numNotaFiscal", true);
-						hideAlert();
+						removeAlert();
 					}
 				});
+				
+				cfpLoadingBar.complete();
 			}
 		}
 		
 		function clearData() {
 			var codCliente = $scope.nota.codCliente;
 			resetNotaFiscal();
-			findAll();
+			findByCodCliente(codCliente);
 			$scope.hideAdd = false;
 		}
 		
@@ -121,6 +163,8 @@
 		//Form operations
 		$scope.insert = function (nota) {
 			
+			cfpLoadingBar.start();
+			
 			var msg;
 			
 			notaFiscalService.insert(nota).success(function (data) {
@@ -133,9 +177,13 @@
 				msg = alertsService.alertError("Ocorreu um problema ao atualizar a nota fiscal", status);
 				showAlert(msg);
 			});
+			
+			cfpLoadingBar.complete();
 		}
 
 		$scope.update = function (nota) {
+			
+			cfpLoadingBar.start();
 			
 			var msg;
 			
@@ -149,6 +197,8 @@
 				msg = alertsService.alertError("Ocorreu um problema ao atualizar a nota fiscal", status);
 				showAlert(msg);
 			});
+			
+			cfpLoadingBar.complete();
 		}
 
 		function showAlert(alertMessage) {
@@ -160,15 +210,33 @@
 			if(alertMessage.typeMessage === 'SUCCESS'){
 				$window.scrollTo(0, 0);
 				$timeout(function(){
-					hideAlert();
+					removeAlert();
 				}, 5000);
 			}
 		}
 		
-		function hideAlert(){
+		function removeAlert(){
 			$scope.showAlert = false;
 			$scope.alertMessage = null;
 		}
+		
+	    $scope.start = function() {
+	       cfpLoadingBar.start();
+	    };
+
+	    $scope.complete = function () {
+	       cfpLoadingBar.complete();
+	    };
+
+
+	    // fake the initial load so first time users can see the bar right away:
+	    $scope.start();
+	    $scope.loadIntro = true;
+	    $timeout(function() {
+		    $scope.complete();
+		    $scope.loadIntro = false;
+	    }, 1250);
+		
 	}
 
 })();

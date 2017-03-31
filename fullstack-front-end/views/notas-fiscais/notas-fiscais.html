@@ -1,4 +1,4 @@
-<div id="notasFiscaisPanel" class="content" ng-controller="notasController">
+<div id="notasFiscaisPanel" class="content" ng-controller="notasController" ng-hide="loadIntro">
 	<div class="panel panel-primary">
 		<div class="panel-heading"><span class="fa fa-edit"></span>&nbsp;&nbsp;Cadastro de Notas Fiscais</div>
 		<div class="panel-body">
@@ -16,7 +16,7 @@
 				
 				<div class="form-group">
 					<label for="numNotaFiscal">Número da Nota Fiscal</label> 
-					<input id="numNotaFiscal" name="numNotaFiscal" ng-model="nota.numNotaFiscal" type="text" class="form-control" ng-change="validateNumNota(nota.numNotaFiscal)" ng-mask="99999999999999999999999" ng-required="true">
+					<input id="numNotaFiscal" name="numNotaFiscal" ng-model="nota.numNotaFiscal" type="text" class="form-control" ng-blur="validateNumNota(nota.numNotaFiscal)" ng-change="validateNumNota(nota.numNotaFiscal)" ng-mask="99999999999999999999999" ng-required="true">
 				</div>
 				
 				<div class="form-group" >
@@ -64,38 +64,52 @@
 						Atualizar&nbsp;&nbsp;<span class="fa fa-refresh" aria-hidden="true"></span>
 					</button>
 				</div>
-					
 			</form>
-		</div>
-	</div>
-	<div ng-show="notas.length > 0">
-		<div class="table-responsive" >
-			<table class="table table-condensed table-hover" ng-init="findAll()">
-				<thead>
-					<th>Núm</th>
-					<th>Cliente</th>
-					<th>Data Emissão</th>
-					<th>Descrição</th>
-					<th>Anexo</th>
-					<th>Valor(R$)</th>
-					<th class="text-center">Ações</th>
-				</thead>
-				<tbody>
-					<tr ng-repeat="notaFiscal in notas">
-						<td>{{notaFiscal.numNotaFiscal}}</td>
-						<td>{{notaFiscal.clienteDTO.nomeRazaoSocial}}</td>
-						<td>{{notaFiscal.dataEmissao}}</td>
-						<td>{{notaFiscal.descricaoNotaFiscal}}</td>
-						<td>{{notaFiscal.anexoDTO.descricaoAnexo}}</td>
-						<td>{{notaFiscal.valorNotaFiscal}}</td>
-						<td class="text-center">
-							<button class="btn btn-sm btn-info" ng-click="loadForm(notaFiscal.numNotaFiscal)">
-								Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>
-							</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div ng-show="nota.codCliente">
+				<hr />
+				<div class="row">
+					<div class="col-xs-push-9 col-xs-3">
+						<div class="form-group">
+							<form id="frmFiltroNotas">
+								<div class="input-group date" ng-month-year-picker>
+									<input id="dtFiltroNota" name="dtFiltroNota" ng-model="dtFiltroNotas" ng-blur="onChangeDtFiltroNotas(nota.codCliente)" ng-change="onChangeDtFiltroNotas(nota.codCliente)" type="text" class="form-control" /> 
+									<span class="input-group-addon"> 
+										<i class="fa fa-calendar"></i>
+									</span>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="table-responsive" ng-init="findByCodCliente(nota.codCliente)">
+					<table class="table table-condensed table-hover">
+						<thead>
+							<th>Núm</th>
+							<th>Cliente</th>
+							<th>Data Emissão</th>
+							<th>Descrição</th>
+							<th>Anexo</th>
+							<th>Valor(R$)</th>
+							<th class="text-center">Ações</th>
+						</thead>
+						<tbody>
+							<tr ng-repeat="notaFiscal in notas">
+								<td>{{notaFiscal.numNotaFiscal}}</td>
+								<td>{{notaFiscal.clienteDTO.nomeRazaoSocial}}</td>
+								<td>{{notaFiscal.dataEmissao}}</td>
+								<td>{{notaFiscal.descricaoNotaFiscal}}</td>
+								<td>{{notaFiscal.anexoDTO.descricaoAnexo}}</td>
+								<td>{{notaFiscal.valorNotaFiscal}}</td>
+								<td class="text-center">
+									<button class="btn btn-sm btn-info" ng-click="loadForm(notaFiscal.numNotaFiscal)">
+										Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

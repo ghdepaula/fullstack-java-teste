@@ -3,9 +3,9 @@
 
 	angular.module('contabilizeiApp').controller('clientesController', clientesController);
 
-	clientesController.$inject = ['clienteService','anexoService', 'regimesTributariosService', '$scope', '$filter', '$timeout', '$window'];
+	clientesController.$inject = ['clienteService','anexoService', 'regimesTributariosService', 'alertsService', 'cfpLoadingBar', '$scope', '$filter', '$timeout', '$window'];
 
-	function clientesController(clienteService, anexoService, regimesTributariosService, $scope, $filter, $timeout, $window) {
+	function clientesController(clienteService, anexoService, regimesTributariosService, alertsService, cfpLoadingBar, $scope, $filter, $timeout, $window) {
 		
 		$scope.clientes = [];
 		$scope.cliente;
@@ -30,6 +30,10 @@
 		}
 
 		$scope.loadForm = function (idCliente) {
+			
+			cfpLoadingBar.start();
+
+			
 			clienteService.findById(idCliente).success(function (data) {
 				
 				$scope.cliente = data;
@@ -39,9 +43,15 @@
 				
 				$('#cnpjCliente').attr('readonly', 'cnpjCliente');
 			});
+			
+			cfpLoadingBar.complete();
+
 		}
 		
 		$scope.onChangeRegime = function(codRegimeTributario){
+			
+			cfpLoadingBar.start();
+			
 			regimesTributariosService.findById(codRegimeTributario).success(function(data){
 				
 				if(data.enabledAnexos){
@@ -51,42 +61,51 @@
 					$scope.anexosChecked = [];
 				}
 			});
+			
+			cfpLoadingBar.start();
 		
 		}
 
 		$scope.insert = function (cliente) {
 			
+			cfpLoadingBar.start();
+			
+			var msg;
 			cliente.anexos = $scope.anexosChecked;
 			
 			clienteService.insert(cliente).success(function (data) {
+				
+				msg = alertsService.alertSuccess("Cliente cadastrado com sucesso !");
+				showAlert(msg);
 				clearData();
-				showAlert(status);
+				
 			}).error(function (error, status) {
-				showAlert(status);
+				msg = alertsService.alertError("Ocorreu um errro ! Não foi possível cadastrar o cliente", status);
+				showAlert(msg);
 			});
+			
+			cfpLoadingBar.complete();
 		}
 
 		$scope.update = function (cliente) {
 			
+			cfpLoadingBar.start();
+			
+			var msg;
 			cliente.anexos = $scope.anexosChecked;
 			
 			clienteService.update(cliente).success(function (data) {
-				clearData();
-				showAlert(status);
-			})
-			.error(function (error, status) {
-				showAlert(status);
+				
+				msg = alertsService.alertSuccess("Cliente atualizado com sucesso !");
+				showAlert(msg);
+				clearData();;
+			
+			}).error(function (error, status) {
+				msg = alertsService.alertError("Ocorreu um errro ! Não foi possível atualizar o cliente", status);
+				showAlert(msg);
 			});
-		}
-
-		$scope.remove = function (idCliente) {
-			clienteService.remove(idCliente).success(function (data) {				
-				clearData();
-				showAlert(status);
-			})
-			.error(function (error, status) {
-				showAlert(status);
-			});
+			
+			cfpLoadingBar.complete();
 		}
 
 		$scope.checkAnexo = function(anexo) {
@@ -161,6 +180,24 @@
 			}, 5000);
 			
 		}
+		
+	    $scope.start = function() {
+	       cfpLoadingBar.start();
+	    };
+
+	    $scope.complete = function () {
+	       cfpLoadingBar.complete();
+	    };
+
+
+	      // fake the initial load so first time users can see the bar right away:
+	    $scope.start();
+	    $scope.loadIntro = true;
+	    $timeout(function() {
+		    $scope.complete();
+		    $scope.loadIntro = false;
+	    }, 1250);
+		
 	}
 
 })();

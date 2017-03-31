@@ -1,5 +1,5 @@
 
-var app = angular.module('contabilizeiApp', ['ngRoute']);
+var app = angular.module('contabilizeiApp', ['ngRoute','angular-loading-bar']);
 
 app.directive('ngMask', function() {
 	return {
@@ -49,10 +49,9 @@ app.directive('ngMonthYearPicker', function() {
 			
 			var options = {
 				format: "MM/yyyy",
-				endDate: "-1m",
 			    startView: 1,
 			    minViewMode: 1,
-			    maxViewMode: 1,
+			    maxViewMode: 2,
 			    language: "pt-BR",
 			    autoclose: true
 			};
@@ -91,6 +90,11 @@ app.directive("ngShowModal", function ($parse) {
         }
 
     };
+});
+
+app.config(function(cfpLoadingBarProvider) {
+    // true is the default, but I left this here as an example:
+    cfpLoadingBarProvider.includeSpinner = true;
 });
 
 app.config(function($routeProvider) {

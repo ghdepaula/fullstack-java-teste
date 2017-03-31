@@ -3,9 +3,9 @@
 
 	angular.module('contabilizeiApp').controller('tributosController', tributosController);
 
-	tributosController.$inject = ['tributosService', '$scope', '$filter', '$timeout', '$window'];
+	tributosController.$inject = ['tributosService', 'cfpLoadingBar', '$scope', '$filter', '$timeout', '$window'];
 
-	function tributosController(tributosService , $scope, $filter, $timeout, $window) {
+	function tributosController(tributosService, cfpLoadingBar, $scope, $filter, $timeout, $window) {
 		
 		$scope.tributos = [];
 		$scope.tributo;
@@ -19,6 +19,23 @@
 				$scope.tributos = result;
 			});
 		}
+		
+	    $scope.start = function() {
+	    	cfpLoadingBar.start();
+		};
+
+		$scope.complete = function () {
+		    cfpLoadingBar.complete();
+		};
+
+
+	    // fake the initial load so first time users can see the bar right away:
+	    $scope.start();
+	    $scope.loadIntro = true;
+	    $timeout(function() {
+		    $scope.complete();
+		    $scope.loadIntro = false;
+	    }, 1250);
 		
 	}
 })();
