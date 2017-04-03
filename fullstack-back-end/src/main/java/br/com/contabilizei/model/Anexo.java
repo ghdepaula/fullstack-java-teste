@@ -7,6 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Classe que representa a tabela anexos. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @Entity
 @Table(name="anexos")
 public class Anexo implements Serializable {

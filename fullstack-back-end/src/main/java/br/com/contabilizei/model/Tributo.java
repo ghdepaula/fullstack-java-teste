@@ -7,8 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Classe que representa a tabela tribu. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @Entity
-@Table(name="tributo")
+@Table(name="tributos")
 public class Tributo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

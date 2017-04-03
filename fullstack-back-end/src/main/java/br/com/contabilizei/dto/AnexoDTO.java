@@ -2,6 +2,12 @@ package br.com.contabilizei.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Classe responsável pela transferẽncia de dados entre as camadas da aplicação referentes as operações do serviço de anexos. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @XmlRootElement
 public class AnexoDTO {
 	

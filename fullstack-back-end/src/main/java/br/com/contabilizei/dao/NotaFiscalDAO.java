@@ -5,8 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.contabilizei.model.Cliente;
 import br.com.contabilizei.model.NotaFiscal;
 
+/**
+ * Classe responsável por executar as operações de acesso e modificação de dados da entidade {@link NotaFiscal} na base de dados. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 public class NotaFiscalDAO extends GenericDAO<NotaFiscal> {
 	
 	private static final long serialVersionUID = 8434530235683601623L;

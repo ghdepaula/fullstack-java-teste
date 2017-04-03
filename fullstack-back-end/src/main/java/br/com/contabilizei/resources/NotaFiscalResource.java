@@ -15,15 +15,30 @@ import javax.ws.rs.core.Response;
 import br.com.contabilizei.dto.NotaFiscalDTO;
 import br.com.contabilizei.services.NotaFiscalService;
 
+/**
+ * Classe responsável pelo processamento de requisições HTTP ao serviço de notas fiscais da aplicação. 
+ * 
+ * @author ghdepaula
+ * 
+ */
 @Path("/notas")
 public class NotaFiscalResource {
 	
 	private NotaFiscalService notaFiscalService;
 	
+	/**
+	 * 
+	 */
 	public NotaFiscalResource() {
 		this.notaFiscalService = new NotaFiscalService();
 	}
 
+	/**
+	 * Método Java que processa a requisição HTTP POST para inserção novas notas fiscais.
+	 * 
+	 * @param notaFiscal instância que contem os dados da nota fiscal a ser inserida.
+	 * @return response contendo os dados da nota fiscal inserida.
+	 */
 	@POST
 	@Consumes({ "application/json" })
 	@Produces({ "application/json" })
@@ -39,6 +54,12 @@ public class NotaFiscalResource {
 		}
 	}
 
+	/**
+	 * Método Java que processa a requisição HTTP PUT para atualização dos dados de uma nota fiscal.
+	 * 
+	 * @param notaFiscal instância contendo os dados da nota que deverá ser atualizada.
+	 * @return response contendo os dados da nota fiscal atualizada.
+	 */
 	@PUT
 	@Consumes({ "application/json" })
 	@Produces({ "application/json" })
@@ -52,6 +73,11 @@ public class NotaFiscalResource {
 		}
 	}
 
+	/**
+	 * Método Java que processa a requisição HTTP GET para listagem de todas as notas fiscais.
+	 * 
+	 * @return respone da requisição HTTP GET com lista notas fiscais no formato JSON.
+	 */
 	@GET
 	@Produces({ "application/json" })
 	public List<NotaFiscalDTO> findAll() {
@@ -63,6 +89,12 @@ public class NotaFiscalResource {
 		}
 	}
 
+	/**
+	 * Método Java que processa a requisição HTTP GET para busca de uma nota fiscal.
+	 * 
+	 * @param idNotaFiscal código identificador da nota fiscal a ser pesquisada.
+	 * @return respone da requisição HTTP GET com dados da nota fiscal no formato JSON.
+	 */
 	@GET
 	@Path("{idNotaFiscal}")
 	@Produces({ "application/json" })
@@ -76,6 +108,12 @@ public class NotaFiscalResource {
 	}
 	
 	
+	/**
+	 * Método Java que processa a requisição HTTP GET para listagem de todas as notas fiscais com base no código de cliente.
+	 * 
+	 * @param codCliente código do cliente que será parâmetro para busca da lista de notas fiscais
+	 * @return respone da requisição HTTP GET com lista notas fiscais no formato JSON.
+	 */
 	@GET
 	@Path("cliente/{codCliente}")
 	@Produces({ "application/json" })
@@ -88,6 +126,14 @@ public class NotaFiscalResource {
 		}
 	}
 	
+	/**
+	 * Método Java que processa a requisição HTTP GET para listagem de todos as notas fiscais com base no código de cliente.
+	 * 
+	 * @param codCliente código do cliente que será parâmetro para busca da lista de notas fiscais
+	 * @param mes mês que será parâmetro para busca da lista de notas fiscais.
+	 * @param ano ano que será parâmetro para busca da lista de notas fiscais.
+	 * @return respone da requisição HTTP GET com lista notas fiscais no formato JSON.
+	 */
 	@GET
 	@Path("cliente/{codCliente}/mes/{mes}/{ano}")
 	@Produces({ "application/json" })

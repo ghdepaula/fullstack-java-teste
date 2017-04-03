@@ -4,6 +4,12 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Classe responsável pela transferẽncia de dados entre as camadas da aplicação referentes as operações do serviço de clientes. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @XmlRootElement
 public class ClienteDTO {
 	private Long idCliente;

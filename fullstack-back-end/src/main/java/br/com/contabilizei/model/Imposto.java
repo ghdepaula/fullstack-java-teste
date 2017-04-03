@@ -16,6 +16,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ * Classe que representa a tabela impostos. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @Entity
 @Table(name="impostos")
 @NamedQueries({

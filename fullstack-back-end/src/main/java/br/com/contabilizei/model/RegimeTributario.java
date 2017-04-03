@@ -14,8 +14,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+/**
+ * Classe que representa a tabela regime_tributario. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @Entity
-@Table(name="regime_tributario")
+@Table(name="regimes_tributarios")
 public class RegimeTributario implements Serializable {
 	
 	private static final long serialVersionUID = 4840779789660211865L;

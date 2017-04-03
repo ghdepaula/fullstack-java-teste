@@ -7,6 +7,12 @@ import java.util.Map;
 
 import br.com.contabilizei.model.Imposto;
 
+/**
+ * Classe responsável por executar as operações de acesso e modificação de dados da entidade {@link Imposto} na base de dados. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 public class ImpostosDAO extends GenericDAO<Imposto> {
 
 	private static final long serialVersionUID = 5737425229063072679L;

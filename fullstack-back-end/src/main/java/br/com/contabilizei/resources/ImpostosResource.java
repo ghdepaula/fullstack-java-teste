@@ -11,20 +11,35 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-
 import br.com.contabilizei.dto.DadosImpostoDTO;
 import br.com.contabilizei.dto.ImpostoDTO;
+import br.com.contabilizei.model.Imposto;
 import br.com.contabilizei.services.ImpostosService;
 
+/**
+ * Classe responsável pelo processamento de requisições HTTP ao serviço de impostos da aplicação. 
+ * 
+ * @author ghdepaula
+ * 
+ */
 @Path("/impostos")
 public class ImpostosResource {
 	
 	private ImpostosService impostosService;
 	
+	/**
+	 * 
+	 */
 	public ImpostosResource() {
 		this.impostosService = new ImpostosService();
 	}
 
+	/**
+	 * Método Java que processa a requisição HTTP POST para calcúlo e inserção novos impostos.
+	 * 
+	 * @param imposto instância de {@link ImpostoDTO} contendo dados do novo {@link Imposto} que será calculado e inserido.
+	 * @return response da requisição HTTP POST com dados da instância de {@link ImpostoDTO} no formato JSON.
+	 */
 	@POST
 	@Path("calcular")
 	@Consumes({ "application/json" })
@@ -41,6 +56,12 @@ public class ImpostosResource {
 		}
 	}
 	
+	/**
+	 * Método que processa os dados de uma requisição HTTP PUT para inserção de um novo {@link Imposto}.
+	 * 
+	 * @param imposto instância de {@link ImpostoDTO} contendo dados do {@link Imposto} que será atualizado.
+	 * @return response da requisição HTTP PUT com dados da instância de {@link ImpostoDTO} atualizada no formato JSON.
+	 */
 	@PUT
 	@Consumes({ "application/json" })
 	@Produces({ "application/json" })
@@ -54,6 +75,11 @@ public class ImpostosResource {
 		}
 	}
 	
+	/**
+	 * Método que processa a requisição HTTP GET para listagem de todos os anexos.
+	 * 
+	 * @return response da requisição HTTP GET com lista de {@link ImpostoDTO} no formato JSON.
+	 */
 	@GET
 	@Produces({ "application/json" })
 	public Response findAll() {
@@ -69,6 +95,13 @@ public class ImpostosResource {
 		}
 	}
 	
+	/**
+	 * Método Java que processa a requisição HTTP GET para listagem de todos os impostos com base no código de cliente.
+	 * 
+	 * @param codCliente código do cliente que será parâmetro para busca da lista de impostos
+	 * 
+	 * @return response da requisição HTTP GET com lista de {@link ImpostoDTO} no formato JSON.
+	 */
 	@GET
 	@Path("cliente/{codCliente}")
 	@Produces({ "application/json" })
@@ -85,6 +118,15 @@ public class ImpostosResource {
 		}
 	}
 	
+	/**
+	 * Método Java que processa a requisição HTTP GET para listagem de todos os impostos com base no código de cliente.
+	 * 
+	 * @param codCliente código do cliente que será parâmetro para busca da lista de impostos
+	 * @param mes mês que será parâmetro para busca da lista de impostos
+	 * @param ano ano que será parâmetro para busca da lista de impostos
+	 * 
+	 * @return response da requisição HTTP GET com lista de {@link ImpostoDTO} no formato JSON.
+	 */
 	@GET
 	@Path("cliente/{codCliente}/mes/{mes}/{ano}")
 	@Produces({ "application/json" })
@@ -101,6 +143,13 @@ public class ImpostosResource {
 		}
 	}
 	
+	/**
+	 * Método Java que processa a requisição HTTP GET para busca de um imposto.
+	 * 
+	 * @param idImposto código identificador do imposto a ser pesquisado
+	 * 
+	 * @return response da requisição HTTP GET com dados de uma instância de {@link ImpostoDTO} no formato JSON.
+	 */
 	@GET
 	@Path("{idImposto}")
 	@Produces({ "application/json" })

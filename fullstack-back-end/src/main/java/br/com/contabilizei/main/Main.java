@@ -4,14 +4,12 @@ package br.com.contabilizei.main;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.catalina.Context;
 import org.apache.catalina.filters.CorsFilter;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.glassfish.jersey.servlet.ServletContainer;
-
 import br.com.contabilizei.config.RestApplication;
 import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.dto.RegimeTributarioDTO;
@@ -23,7 +21,7 @@ import br.com.contabilizei.services.TributoService;
 public class Main {
 
 	private static final String CTX_BACK_END_APP = "/contabilizei";
-	private static final String FRONT_END_APP_PATH = "C:\\Users\\cliente\\workspace\\fullstack-front-end"; //Definir path da aplicação front-end
+	private static final String FRONT_END_APP_PATH = "/home/desenv/personal-workspace/fullstack-front-end"; //Definir path da aplicação front-end
 
 	public static void main(String[] args){
 

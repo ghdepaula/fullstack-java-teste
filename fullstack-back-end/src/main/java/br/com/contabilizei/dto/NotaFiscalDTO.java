@@ -9,6 +9,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import br.com.contabilizei.adapter.BigDecimalAdapter;
 import br.com.contabilizei.adapter.LocalDateAdapter;
 
+/**
+ * Classe responsável pela transferẽncia de dados entre as camadas da aplicação referente as operações do serviço de notas fiscais. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @XmlRootElement
 public class NotaFiscalDTO {
 	

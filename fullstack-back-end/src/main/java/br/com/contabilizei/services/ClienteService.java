@@ -10,6 +10,12 @@ import br.com.contabilizei.dto.RegimeTributarioDTO;
 import br.com.contabilizei.model.Anexo;
 import br.com.contabilizei.model.Cliente;
 
+/**
+ * Classe responsável por fornecer métodos para aplicação de regras de negócio, processamento e conversão de dados envolvendo operações com clientes. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 public class ClienteService {
 
 	private ClienteDAO daoCliente;
@@ -24,16 +30,32 @@ public class ClienteService {
 		this.regimesTributariosService = new RegimesTributariosService();
 	}
 
+	/**
+	 * Método Java que processa os dados de uma instância de {@link ClienteDTO} para inserção de uma instância da entidade {@link Cliente}.
+	 * 
+	 * @param clienteDTO instância de {@link ClienteDTO} contendo os dados da entidade {@link Cliente} que será inserida.
+	 * 
+	 */
 	public void insert(ClienteDTO clienteDTO) {
 		Cliente cliente = convertToModel(clienteDTO);
 		this.daoCliente.save(cliente);
 	}
 
+	/**
+	 * Método Java que processa os dados de uma instância de {@link ClienteDTO} para atualização de uma instância da entidade {@link Cliente}.
+	 * 
+	 * @param clienteDTO instância de {@link ClienteDTO} contendo os dados da entidade {@link Cliente} que será atualizada.
+	 */
 	public void update(ClienteDTO clienteDTO) {
 		Cliente cliente = convertToModel(clienteDTO);
 		this.daoCliente.update(cliente);
 	}
 
+	/**
+	 * Método que lista todas as entidades de {@link Cliente} e realiza a conversão de dados para uma {@link List<ClienteDTO>}.
+	 * 
+	 * @return clientesDTO lista de {@link ClienteDTO}
+	 */
 	public List<ClienteDTO> findAll() {
 
 		List<Cliente> clientes = this.daoCliente.findAll();
@@ -46,6 +68,11 @@ public class ClienteService {
 		return clientesDTO;
 	}
 
+	/**
+	 * Método que busca uma instância da entidade {@link Cliente} com base no seu código identificador e realiza a conversão de dados para uma instância de {@link ClienteDTO}.
+	 * 
+	 * @return clienteDTO instância de {@link ClienteDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
+	 */
 	public ClienteDTO findById(Long idCliente) {
 
 		Cliente cliente = this.daoCliente.find(idCliente);
@@ -57,18 +84,12 @@ public class ClienteService {
 		return null;
 	}
 
-	public boolean remove(Long idCliente) {
-
-		Cliente cliente = (Cliente) this.daoCliente.find(idCliente);
-		if (cliente == null) {
-			return false;
-		}
-		Long id = cliente.getIdCliente();
-		this.daoCliente.delete(id, Cliente.class);
-
-		return true;
-	}
-
+	/**
+	 * Método que executa a conversão de uma instância da entidade {@link Cliente} para uma instância de {@link ClienteDTO}
+	 * 
+	 * @return dto instancia de {@link ClienteDTO}
+	 * 
+	 */
 	public ClienteDTO convertToDTO(Cliente cliente) {
 		ClienteDTO dto = new ClienteDTO();
 		List<AnexoDTO> anexos = anexoService.convertoToDTO(cliente.getAnexos());
@@ -85,6 +106,12 @@ public class ClienteService {
 		return dto;
 	}
 
+	/**
+	 * Método que executa a conversão de uma instância de {@link ClienteDTO} para uma instância da entidade {@link Cliente} 
+	 * 
+	 * @return cliente instância da entidade {@link Cliente}
+	 * 
+	 */
 	public Cliente convertToModel(ClienteDTO clienteDTO) {
 		Cliente cliente = new Cliente();
 		List<Anexo> anexos = anexoService.convertToModel(clienteDTO.getAnexos());

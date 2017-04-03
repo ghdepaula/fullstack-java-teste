@@ -18,10 +18,6 @@
 			return $http.put('http://localhost:8081/contabilizei/rest/clientes', cliente);	
 		}
 
-		var _remove = function (idCliente) {
-			return $http.delete('http://localhost:8081/contabilizei/rest/clientes/' + idCliente);	
-		}
-
 		var _findById = function (idCliente) {
 			return $http.get('http://localhost:8081/contabilizei/rest/clientes/' + idCliente);	
 		}

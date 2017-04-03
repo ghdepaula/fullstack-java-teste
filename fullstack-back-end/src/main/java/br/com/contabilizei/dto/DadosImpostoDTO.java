@@ -7,6 +7,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import br.com.contabilizei.adapter.YearMonthAdapter;
 
+/**
+ * Classe responsável pela transferẽncia de dados entre as camadas da aplicação referente a operação de cálculo de impostos. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @XmlRootElement
 public class DadosImpostoDTO {
 
@@ -26,10 +32,4 @@ public class DadosImpostoDTO {
 	public YearMonth getYearMonth() {
 		return yearMonth;
 	}
-
-	public void setYearMonth(YearMonth yearMonth) {
-		this.yearMonth = yearMonth;
-	}
-	
-	
 }

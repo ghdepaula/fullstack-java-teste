@@ -15,6 +15,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Classe que representa a tabela clientes. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @Entity
 @Table(name = "clientes")
 public class Cliente implements Serializable {

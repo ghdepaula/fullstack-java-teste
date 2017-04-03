@@ -4,6 +4,12 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Classe responsável pela transferẽncia de dados entre as camadas referente as operações do serviço de regimes tributários. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @XmlRootElement
 public class RegimeTributarioDTO {
 	

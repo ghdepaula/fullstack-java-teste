@@ -11,6 +11,12 @@ import br.com.contabilizei.adapter.BigDecimalAdapter;
 import br.com.contabilizei.adapter.LocalDateAdapter;
 import br.com.contabilizei.adapter.YearMonthAdapter;
 
+/**
+ * Classe responsável pela transferẽncia de dados entre as camadas da aplicação referente as operações do serviço de impostos. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 @XmlRootElement
 public class ImpostoDTO {
 	
