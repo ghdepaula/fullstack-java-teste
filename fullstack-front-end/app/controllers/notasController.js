@@ -9,7 +9,8 @@
 		
 		//Var initialize
 		$scope.notas = [];
-		$scope.nota;
+		$scope.nota = {};
+		$scope.nota.statusNota = true;
 		$scope.clientes = [];
 		$scope.anexos = [];
 		$scope.dtFiltroNotas = null; 
@@ -52,11 +53,11 @@
 		}
 		
 		//Form Events
-		$scope.loadForm = function (numNotaFiscal) {
+		$scope.loadForm = function (idNotaFiscal) {
 			
 			cfpLoadingBar.start();
 			
-			notaFiscalService.findById(numNotaFiscal).success(function (data) {
+			notaFiscalService.findById(idNotaFiscal).success(function (data) {
 				$scope.nota = data;
 				$scope.hideAdd = true;
 				
@@ -111,29 +112,6 @@
 			cfpLoadingBar.complete();
 		}
 		
-		$scope.validateNumNota = function(numNotaFiscal){
-			
-			var msg;
-			
-			if(numNotaFiscal){
-				
-				cfpLoadingBar.start();
-				
-				notaFiscalService.findById(numNotaFiscal).success(function (data) {
-					if(data.numNotaFiscal){
-						$scope.notaFiscalForm.numNotaFiscal.$setValidity("numNotaFiscal", false);
-						msg = alertsService.alertWarning("Número da nota fiscal já cadastrado", status);
-						showAlert(msg);
-					}else{
-						$scope.notaFiscalForm.numNotaFiscal.$setValidity("numNotaFiscal", true);
-						removeAlert();
-					}
-				});
-				
-				cfpLoadingBar.complete();
-			}
-		}
-		
 		function clearData() {
 			var codCliente = $scope.nota.codCliente;
 			resetNotaFiscal();
@@ -147,11 +125,13 @@
 
 		function resetNotaFiscal() {
 			
+			$scope.nota.idNotaFiscal = null;
 			$scope.nota.numNotaFiscal = null;
 			$scope.nota.descricaoNotaFiscal = null;
 			$scope.nota.codAnexo = null;
 			$scope.nota.valorNotaFiscal = null;
 			$scope.nota.dataEmissao = null;
+			$scope.nota.statusNota = true;
 			
 			$('#numNotaFiscal').val('');
 			$('#dtEmissaoNota').val('')

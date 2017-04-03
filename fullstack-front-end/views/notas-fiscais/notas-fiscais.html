@@ -16,7 +16,7 @@
 				
 				<div class="form-group">
 					<label for="numNotaFiscal">Número da Nota Fiscal</label> 
-					<input id="numNotaFiscal" name="numNotaFiscal" ng-model="nota.numNotaFiscal" type="text" class="form-control" ng-blur="validateNumNota(nota.numNotaFiscal)" ng-change="validateNumNota(nota.numNotaFiscal)" ng-mask="99999999999999999999999" ng-required="true">
+					<input id="numNotaFiscal" name="numNotaFiscal" ng-model="nota.numNotaFiscal" type="text" class="form-control" ng-change="validateNumNota(nota.numNotaFiscal)" ng-mask="999999999999999" ng-required="true">
 				</div>
 				
 				<div class="form-group" >
@@ -50,6 +50,13 @@
 					<label for="descrNotaFiscal">Descrição</label>
 					<textarea rows="2" cols="10" ng-model="nota.descricaoNotaFiscal" id="descrNotaFiscal" type="text" class="form-control" ng-required="true" >
 					</textarea>
+				</div>
+				
+				<div class="form-group">
+					<label for="statusNotaFiscal">Situação</label> 
+						<select ng-model="nota.statusNota" ng-options="o.statusValue as o.statusDescr for o in [{ statusDescr: 'AUTORIZADA', statusValue: true }, { statusDescr: 'CANCELADA', statusValue: false  }]" class="form-control" ng-required="true" id="statusNotaFiscal">
+						<option value="" ng-if="false"></option>
+					</select>
 				</div>
 
 				<hr />
@@ -90,6 +97,7 @@
 							<th>Descrição</th>
 							<th>Anexo</th>
 							<th>Valor(R$)</th>
+							<th class="text-center">Situação</th>
 							<th class="text-center">Ações</th>
 						</thead>
 						<tbody>
@@ -100,8 +108,9 @@
 								<td>{{notaFiscal.descricaoNotaFiscal}}</td>
 								<td>{{notaFiscal.anexoDTO.descricaoAnexo}}</td>
 								<td>{{notaFiscal.valorNotaFiscal}}</td>
+								<td class="text-center"><span class="{{notaFiscal.statusNota ? 'text-success fa fa-check' : 'text-danger fa fa-ban'}}"></span></td>
 								<td class="text-center">
-									<button class="btn btn-sm btn-info" ng-click="loadForm(notaFiscal.numNotaFiscal)">
+									<button class="btn btn-sm btn-info" ng-click="loadForm(notaFiscal.idNotaFiscal)">
 										Editar&nbsp;&nbsp;<span class="fa fa-edit" aria-hidden="true"></span>
 									</button>
 								</td>

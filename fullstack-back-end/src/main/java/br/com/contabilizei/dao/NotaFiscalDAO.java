@@ -34,5 +34,14 @@ public class NotaFiscalDAO extends GenericDAO<NotaFiscal> {
 		List<NotaFiscal> notasFiscais = findManyResults(NotaFiscal.FIND_BY_COD_CLIENTE_PERIODO, params);
 		return notasFiscais;
 	}
+
+	public List<NotaFiscal> findByNumNota(Long numNota) {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("numNotaFiscal", numNota);
+		
+		List<NotaFiscal> notasFiscais = findManyResults(NotaFiscal.FIND_BY_NUM_NOTA, params);
+		return notasFiscais;
+	}
 }
 

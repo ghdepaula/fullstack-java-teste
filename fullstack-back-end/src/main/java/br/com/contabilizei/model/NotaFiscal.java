@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,7 +19,8 @@ import javax.persistence.Table;
 @Table(name="nota_fiscal")
 @NamedQueries({
 	 @NamedQuery(name="NotaFiscal.findByCodCliente", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente"),
-	 @NamedQuery(name="NotaFiscal.findByCodClienteAndMes", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente AND n.dataEmissao BETWEEN :dataInicial AND :dataFinal")
+	 @NamedQuery(name="NotaFiscal.findByCodClienteAndMes", query="SELECT n FROM NotaFiscal n WHERE n.codCliente = :codCliente AND n.dataEmissao BETWEEN :dataInicial AND :dataFinal"),
+	 @NamedQuery(name="NotaFiscal.findByNumNota", query="SELECT n FROM NotaFiscal n WHERE n.numNotaFiscal = :numNotaFiscal")
 })
 public class NotaFiscal implements Serializable{
 	
@@ -26,25 +29,34 @@ public class NotaFiscal implements Serializable{
 	public static final String FIND_BY_COD_CLIENTE = "NotaFiscal.findByCodCliente";
 	
 	public static final String FIND_BY_COD_CLIENTE_PERIODO = "NotaFiscal.findByCodClienteAndMes";
-
+	
+	public static final String FIND_BY_NUM_NOTA = "NotaFiscal.findByNumNota";
+	
 	@Id
-	@Column(nullable = false, length = 11)
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(nullable = false, unique=true, length = 11)	
+	private Long idNotaFiscal;
+
+	@Column(unique=true, nullable=false)
 	private Long numNotaFiscal;
 	
-	@Column
+	@Column(nullable=false)
 	private Long codCliente;
 	
-	@Column
+	@Column(nullable=false)
 	private Long codAnexo;
 	
-	@Column
+	@Column(nullable=false)
 	private LocalDate dataEmissao;
 	
 	@Column
 	private String descricaoNotaFiscal;
 	
-	@Column
+	@Column(nullable=false)
 	private BigDecimal valorNotaFiscal;
+	
+	@Column(nullable=false)
+	private Boolean statusNota;
 	
 	@ManyToOne
 	@JoinColumn(name="codCliente", referencedColumnName="idCliente", insertable=false, updatable=false)
@@ -118,6 +130,22 @@ public class NotaFiscal implements Serializable{
 		this.dataEmissao = dataEmissao;
 	}
 	
+	public Boolean getStatusNota() {
+		return statusNota;
+	}
+
+	public void setStatusNota(Boolean statusNota) {
+		this.statusNota = statusNota;
+	}
+
+	public Long getIdNotaFiscal() {
+		return idNotaFiscal;
+	}
+
+	public void setIdNotaFiscal(Long idNotaFiscal) {
+		this.idNotaFiscal = idNotaFiscal;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 	    if (this == obj)
@@ -142,5 +170,5 @@ public class NotaFiscal implements Serializable{
 	    result = prime * result + ((getNumNotaFiscal() == null) ? 0 : getNumNotaFiscal().hashCode());
 	    return result;
 	}
-
+	
 }

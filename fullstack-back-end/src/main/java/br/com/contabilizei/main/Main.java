@@ -23,7 +23,7 @@ import br.com.contabilizei.services.TributoService;
 public class Main {
 
 	private static final String CTX_BACK_END_APP = "/contabilizei";
-	private static final String FRONT_END_APP_PATH = "/home/desenv/personal-workspace/fullstack-front-end"; //Definir path da aplicação front-end
+	private static final String FRONT_END_APP_PATH = "C:\\Users\\cliente\\workspace\\fullstack-front-end"; //Definir path da aplicação front-end
 
 	public static void main(String[] args){
 

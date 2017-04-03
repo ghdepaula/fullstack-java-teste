@@ -11,6 +11,8 @@ import br.com.contabilizei.adapter.LocalDateAdapter;
 
 @XmlRootElement
 public class NotaFiscalDTO {
+	
+	private Long idNotaFiscal;
 
 	private Long numNotaFiscal;
 	
@@ -25,6 +27,8 @@ public class NotaFiscalDTO {
 	
 	@XmlJavaTypeAdapter(BigDecimalAdapter.class) 
 	private BigDecimal valorNotaFiscal;
+	
+	private Boolean statusNota;
 	
 	private ClienteDTO clienteDTO;
 	
@@ -92,6 +96,22 @@ public class NotaFiscalDTO {
 
 	public void setAnexoDTO(AnexoDTO anexoDTO) {
 		this.anexoDTO = anexoDTO;
+	}
+
+	public Long getIdNotaFiscal() {
+		return idNotaFiscal;
+	}
+
+	public void setIdNotaFiscal(Long idNotaFiscal) {
+		this.idNotaFiscal = idNotaFiscal;
+	}
+
+	public Boolean getStatusNota() {
+		return statusNota;
+	}
+
+	public void setStatusNota(Boolean statusNota) {
+		this.statusNota = statusNota;
 	}
 	
 }

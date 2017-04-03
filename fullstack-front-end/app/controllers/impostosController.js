@@ -171,6 +171,10 @@
 			var msg;
 			var codCli = $scope.dadosImpostos.codCliente;
 			var periodo = $scope.dadosImpostos.yearMonth;
+			var validImpostosNotasMes = true;
+			
+			removeAlert();
+			$scope.calculaImpostoForm.dtBaseImposto.$setValidity("dtBaseImposto", true);
 			
 			if(codCli && periodo){
 				impostosService.findByCodClienteMes(codCli, periodo).success(function (result) {
@@ -178,13 +182,17 @@
 						msg = alertsService.alertWarning("Impostos referentes a esse mês já foram calculados.");
 						showAlert(msg);
 						$scope.calculaImpostoForm.dtBaseImposto.$setValidity("dtBaseImposto", false);
-					}else{
-						removeAlert();
-						$scope.calculaImpostoForm.dtBaseImposto.$setValidity("dtBaseImposto", true);
 					}
+				}).then(function(){
+					notaFiscalService.findByCodClienteMes(codCli, periodo).success(function (result) {
+						if(result.length < 1){
+							msg = alertsService.alertWarning("Nenhuma nota fiscal foi lançada no mês selecionado.");
+							showAlert(msg);
+							$scope.calculaImpostoForm.dtBaseImposto.$setValidity("dtBaseImposto", false);
+						}
+					});
 				});
 			}
-			
 		}
 		
 		$scope.loadModal = function(idImposto){

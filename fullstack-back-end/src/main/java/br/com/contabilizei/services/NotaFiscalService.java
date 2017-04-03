@@ -50,22 +50,10 @@ public class NotaFiscalService {
 		}
 		return notasFiscaisDTO;
 	}
-	
-	public boolean remove(Long numNotaFiscal) {
 
-		NotaFiscal notaFiscal = (NotaFiscal) this.daoNotaFiscal.find(numNotaFiscal);
-		if (notaFiscal == null) {
-			return false;
-		}
-		Long id = notaFiscal.getNumNotaFiscal();
-		this.daoNotaFiscal.delete(id, NotaFiscal.class);
+	public NotaFiscalDTO findById(Long idNotaFiscal) {
 
-		return true;
-	}
-
-	public NotaFiscalDTO findById(Long numNotaFiscal) {
-
-		NotaFiscal notaFiscal = (NotaFiscal) this.daoNotaFiscal.find(numNotaFiscal);
+		NotaFiscal notaFiscal = this.daoNotaFiscal.find(idNotaFiscal);
 
 		if (notaFiscal != null) {
 			NotaFiscalDTO notaFiscalDTO = convertToDTO(notaFiscal);
@@ -118,6 +106,18 @@ public class NotaFiscalService {
 		}
 		return notasFiscaisDTO;
 	}
+	
+	public List<NotaFiscalDTO> findByNumNota(Long numNota) {
+		
+		List<NotaFiscal> notasFiscais = this.daoNotaFiscal.findByNumNota(numNota);
+
+		List<NotaFiscalDTO> notasFiscaisDTO = new ArrayList<NotaFiscalDTO>();
+		for (NotaFiscal notaFiscal : notasFiscais) {
+			NotaFiscalDTO notaFiscalDTO = convertToDTO(notaFiscal);
+			notasFiscaisDTO.add(notaFiscalDTO);
+		}
+		return notasFiscaisDTO;
+	}
 
 
 	public NotaFiscalDTO convertToDTO(NotaFiscal notaFiscal) {
@@ -125,6 +125,7 @@ public class NotaFiscalService {
 		AnexoDTO anexoDTO = anexoService.convertoToDTO(notaFiscal.getAnexo());
 		ClienteDTO clienteDTO = clienteService.convertToDTO(notaFiscal.getCliente());
 		
+		notaFiscalDTO.setIdNotaFiscal(notaFiscal.getIdNotaFiscal());
 		notaFiscalDTO.setNumNotaFiscal(notaFiscal.getNumNotaFiscal());;
 		notaFiscalDTO.setCodCliente(notaFiscal.getCodCliente());;
 		notaFiscalDTO.setCodAnexo(notaFiscal.getCodAnexo());
@@ -133,6 +134,7 @@ public class NotaFiscalService {
 		notaFiscalDTO.setDescricaoNotaFiscal(notaFiscal.getDescricaoNotaFiscal());
 		notaFiscalDTO.setAnexoDTO(anexoDTO);
 		notaFiscalDTO.setClienteDTO(clienteDTO);
+		notaFiscalDTO.setStatusNota(notaFiscal.getStatusNota());
 
 		return notaFiscalDTO;
 	}
@@ -140,15 +142,14 @@ public class NotaFiscalService {
 	public NotaFiscal convertToModel(NotaFiscalDTO notaFiscalDTO) {
 		NotaFiscal notaFiscal = new NotaFiscal();
 		
+		notaFiscal.setIdNotaFiscal(notaFiscalDTO.getIdNotaFiscal());
 		notaFiscal.setNumNotaFiscal(notaFiscalDTO.getNumNotaFiscal());;
 		notaFiscal.setCodCliente(notaFiscalDTO.getCodCliente());;
 		notaFiscal.setCodAnexo(notaFiscalDTO.getCodAnexo());
 		notaFiscal.setDataEmissao(notaFiscalDTO.getDataEmissao());
 		notaFiscal.setValorNotaFiscal(notaFiscalDTO.getValorNotaFiscal());
 		notaFiscal.setDescricaoNotaFiscal(notaFiscalDTO.getDescricaoNotaFiscal());
-
+		notaFiscal.setStatusNota(notaFiscalDTO.getStatusNota());
 		return notaFiscal;
 	}
-
-
 }
