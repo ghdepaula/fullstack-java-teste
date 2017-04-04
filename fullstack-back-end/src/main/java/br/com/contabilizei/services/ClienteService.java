@@ -71,6 +71,7 @@ public class ClienteService {
 	/**
 	 * Método que busca uma instância da entidade {@link Cliente} com base no seu código identificador e realiza a conversão de dados para uma instância de {@link ClienteDTO}.
 	 * 
+	 * @param idCliente código identificado da entidade {@link Cliente}
 	 * @return clienteDTO instância de {@link ClienteDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
 	 */
 	public ClienteDTO findById(Long idCliente) {
@@ -87,7 +88,8 @@ public class ClienteService {
 	/**
 	 * Método que executa a conversão de uma instância da entidade {@link Cliente} para uma instância de {@link ClienteDTO}
 	 * 
-	 * @return dto instancia de {@link ClienteDTO}
+	 * @param cliente instância da entidade {@link Cliente}
+	 * @return dto instância de {@link ClienteDTO}
 	 * 
 	 */
 	public ClienteDTO convertToDTO(Cliente cliente) {
@@ -109,6 +111,7 @@ public class ClienteService {
 	/**
 	 * Método que executa a conversão de uma instância de {@link ClienteDTO} para uma instância da entidade {@link Cliente} 
 	 * 
+	 * @param clienteDTO instância de {@link ClienteDTO}
 	 * @return cliente instância da entidade {@link Cliente}
 	 * 
 	 */

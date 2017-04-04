@@ -53,9 +53,9 @@ public class AnexoResource {
 	}
 
 	/**
-	 * Método que processa os dados de uma requisição HTTP PUT para inserção de um novo {@link Anexo}.
+	 * Método que processa os dados de uma requisição HTTP PUT para atualização da entidade {@link Anexo}.
 	 * 
-	 * @param anexo instância de {@link AnexoDTO} contendo dados do {@link Anexo} que será atualizado.
+	 * @param anexo instância de {@link AnexoDTO} contendo dados da entidade {@link Anexo} que será atualizada.
 	 * @return response da requisição HTTP PUT com dados da instância de {@link AnexoDTO} atualizada no formato JSON.
 	 */
 	@PUT

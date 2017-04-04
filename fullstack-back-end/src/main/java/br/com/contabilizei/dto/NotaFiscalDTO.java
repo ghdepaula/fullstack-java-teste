@@ -34,8 +34,6 @@ public class NotaFiscalDTO {
 	@XmlJavaTypeAdapter(BigDecimalAdapter.class) 
 	private BigDecimal valorNotaFiscal;
 	
-	private Boolean statusNota;
-	
 	private ClienteDTO clienteDTO;
 	
 	private AnexoDTO anexoDTO;
@@ -112,12 +110,4 @@ public class NotaFiscalDTO {
 		this.idNotaFiscal = idNotaFiscal;
 	}
 
-	public Boolean getStatusNota() {
-		return statusNota;
-	}
-
-	public void setStatusNota(Boolean statusNota) {
-		this.statusNota = statusNota;
-	}
-	
 }

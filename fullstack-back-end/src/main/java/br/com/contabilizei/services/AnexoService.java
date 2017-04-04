@@ -7,7 +7,7 @@ import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.model.Anexo;
 
 /**
- * Classe responsável por fornecer métodos para aplicação de regras de negócio, processamento e conversão de dados envolvendo operações com clientes. 
+ * Classe responsável por fornecer métodos para aplicação de regras de negócio, processamento e conversão de dados envolvendo operações com anexos. 
  * 
  * @author Guilherme Henrique de Paula 
  * 
@@ -23,7 +23,7 @@ public class AnexoService {
 	/**
 	 * Método Java que processa os dados de uma instância de {@link AnexoDTO} para inserção de uma instância da entidade {@link Anexo}.
 	 * 
-	 * @param clienteDTO instância de {@link AnexoDTO} contendo os dados da entidade {@link Anexo} que será inserida.
+	 * @param anexoDTO instância de {@link AnexoDTO} contendo os dados da entidade {@link Anexo} que será inserida.
 	 * 
 	 */
 	public void insert(AnexoDTO anexoDTO) {
@@ -34,7 +34,7 @@ public class AnexoService {
 	/**
 	 * Método Java que processa os dados de uma instância de {@link AnexoDTO} para atualização de uma instância da entidade {@link Anexo}.
 	 * 
-	 * @param clienteDTO instância de {@link AnexoDTO} contendo os dados da entidade {@link Anexo} que será atualizada.
+	 * @param anexoDTO instância de {@link AnexoDTO} contendo os dados da entidade {@link Anexo} que será atualizada.
 	 */
 	public void update(AnexoDTO anexoDTO) {
 		Anexo anexo = convertToModel(anexoDTO);
@@ -44,7 +44,7 @@ public class AnexoService {
 	/**
 	 * Método que lista todas as entidades de {@link Anexo} e realiza a conversão de dados para uma {@link List<AnexoDTO>}.
 	 * 
-	 * @return clientesDTO lista de {@link AnexoDTO}
+	 * @return anexosDTO lista de {@link AnexoDTO}
 	 */
 	public List<AnexoDTO> findAll() {
 
@@ -61,7 +61,7 @@ public class AnexoService {
 	/**
 	 * Método que busca uma instância da entidade {@link Anexo} com base no seu código identificador e realiza a conversão de dados para uma instância de {@link AnexoDTO}.
 	 * 
-	 * @return clienteDTO instância de {@link AnexoDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
+	 * @return anexoDTO instância de {@link AnexoDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
 	 * 
 	 */
 	public AnexoDTO findById(Long codAnexo) {
@@ -79,7 +79,8 @@ public class AnexoService {
 	/**
 	 * Método que executa a conversão de uma instância da entidade {@link Anexo} para uma instância de {@link AnexoDTO}
 	 * 
-	 * @return dto instancia de {@link AnexoDTO}
+	 * @param instância da entidade {@link Anexo}
+	 * @return dto instância de {@link AnexoDTO}
 	 * 
 	 */
 	public AnexoDTO convertToDTO(Anexo anexo) {
@@ -149,7 +150,7 @@ public class AnexoService {
 	 * Método que executa a conversão de uma lista de instâncias de {@link AnexoDTO} para uma lista de instâncias da entidade {@link Anexo} 
 	 * 
 	 * @param anexosDTO lista de instâncias da entidade {@link AnexoDTO} 
-	 * @return dto lista de instâncias da entidade {@link Anexo}
+	 * @return anexos lista de instâncias da entidade {@link Anexo}
 	 * 
 	 */
 	public List<Anexo> convertToModel(List<AnexoDTO> anexosDTO) {
@@ -177,8 +178,8 @@ public class AnexoService {
 	/**
 	 * Método que executa a conversão de uma instância de {@link AnexoDTO} para uma instância da entidade {@link Anexo} 
 	 * 
-	 * @param anexo instãncia da entidade {@link Anexo} 
-	 * @return dto instância de {@link AnexoDTO}
+	 * @param anexoDTO  instância de {@link AnexoDTO}
+	 * @return anexo instância da entidade {@link Anexo}
 	 * 
 	 */
 	public Anexo convertToModel(AnexoDTO anexoDTO) {

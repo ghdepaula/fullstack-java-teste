@@ -12,6 +12,12 @@ import br.com.contabilizei.dto.ClienteDTO;
 import br.com.contabilizei.dto.NotaFiscalDTO;
 import br.com.contabilizei.model.NotaFiscal;
 
+/**
+ * Classe responsável por fornecer métodos para aplicação de regras de negócio, processamento e conversão de dados envolvendo operações com notas fiscais. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 public class NotaFiscalService {
 
 	private NotaFiscalDAO daoNotaFiscal;
@@ -29,16 +35,32 @@ public class NotaFiscalService {
 		this.yearMonthAdapter = new YearMonthAdapter();
 	}
 
+	/**
+	 * Método Java que processa os dados de uma instância de {@link notaFiscalDTO} para inserção de uma instância da entidade {@link NotaFiscal}.
+	 * 
+	 * @param notaFiscalDTO instância de {@link NotaFiscalDTO} contendo os dados da entidade {@link NotaFiscal} que será inserida.
+	 * 
+	 */
 	public void insert(NotaFiscalDTO notaFiscalDTO) {
 		NotaFiscal notaFiscal = convertToModel(notaFiscalDTO);
 		this.daoNotaFiscal.save(notaFiscal);
 	}
 
+	/**
+	 * Método Java que processa os dados de uma instância de {@link NotaFiscalDTO} para atualização de uma instância da entidade {@link NotaFiscal}.
+	 * 
+	 * @param notaFiscalDTO instância de {@link NotaFiscalDTO} contendo os dados da entidade {@link NotaFiscal} que será atualizada.
+	 */
 	public void update(NotaFiscalDTO notaFiscalDTO) {
 		NotaFiscal notaFiscal = convertToModel(notaFiscalDTO);
 		this.daoNotaFiscal.update(notaFiscal);
 	}
 
+	/**
+	 * Método que lista todas as entidades de {@link NotaFiscal} e realiza a conversão de dados para uma lista de instãncias de {@link NotaFiscalDTO}.
+	 * 
+	 * @return notasFiscaisDTO lista de instâncias {@link NotaFiscalDTO}
+	 */
 	public List<NotaFiscalDTO> findAll() {
 
 		List<NotaFiscal> notas = this.daoNotaFiscal.findAll();
@@ -51,6 +73,12 @@ public class NotaFiscalService {
 		return notasFiscaisDTO;
 	}
 
+	/**
+	 * Método que busca uma instância da entidade {@link NotaFiscal} com base no seu código identificador e realiza a conversão de dados para uma instância de {@link NotaFiscalDTO}.
+	 * 
+	 * @param idNotaFiscal código identificador da nota fiscal.
+	 * @return notaFiscalDTO instância de {@link NotaFiscalDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
+	 */
 	public NotaFiscalDTO findById(Long idNotaFiscal) {
 
 		NotaFiscal notaFiscal = this.daoNotaFiscal.find(idNotaFiscal);
@@ -62,6 +90,15 @@ public class NotaFiscalService {
 		return null;
 	}
 	
+	/**
+	 * Método que busca uma lista de instâncias da entidade {@link NotaFiscal} com base no código do cliente 
+	 * e realiza a conversão de dados para uma lista de instâncias de {@link NotaFiscalDTO}.
+	 * 
+	 * @param codCliente código do cliente que será parâmetro para busca da lista de instâncias de {@link NotaFiscal}.  
+	 * 
+	 * @return notasFiscaisDTO lista de instâncias de {@link NotaFiscalDTO}.
+	 * 
+	 */
 	public List<NotaFiscalDTO> findByCodCliente(Long codCliente) {
 		
 		List<NotaFiscal> notasFiscais = this.daoNotaFiscal.findByCodCliente(codCliente);
@@ -74,6 +111,16 @@ public class NotaFiscalService {
 		return notasFiscaisDTO;
 	}
 	
+	/**
+	 * Método que busca uma lista de instâncias da entidade {@link NotaFiscal} com base no código do cliente e mês/ano 
+	 * e realiza a conversão de dados para uma lista de instâncias de {@link NotaFiscalDTO}.
+	 * 
+	 * @param codCliente código do cliente que será parâmetro para busca da lista de instâncias de {@link NotaFiscal}.  
+	 * @param month que será parâmetro para busca da lista de instâncias de {@link NotaFiscal}.
+	 * 
+	 * @return notasFiscaisDTO lista de instâncias de {@link NotaFiscalDTO}.
+	 * 
+	 */
 	public List<NotaFiscalDTO> findByCodClienteAndMes(Long codCliente, YearMonth month) {
 		
 		LocalDate dataInicial = month.atDay(1);
@@ -89,6 +136,17 @@ public class NotaFiscalService {
 		return notasFiscaisDTO;
 	}
 	
+	/**
+	 * Método que busca uma lista de instâncias da entidade {@link NotaFiscal} com base no código do cliente, mês e ano 
+	 * e realiza a conversão de dados para uma lista de instâncias de {@link NotaFiscalDTO}.
+	 * 
+	 * @param codCliente código do cliente que será parâmetro para busca da lista de instâncias de {@link NotaFiscal}.  
+	 * @param mes que será parâmetro para busca da lista de instâncias de {@link NotaFiscal}.
+	 * @param ano que será parâmetro para busca da lista de instâncias de {@link NotaFiscal}.
+	 * 
+	 * @return notasFiscaisDTO lista de instâncias de {@link NotaFiscalDTO}.
+	 * 
+	 */
 	public List<NotaFiscalDTO> findByCodClienteAndMes(Long codCliente, String month, String year) throws Exception {
 		
 		String yearMth = month + "/" + year;
@@ -107,6 +165,15 @@ public class NotaFiscalService {
 		return notasFiscaisDTO;
 	}
 	
+	/**
+	 * Método que busca uma lista de instâncias da entidade {@link NotaFiscal} com base no número da nota
+	 * e realiza a conversão de dados para uma lista de instâncias de {@link NotaFiscalDTO}.
+	 * 
+	 * @param numNota número da nota que será parâmetro para busca da lista de instâncias de {@link NotaFiscal}.  
+	 * 
+	 * @return notasFiscaisDTO lista de instâncias de {@link NotaFiscalDTO}.
+	 * 
+	 */
 	public List<NotaFiscalDTO> findByNumNota(Long numNota) {
 		
 		List<NotaFiscal> notasFiscais = this.daoNotaFiscal.findByNumNota(numNota);
@@ -119,8 +186,15 @@ public class NotaFiscalService {
 		return notasFiscaisDTO;
 	}
 
-
+	/**
+	 * Método que executa a conversão de uma instância da entidade {@link NotaFiscal} para uma instância de {@link NotaFiscalDTO}
+	 * 
+	 * @param notaFiscal instância da entidade {@link NotaFiscal}
+	 * @return notaFiscalDTO instância de {@link NotaFiscalDTO}
+	 * 
+	 */
 	public NotaFiscalDTO convertToDTO(NotaFiscal notaFiscal) {
+		
 		NotaFiscalDTO notaFiscalDTO = new NotaFiscalDTO();
 		AnexoDTO anexoDTO = anexoService.convertoToDTO(notaFiscal.getAnexo());
 		ClienteDTO clienteDTO = clienteService.convertToDTO(notaFiscal.getCliente());
@@ -134,12 +208,19 @@ public class NotaFiscalService {
 		notaFiscalDTO.setDescricaoNotaFiscal(notaFiscal.getDescricaoNotaFiscal());
 		notaFiscalDTO.setAnexoDTO(anexoDTO);
 		notaFiscalDTO.setClienteDTO(clienteDTO);
-		notaFiscalDTO.setStatusNota(notaFiscal.getStatusNota());
 
 		return notaFiscalDTO;
 	}
 
+	/**
+	 * Método que executa a conversão de uma instância da entidade {@link NotaFiscalDTO} para uma instância de {@link NotaFiscal}
+	 * 
+	 * @param notaFiscalDTO instância da entidade {@link NotaFiscalDTO}
+	 * @return notaFiscal instância de {@link NotaFiscal}
+	 * 
+	 */
 	public NotaFiscal convertToModel(NotaFiscalDTO notaFiscalDTO) {
+		
 		NotaFiscal notaFiscal = new NotaFiscal();
 		
 		notaFiscal.setIdNotaFiscal(notaFiscalDTO.getIdNotaFiscal());
@@ -149,7 +230,7 @@ public class NotaFiscalService {
 		notaFiscal.setDataEmissao(notaFiscalDTO.getDataEmissao());
 		notaFiscal.setValorNotaFiscal(notaFiscalDTO.getValorNotaFiscal());
 		notaFiscal.setDescricaoNotaFiscal(notaFiscalDTO.getDescricaoNotaFiscal());
-		notaFiscal.setStatusNota(notaFiscalDTO.getStatusNota());
+		
 		return notaFiscal;
 	}
 }

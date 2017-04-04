@@ -92,12 +92,7 @@ app.directive("ngShowModal", function ($parse) {
     };
 });
 
-app.config(function(cfpLoadingBarProvider) {
-    // true is the default, but I left this here as an example:
-    cfpLoadingBarProvider.includeSpinner = true;
-});
-
-app.config(function($routeProvider) {
+app.config(function($routeProvider, cfpLoadingBarProvider) {
 	  
 	$routeProvider.when('/clientes', {
 	    templateUrl : 'views/clientes/clientes.html',
@@ -125,5 +120,8 @@ app.config(function($routeProvider) {
 	})
 	
 	$routeProvider.otherwise({redirectTo: '/'});
+	
+    cfpLoadingBarProvider.includeSpinner = true;
+
 	
 });

@@ -51,13 +51,6 @@
 					<textarea rows="2" cols="10" ng-model="nota.descricaoNotaFiscal" id="descrNotaFiscal" type="text" class="form-control" ng-required="true" >
 					</textarea>
 				</div>
-				
-				<div class="form-group">
-					<label for="statusNotaFiscal">Situação</label> 
-						<select ng-model="nota.statusNota" ng-options="o.statusValue as o.statusDescr for o in [{ statusDescr: 'AUTORIZADA', statusValue: true }, { statusDescr: 'CANCELADA', statusValue: false  }]" class="form-control" ng-required="true" id="statusNotaFiscal">
-						<option value="" ng-if="false"></option>
-					</select>
-				</div>
 
 				<hr />
 				<div class="text-right">

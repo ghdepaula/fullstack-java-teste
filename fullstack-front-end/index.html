@@ -7,11 +7,12 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-select.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datepicker.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-sticky-footer.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
  <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
 </head>
 <body ng-app="contabilizeiApp">
-	<nav class="navbar navbar-default">
+	<nav id="header" class="navbar navbar-default">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -84,9 +85,17 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container">
+	<div id="content" class="container">
 		<div class="content" ng-view ></div>
 	</div>
+	<footer class="footer">
+      <div class="container">
+        <span class="navbar-text text-muted text-center">2017 &copy; Guilherme Henrique de Paula&nbsp;&nbsp;
+        	<a class="btn-link" href="https://github.com/ghdepaula/fullstack-java-teste" title="GitHub" target="_blank"><i class="fa fa-lg fa-github"></i></a>&nbsp;&nbsp;
+        	<a class="btn-link" href="doc" title="JavaDoc" target="_blank"><i class="fa fa-lg fa-book"></i></a>
+        </span>
+      </div>
+    </footer>
 	<script src="assets/js/jquery-3.1.0.min.js"></script>
 	<script src="assets/js/jquery.mask.js"></script>
 	<script src="assets/js/bootstrap.js"></script>

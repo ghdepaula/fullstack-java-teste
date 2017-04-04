@@ -16,6 +16,12 @@ import br.com.contabilizei.dto.RegimeTributarioDTO;
 import br.com.contabilizei.dto.TributoDTO;
 import br.com.contabilizei.model.Imposto;
 
+/**
+ * Classe responsável por fornecer métodos para aplicação de regras de negócio, processamento e conversão de dados envolvendo operações com impostos. 
+ * 
+ * @author Guilherme Henrique de Paula 
+ * 
+ */
 public class ImpostosService {
 	
 	private ImpostosDAO daoImpostos;
@@ -38,7 +44,13 @@ public class ImpostosService {
 		this.regimesTributariosService = new RegimesTributariosService();
 		this.yearMonthAdapter = new YearMonthAdapter();
 	}
-
+	
+	/**
+	 * Método Java que processa os dados de uma instância de {@link DadosImpostoDTO} para cáclculo e inserção de uma ou várias instâncias da entidade {@link Imposto}.
+	 * 
+	 * @param dadosImposto instância de {@link DadosImpostoDTO} contendo os dados da entidade {@link Imposto} que será calculada e inserida.
+	 * 
+	 */
 	public void calculate(DadosImpostoDTO dadosImposto) {
 		
 		List<Imposto> impostos = new ArrayList<Imposto>();
@@ -59,6 +71,15 @@ public class ImpostosService {
 		}
 	}
 	
+	/**
+	 * Método Java que processa uma lista de instâncias {@link NotaFiscalDTO} e os dados de uma instância de {@link DadosImpostoDTO} executando o cálculo de impostos mensal.
+	 * 
+	 * @param notasFiscais lista de instâncias de{@link NotaFiscalDTO} do mês.
+	 * @param dadosImposto instância de {@link DadosImpostoDTO} necessários para execução do cálculo de impostos. 
+	 * 
+	 * @return impostos lista de instâncias de {@link Imposto}
+	 * 
+	 */
 	private List<Imposto> calculateImpostos(List<NotaFiscalDTO> notasFiscais, DadosImpostoDTO dadosImposto){
 		
 		ClienteDTO clienteDTO = this.clienteService.findById(dadosImposto.getCodCliente());
@@ -104,6 +125,21 @@ public class ImpostosService {
 		return impostos;
 	}
 	
+	/**
+	 * Método Java que processa os dados de uma instância de {@link ImpostoDTO} para atualização de uma instância da entidade {@link Imposto}.
+	 * 
+	 * @param impostoDTO instância de {@link ImpostoDTO} contendo os dados da entidade {@link Imposto} que será atualizada.
+	 */
+	public void update(ImpostoDTO impostoDTO) {
+		Imposto imposto = convertToModel(impostoDTO);
+		this.daoImpostos.update(imposto);
+	}
+	
+	/**
+	 * Método que lista todas as entidades de {@link Imposto} e realiza a conversão de dados para uma {@link List<ImpostoDTO>}.
+	 * 
+	 * @return regimesTributariosDTO lista de {@link ImpostoDTO}
+	 */
 	public List<ImpostoDTO> findAll(){
 		
 		List<Imposto> impostos = this.daoImpostos.findAll();
@@ -117,6 +153,30 @@ public class ImpostosService {
 		return impostosDTO;
 	}
 	
+	/**
+	 * Método que busca uma instância da entidade {@link Imposto} com base no seu código identificador e realiza a conversão de dados para uma instância de {@link ImpostoDTO}.
+	 * 
+	 * @return impostoDTO instância de {@link ImpostoDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
+	 */
+	public ImpostoDTO findById(Long idImposto) {
+		Imposto imposto = this.daoImpostos.find(idImposto);
+
+		if (imposto != null) {
+			ImpostoDTO impostoDTO = convertToDTO(imposto);
+			return impostoDTO;
+		}
+		return null;
+	}
+	
+	/**
+	 * Método que busca uma lista de instâncias da entidade {@link Imposto} com base no código do cliente 
+	 * e realiza a conversão de dados para uma lista de instâncias de {@link ImpostoDTO}.
+	 * 
+	 * @param codCliente código do cliente que será parâmetro para busca da lista de instâncias de {@link Imposto}.  
+	 * 
+	 * @return impostosDTO lista de instâncias de {@link ImpostoDTO}.
+	 * 
+	 */
 	public List<ImpostoDTO> findByCodCliente(Long codCliente){
 		
 		List<Imposto> impostos = this.daoImpostos.findByCodCliente(codCliente);
@@ -130,6 +190,17 @@ public class ImpostosService {
 		return impostosDTO;
 	}
 	
+	/**
+	 * Método que busca uma lista de instâncias da entidade {@link Imposto} com base no código do cliente, mês e ano 
+	 * e realiza a conversão de dados para uma lista de instâncias de {@link ImpostoDTO}.
+	 * 
+	 * @param codCliente código do cliente que será parâmetro para busca da lista de instâncias de {@link Imposto}.  
+	 * @param mes que será parâmetro para busca da lista de instâncias de {@link Imposto}.
+	 * @param ano que será parâmetro para busca da lista de instâncias de {@link Imposto}.
+	 * 
+	 * @return impostosDTO lista de instâncias de {@link ImpostoDTO}.
+	 * 
+	 */
 	public List<ImpostoDTO> findByCodClienteMesAno(Long codCliente, String mes, String ano) throws Exception {
 		
 		String yearMth = mes + "/" + ano;
@@ -145,27 +216,14 @@ public class ImpostosService {
 		
 		return impostosDTO;
 	}
-
-	public void update(ImpostoDTO impostoDTO) {
-		Imposto imposto = convertToModel(impostoDTO);
-		this.daoImpostos.update(imposto);
-	}
 	
-	public Imposto convertToModel(ImpostoDTO dto){
-		
-		Imposto imposto = new Imposto();
-		
-		imposto.setIdImposto(dto.getIdImposto());
-		imposto.setYearMonth(dto.getYearMonth());
-		imposto.setDataVencimento(dto.getDataVencimento());
-		imposto.setValorImposto(dto.getValorImposto());
-		imposto.setStatusPagamento(dto.getStatusPagamento());
-		imposto.setCodCliente(dto.getCodCliente());
-		imposto.setCodTributo(dto.getCodTributo());
-		
-		return imposto;
-	}	
-	
+	/**
+	 * Método que executa a conversão de uma instância da entidade {@link Imposto} para uma instância de {@link ImpostoDTO}
+	 * 
+	 * @param tributos lista de instâncias da entidade {@link Imposto}
+	 * @return tributosDTO lista instâncias de {@link ImpostoDTO}
+	 * 
+	 */
 	public ImpostoDTO convertToDTO(Imposto imposto){
 	
 		ImpostoDTO dto = new ImpostoDTO();
@@ -185,16 +243,25 @@ public class ImpostosService {
 		return dto;
 	}
 
-	public ImpostoDTO findById(Long idImposto) {
-		Imposto imposto = this.daoImpostos.find(idImposto);
-
-		if (imposto != null) {
-			ImpostoDTO impostoDTO = convertToDTO(imposto);
-			return impostoDTO;
-		}
-		return null;
-	}
-
-
-
+	/**
+	 * Método que executa a conversão de uma instância de {@link ImpostoDTO} para uma instância da entidade {@link Imposto} 
+	 * 
+	 * @param dto instância de @{link {@link ImpostoDTO} 
+	 * @return imposto instância da entidade {@link Imposto}
+	 * 
+	 */
+	public Imposto convertToModel(ImpostoDTO dto){
+		
+		Imposto imposto = new Imposto();
+		
+		imposto.setIdImposto(dto.getIdImposto());
+		imposto.setYearMonth(dto.getYearMonth());
+		imposto.setDataVencimento(dto.getDataVencimento());
+		imposto.setValorImposto(dto.getValorImposto());
+		imposto.setStatusPagamento(dto.getStatusPagamento());
+		imposto.setCodCliente(dto.getCodCliente());
+		imposto.setCodTributo(dto.getCodTributo());
+		
+		return imposto;
+	}	
 }

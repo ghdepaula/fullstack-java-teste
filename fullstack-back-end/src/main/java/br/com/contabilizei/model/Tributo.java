@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Classe que representa a tabela tribu. 
+ * Classe que representa a tabela tributos. 
  * 
  * @author Guilherme Henrique de Paula 
  * 

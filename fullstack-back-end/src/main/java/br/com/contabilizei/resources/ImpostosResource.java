@@ -19,7 +19,7 @@ import br.com.contabilizei.services.ImpostosService;
 /**
  * Classe responsável pelo processamento de requisições HTTP ao serviço de impostos da aplicação. 
  * 
- * @author ghdepaula
+ * @author Guilherme Henrique de Paula
  * 
  */
 @Path("/impostos")
@@ -57,7 +57,7 @@ public class ImpostosResource {
 	}
 	
 	/**
-	 * Método que processa os dados de uma requisição HTTP PUT para inserção de um novo {@link Imposto}.
+	 * Método que processa os dados de uma requisição HTTP PUT para atualização de uma entidade {@link Imposto}.
 	 * 
 	 * @param imposto instância de {@link ImpostoDTO} contendo dados do {@link Imposto} que será atualizado.
 	 * @return response da requisição HTTP PUT com dados da instância de {@link ImpostoDTO} atualizada no formato JSON.

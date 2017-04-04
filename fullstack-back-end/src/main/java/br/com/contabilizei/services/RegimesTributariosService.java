@@ -9,7 +9,7 @@ import br.com.contabilizei.model.RegimeTributario;
 import br.com.contabilizei.model.Tributo;
 
 /**
- * Classe responsável por fornecer métodos para aplicação de regras de negócio, processamento e conversão de dados envolvendo operações com clientes. 
+ * Classe responsável por fornecer métodos para aplicação de regras de negócio, processamento e conversão de dados envolvendo operações com regimes tributários. 
  * 
  * @author Guilherme Henrique de Paula 
  * 
@@ -83,7 +83,7 @@ public class RegimesTributariosService {
 	/**
 	 * Método que executa a conversão de uma instância da entidade {@link RegimeTributario} para uma instância de {@link RegimeTributarioDTO}
 	 * 
-	 * @return dto instancia de {@link RegimeTributarioDTO}
+	 * @return dto instância de {@link RegimeTributarioDTO}
 	 * 
 	 */
 	public RegimeTributarioDTO convertToDTO(RegimeTributario regimeTributario) {

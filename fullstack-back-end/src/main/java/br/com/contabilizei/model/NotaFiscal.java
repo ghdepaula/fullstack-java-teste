@@ -61,9 +61,6 @@ public class NotaFiscal implements Serializable{
 	@Column(nullable=false)
 	private BigDecimal valorNotaFiscal;
 	
-	@Column(nullable=false)
-	private Boolean statusNota;
-	
 	@ManyToOne
 	@JoinColumn(name="codCliente", referencedColumnName="idCliente", insertable=false, updatable=false)
 	private Cliente cliente;
@@ -136,14 +133,6 @@ public class NotaFiscal implements Serializable{
 		this.dataEmissao = dataEmissao;
 	}
 	
-	public Boolean getStatusNota() {
-		return statusNota;
-	}
-
-	public void setStatusNota(Boolean statusNota) {
-		this.statusNota = statusNota;
-	}
-
 	public Long getIdNotaFiscal() {
 		return idNotaFiscal;
 	}

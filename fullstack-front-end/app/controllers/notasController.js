@@ -10,7 +10,6 @@
 		//Var initialize
 		$scope.notas = [];
 		$scope.nota = {};
-		$scope.nota.statusNota = true;
 		$scope.clientes = [];
 		$scope.anexos = [];
 		$scope.dtFiltroNotas = null; 
@@ -131,7 +130,6 @@
 			$scope.nota.codAnexo = null;
 			$scope.nota.valorNotaFiscal = null;
 			$scope.nota.dataEmissao = null;
-			$scope.nota.statusNota = true;
 			
 			$('#numNotaFiscal').val('');
 			$('#dtEmissaoNota').val('')
@@ -208,8 +206,6 @@
 	       cfpLoadingBar.complete();
 	    };
 
-
-	    // fake the initial load so first time users can see the bar right away:
 	    $scope.start();
 	    $scope.loadIntro = true;
 	    $timeout(function() {

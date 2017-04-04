@@ -13,12 +13,13 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import br.com.contabilizei.dto.TributoDTO;
+import br.com.contabilizei.model.Tributo;
 import br.com.contabilizei.services.TributoService;
 
 /**
  * Classe responsável pelo processamento de requisições HTTP ao serviço de tributos da aplicação. 
  * 
- * @author ghdepaula
+ * @author Guilherme Henrique de Paula
  * 
  */
 @Path("/tributos")
@@ -52,7 +53,7 @@ public class TributosResource {
 	}
 
 	/**
-	 * Método Java que processa a requisição HTTP PUT para atualização de um tributo.
+	 * Método Java que processa a requisição HTTP PUT para atualização de uma entidade {@link Tributo}.
 	 * 
 	 * @param tributo instância contendo dados do tributo que será inserido.
 	 * @return response retorno requisição HTTP PUT com dados do tributo inserido no formato JSON.

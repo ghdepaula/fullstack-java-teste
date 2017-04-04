@@ -83,13 +83,6 @@ public abstract class GenericDAO<T> implements Serializable {
 		closeTransaction();
 		return entity;
 	}
-	
-	public T findReferenceOnly(Long entityID) {
-		beginTransaction();
-		T entity = (T) this.em.getReference(this.entityClass, entityID);
-		closeTransaction();
-		return entity;
-	}
 
 	public List<T> findAll() {
 		beginTransaction();
@@ -97,25 +90,6 @@ public abstract class GenericDAO<T> implements Serializable {
 		cq.select(cq.from(this.entityClass));
 		List<T> result = this.em.createQuery(cq).getResultList();
 		closeTransaction();
-		return result;
-	}
-
-	protected T findOneResult(String namedQuery, Map<String, Object> parameters) {
-		T result = null;
-		try {
-			beginTransaction();
-			Query query = this.em.createNamedQuery(namedQuery);
-			if ((parameters != null) && (!parameters.isEmpty())) {
-				populateQueryParameters(query, parameters);
-			}
-			result = (T) query.getSingleResult();
-			closeTransaction();
-		} catch (NoResultException e) {
-			System.out.println("No result found for named query: " + namedQuery);
-		} catch (Exception e) {
-			System.out.println("Error while running query: " + e.getMessage());
-			e.printStackTrace();
-		}
 		return result;
 	}
 

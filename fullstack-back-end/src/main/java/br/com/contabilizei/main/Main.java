@@ -18,6 +18,13 @@ import br.com.contabilizei.services.AnexoService;
 import br.com.contabilizei.services.RegimesTributariosService;
 import br.com.contabilizei.services.TributoService;
 
+/**
+ * Classe principal da aplicação que inicializa os servidor Tomcat 8 e insere os parâmetros iniciais necessários para correto funcionamento das aplicações
+ * back-end e front-end
+ * 
+ * @author Guilherme Henrique de Paula
+ *
+ */
 public class Main {
 
 	private static final String CTX_BACK_END_APP = "/contabilizei";

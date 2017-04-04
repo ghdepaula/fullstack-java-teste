@@ -18,7 +18,7 @@ import br.com.contabilizei.services.NotaFiscalService;
 /**
  * Classe responsável pelo processamento de requisições HTTP ao serviço de notas fiscais da aplicação. 
  * 
- * @author ghdepaula
+ * @author Guilherme Henrique de Paula
  * 
  */
 @Path("/notas")

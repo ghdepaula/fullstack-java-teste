@@ -53,7 +53,7 @@ public class ClienteResource {
 	}
 
 	/**
-	 * Método que processa os dados de uma requisição HTTP PUT para inserção de um novo {@link Cliente}.
+	 * Método que processa os dados de uma requisição HTTP PUT para atualização de uma entidade {@link Cliente}.
 	 * 
 	 * @param cliente instância de {@link ClienteDTO} contendo dados do {@link Cliente} que será atualizado.
 	 * @return response da requisição HTTP PUT com dados da instância de {@link ClienteDTO} atualizada no formato JSON.

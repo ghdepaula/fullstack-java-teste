@@ -4250,6 +4250,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   z-index: 1000;
   border-width: 0 0 1px;
 }
+
 @media (min-width: 768px) {
   .navbar-static-top {
     border-radius: 0;
@@ -4262,6 +4263,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   left: 0;
   z-index: 1030;
 }
+
 @media (min-width: 768px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom {
@@ -4277,6 +4279,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 0;
   border-width: 1px 0 0;
 }
+
+.navbar-static-bottom {
+  @extend .navbar-fixed-bottom;
+  position: relative;
+  border-width: 1px 1px 0;
+}
+
 .navbar-brand {
   float: left;
   padding: 15px 15px;
@@ -4481,6 +4490,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-text {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+.navbar-text.text-center{
+    float: none;
 }
 @media (min-width: 768px) {
   .navbar-text {
@@ -6550,6 +6562,7 @@ button.close {
 .affix {
   position: fixed;
 }
+
 @-ms-viewport {
   width: device-width;
 }
