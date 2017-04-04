@@ -26,8 +26,7 @@
 			findAll : _findAll,
 			findById : _findById,
 			insert : _insert,
-			update : _update,
-			remove : _remove
+			update : _update
 		}
 	}
 
