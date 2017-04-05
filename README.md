@@ -62,5 +62,14 @@ Existem diversas formas de executar e testar os projetos desenvolvidos, citarei 
 Se voce fosse utilizar esse sistema comercialmente, que alterações vc faria para escalar e/ou facilitar a vida do usuario? OBS: Voce pode descrever isso aqui ou mostrar na implementação.
 
 * Na aplicação front-end melhoraria a validação client-side dos formulários da aplicação, adotando o padrão de validações inline-validation fornecendo assim uma melhor experiência de interação com a aplicação para usuário final.
+
+**Referências e Links de Apoio**
+
+* https://rafaell-lycan.com/2015/angular-services-factories-providers/
+* https://felipenipo.wordpress.com/2015/04/10/implementando-cors-em-web-services-com-jax-rs/
+* https://www.youtube.com/playlist?list=PLQCmSnNFVYnTD5p2fR4EXmtlR6jQJMbPb
+* http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/basic_app_embedded_tomcat/basic_app-tomcat-embedded.html
+
+
  
 
