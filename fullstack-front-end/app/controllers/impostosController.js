@@ -45,8 +45,21 @@
 		}
 		
 		function findClientes() {
+			
+			var msg;
+			
 			clienteService.findAll().success(function(result){
-				$scope.clientes = result;
+				
+				if(result.length > 0){
+					$scope.clientes = result;
+				}else{
+					msg = alertsService.alertInfo("Nenhum cliente cadastrado, realize o cadastro de um cliente para lançar suas notas fiscais.");
+					showAlert(msg);
+				}
+
+			}).error(function(){
+				msg = alertsService.alertError("Ocorreu um errro ! Não foi possível pesquisar os clientes", status);
+				showAlert(msg);
 			});
 		}
 		
@@ -170,7 +183,7 @@
 			
 			var msg;
 			var codCli = $scope.dadosImpostos.codCliente;
-			var periodo = $scope.dadosImpostos.yearMonth;
+			var periodo = $scope.dadosImpostos.mesAno;
 			var validImpostosNotasMes = true;
 			
 			removeAlert();
@@ -186,7 +199,7 @@
 				}).then(function(){
 					notaFiscalService.findByCodClienteMes(codCli, periodo).success(function (result) {
 						if(result.length < 1){
-							msg = alertsService.alertWarning("Nenhuma nota fiscal foi lançada no mês selecionado.");
+							msg = alertsService.alertInfo("Nenhuma nota fiscal foi lançada no mês selecionado.");
 							showAlert(msg);
 							$scope.calculaImpostoForm.dtBaseImposto.$setValidity("dtBaseImposto", false);
 						}
@@ -227,7 +240,7 @@
 		}
 		
 		function resetDadosImpostos() {
-			$scope.dadosImpostos.yearMonth = null;
+			$scope.dadosImpostos.mesAno = null;
 			$('#dtBaseImposto').val('');
 		}
 		

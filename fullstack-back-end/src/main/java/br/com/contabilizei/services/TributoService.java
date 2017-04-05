@@ -2,6 +2,7 @@ package br.com.contabilizei.services;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.contabilizei.dao.TributoDAO;
 import br.com.contabilizei.dto.TributoDTO;
 import br.com.contabilizei.model.Tributo;
@@ -61,6 +62,7 @@ public class TributoService {
 	/**
 	 * Método que busca uma instância da entidade {@link Tributo} com base no seu código identificador e realiza a conversão de dados para uma instância de {@link TributoDTO}.
 	 * 
+	 * @param código identificado da entidade {@link Tributo}
 	 * @return tributoDTO instância de {@link TributoDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
 	 */
 	public TributoDTO findById(Long codTributo) {

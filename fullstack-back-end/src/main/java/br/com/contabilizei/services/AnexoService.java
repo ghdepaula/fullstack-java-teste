@@ -2,6 +2,7 @@ package br.com.contabilizei.services;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.contabilizei.dao.AnexoDAO;
 import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.model.Anexo;
@@ -61,6 +62,7 @@ public class AnexoService {
 	/**
 	 * Método que busca uma instância da entidade {@link Anexo} com base no seu código identificador e realiza a conversão de dados para uma instância de {@link AnexoDTO}.
 	 * 
+	 * @param codAnexo ódigo identificado da entidade {@link Anexo} 
 	 * @return anexoDTO instância de {@link AnexoDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
 	 * 
 	 */
@@ -95,7 +97,7 @@ public class AnexoService {
 	}
 	
 	/**
-	 * Método que executa a conversão de uma lista de instâncias da entidade {@link Anexo} para uma lista de instancias instância de {@link AnexoDTO} 
+	 * Método que executa a conversão de uma lista de instâncias da entidade {@link Anexo} para uma lista de instâncias de {@link AnexoDTO} 
 	 * 
 	 * @param anexos lista de instâncias da entidade {@link Anexo}
 	 * @return anexosDTO lista de instâncias da entidade {@link AnexoDTO}
@@ -121,29 +123,6 @@ public class AnexoService {
 		}
 		
 		return anexosDTO;
-	}
-	
-	/**
-	 * Método que executa a conversão de uma instância da entidade {@link Anexo} para uma instância de {@link AnexoDTO} 
-	 * 
-	 * @param anexo instância da entidade {@link Anexo} 
-	 * @return dto instância de {@link AnexoDTO}
-	 * 
-	 */
-	public AnexoDTO convertoToDTO(Anexo anexo) {
-
-		if (anexo == null) {
-			return null;
-		}
-
-		AnexoDTO dto = new AnexoDTO();
-
-		dto.setCodAnexo(anexo.getCodAnexo());
-		dto.setDescricaoAnexo(anexo.getDescricaoAnexo());
-		dto.setAliquotaAnexo(anexo.getAliquotaAnexo());
-		dto.setStatusAnexo(anexo.getStatusAnexo());
-
-		return dto;
 	}
 	
 	/**

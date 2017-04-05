@@ -11,6 +11,13 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
+/**
+ * Classe abstrata fornece métodos para execução de operações/transações com a base dados. 
+ * 
+ * @author desenv
+ *
+ * @param <T>
+ */
 @SuppressWarnings({"unchecked","rawtypes"})
 public abstract class GenericDAO<T> implements Serializable {
 	

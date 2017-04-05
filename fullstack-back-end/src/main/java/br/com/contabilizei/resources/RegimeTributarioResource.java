@@ -38,7 +38,7 @@ public class RegimeTributarioResource {
 	 * Método Java que processa a requisição HTTP POST para inserção de um novo regime tributário.
 	 * 
 	 * @param regimeTributario instância contendo dados do regime tributário que será inserido.
-	 * @return response retorno requisição HTTP POST com dados do regime tributário inserido no formato JSON.
+	 * @return response requisição HTTP POST com dados do regime tributário inserido no formato JSON.
 	 */
 	@POST
 	@Consumes({ "application/json" })
@@ -56,8 +56,8 @@ public class RegimeTributarioResource {
 	/**
 	 * Método Java que processa a requisição HTTP PUT para atualização de um regime tributário.
 	 * 
-	 * @param regimeTributario instância contendo dados do regime tributário que será inserido.
-	 * @return response retorno requisição HTTP PUT com dados do regime tributário inserido no formato JSON.
+	 * @param regimeTributario instância contendo dados do regime tributário que será atualizado.
+	 * @return response requisição HTTP PUT com dados do regime tributário inserido no formato JSON.
 	 */
 	@PUT
 	@Consumes({ "application/json" })

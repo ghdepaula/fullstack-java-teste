@@ -56,9 +56,9 @@ public class ImpostosService {
 		List<Imposto> impostos = new ArrayList<Imposto>();
 		
 		Long codCli = dadosImposto.getCodCliente();
-		YearMonth month = dadosImposto.getYearMonth();
+		YearMonth mesAno = dadosImposto.getMesAno();
 		
-		List<NotaFiscalDTO> notasFiscais = this.notaFiscalService.findByCodClienteAndMes(codCli, month);
+		List<NotaFiscalDTO> notasFiscais = this.notaFiscalService.findByCodClienteAndMes(codCli, mesAno);
 
 		if(notasFiscais != null && !notasFiscais.isEmpty() && notasFiscais.size() > 0){
 			impostos = calculateImpostos(notasFiscais, dadosImposto);
@@ -94,7 +94,7 @@ public class ImpostosService {
 			BigDecimal totalTributo = BigDecimal.ZERO;
 			BigDecimal aliquota = BigDecimal.ZERO;
 			BigDecimal divisor = new BigDecimal(100);
-			LocalDate dataVencimento = dadosImposto.getYearMonth().plusMonths(1).atDay(25);
+			LocalDate dataVencimento = dadosImposto.getMesAno().plusMonths(1).atDay(25);
 			
 			for (NotaFiscalDTO notaFiscal : notasFiscais) {
 				
@@ -112,7 +112,7 @@ public class ImpostosService {
 			
 			Imposto imposto = new Imposto();
 			imposto.setCodCliente(dadosImposto.getCodCliente());
-			imposto.setYearMonth(dadosImposto.getYearMonth());
+			imposto.setMesAno(dadosImposto.getMesAno());
 			imposto.setDataVencimento(dataVencimento);
 			imposto.setCodTributo(tributo.getCodTributo());
 			imposto.setStatusPagamento(Boolean.FALSE);
@@ -156,6 +156,7 @@ public class ImpostosService {
 	/**
 	 * Método que busca uma instância da entidade {@link Imposto} com base no seu código identificador e realiza a conversão de dados para uma instância de {@link ImpostoDTO}.
 	 * 
+	 * @param código identificado da entidade {@link Imposto}
 	 * @return impostoDTO instância de {@link ImpostoDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
 	 */
 	public ImpostoDTO findById(Long idImposto) {
@@ -203,10 +204,10 @@ public class ImpostosService {
 	 */
 	public List<ImpostoDTO> findByCodClienteMesAno(Long codCliente, String mes, String ano) throws Exception {
 		
-		String yearMth = mes + "/" + ano;
-		YearMonth month = this.yearMonthAdapter.unmarshal(yearMth);
+		String strMesAno = mes + "/" + ano;
+		YearMonth mesAno = this.yearMonthAdapter.unmarshal(strMesAno);
 		
-		List<Imposto> impostos = this.daoImpostos.findByCodClienteMes(codCliente, month);
+		List<Imposto> impostos = this.daoImpostos.findByCodClienteMes(codCliente, mesAno);
 		List<ImpostoDTO> impostosDTO = new ArrayList<ImpostoDTO>();
 		
 		for(Imposto imposto : impostos){
@@ -231,7 +232,7 @@ public class ImpostosService {
 		ClienteDTO clienteDTO = this.clienteService.convertToDTO(imposto.getCliente());
 		
 		dto.setIdImposto(imposto.getIdImposto());
-		dto.setYearMonth(imposto.getYearMonth());
+		dto.setMesAno(imposto.getMesAno());
 		dto.setDataVencimento(imposto.getDataVencimento());
 		dto.setValorImposto(imposto.getValorImposto());
 		dto.setStatusPagamento(imposto.getStatusPagamento());
@@ -255,7 +256,7 @@ public class ImpostosService {
 		Imposto imposto = new Imposto();
 		
 		imposto.setIdImposto(dto.getIdImposto());
-		imposto.setYearMonth(dto.getYearMonth());
+		imposto.setMesAno(dto.getMesAno());
 		imposto.setDataVencimento(dto.getDataVencimento());
 		imposto.setValorImposto(dto.getValorImposto());
 		imposto.setStatusPagamento(dto.getStatusPagamento());

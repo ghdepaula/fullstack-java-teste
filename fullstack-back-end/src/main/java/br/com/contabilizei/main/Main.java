@@ -4,12 +4,14 @@ package br.com.contabilizei.main;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.filters.CorsFilter;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.glassfish.jersey.servlet.ServletContainer;
+
 import br.com.contabilizei.config.RestApplication;
 import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.dto.RegimeTributarioDTO;
@@ -41,15 +43,14 @@ public class Main {
 			
 			File file = new File(frontEndAppPath);
 			
-			// Define port number for the web application
+			// Definir porta servidor
 			String webPort = System.getenv("PORT");
 			if (webPort == null || webPort.isEmpty()) {
 				webPort = "8081";
 			}
-			// Bind the port to Tomcat server and enable naming
+
 			tomcat.setPort(Integer.valueOf(webPort));
 			
-			// Define a web application ctxBack and bind web.xml file location.
 			Context ctxBack = tomcat.addWebapp(CTX_BACK_END_APP , appBase);
 			ctxBack.setReloadable(true);
 			
@@ -83,7 +84,6 @@ public class Main {
 				ctxFront.setReloadable(true);
 			}
 
-			//Initialize server
 			tomcat.start();
 			defineApplicationDefaultSettings();
 			tomcat.getServer().await();

@@ -28,10 +28,10 @@ public class ImpostosDAO extends GenericDAO<Imposto> {
 		return impostos;
 	}
 	
-	public List<Imposto> findByCodClienteMes(Long codCliente, YearMonth month) {
+	public List<Imposto> findByCodClienteMes(Long codCliente, YearMonth mesAno) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("codCliente", codCliente);
-		params.put("yearMonth", month);
+		params.put("mesAno", mesAno);
 		List<Imposto> impostos = findManyResults(Imposto.FIND_BY_COD_CLIENTE_MES, params);
 		return impostos;
 	}

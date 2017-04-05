@@ -26,7 +26,7 @@ import javax.persistence.Table;
 @Table(name="impostos")
 @NamedQueries({
 	 @NamedQuery(name="Imposto.findByCodCliente", query="SELECT i FROM Imposto i WHERE i.codCliente = :codCliente"),
-	 @NamedQuery(name="Imposto.findByCodClienteMes", query="SELECT i FROM Imposto i WHERE i.codCliente = :codCliente AND i.yearMonth = :yearMonth")
+	 @NamedQuery(name="Imposto.findByCodClienteAndMesAno", query="SELECT i FROM Imposto i WHERE i.codCliente = :codCliente AND i.mesAno = :mesAno")
 })
 public class Imposto implements Serializable {
 	
@@ -34,7 +34,7 @@ public class Imposto implements Serializable {
 
 	public static final String FIND_BY_COD_CLIENTE = "Imposto.findByCodCliente";
 	
-	public static final String FIND_BY_COD_CLIENTE_MES = "Imposto.findByCodClienteMes";
+	public static final String FIND_BY_COD_CLIENTE_MES = "Imposto.findByCodClienteAndMesAno";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -42,7 +42,7 @@ public class Imposto implements Serializable {
 	private Long idImposto;
 	
 	@Column
-	private YearMonth yearMonth;
+	private YearMonth mesAno;
 	
 	@Column
 	private LocalDate dataVencimento;
@@ -75,12 +75,12 @@ public class Imposto implements Serializable {
 		this.idImposto = idImposto;
 	}
 
-	public YearMonth getYearMonth() {
-		return yearMonth;
+	public YearMonth getMesAno() {
+		return mesAno;
 	}
 
-	public void setYearMonth(YearMonth yearMonth) {
-		this.yearMonth = yearMonth;
+	public void setMesAno(YearMonth mesAno) {
+		this.mesAno = mesAno;
 	}
 	
 	public LocalDate getDataVencimento() {
@@ -163,5 +163,7 @@ public class Imposto implements Serializable {
 	    result = prime * result + ((getIdImposto() == null) ? 0 : getIdImposto().hashCode());
 	    return result;
 	}
+
+
 
 }

@@ -23,7 +23,7 @@ public class ImpostoDTO {
 	private Long idImposto;
 	
 	@XmlJavaTypeAdapter(value = YearMonthAdapter.class)
-	private YearMonth yearMonth;
+	private YearMonth mesAno;
 	
 	@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
 	private LocalDate dataVencimento;
@@ -49,12 +49,12 @@ public class ImpostoDTO {
 		this.idImposto = idImposto;
 	}
 
-	public YearMonth getYearMonth() {
-		return yearMonth;
+	public YearMonth getMesAno() {
+		return mesAno;
 	}
 
-	public void setYearMonth(YearMonth yearMonth) {
-		this.yearMonth = yearMonth;
+	public void setMesAno(YearMonth mesAno) {
+		this.mesAno = mesAno;
 	}
 
 	public Long getCodCliente() {

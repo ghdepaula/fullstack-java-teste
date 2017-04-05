@@ -19,7 +19,7 @@ public class DadosImpostoDTO {
 	private Long codCliente;
 	
 	@XmlJavaTypeAdapter(value = YearMonthAdapter.class)
-	private YearMonth yearMonth;
+	private YearMonth mesAno;
 
 	public Long getCodCliente() {
 		return codCliente;
@@ -29,7 +29,11 @@ public class DadosImpostoDTO {
 		this.codCliente = codCliente;
 	}
 
-	public YearMonth getYearMonth() {
-		return yearMonth;
+	public YearMonth getMesAno() {
+		return mesAno;
+	}
+
+	public void setMesAno(YearMonth mesAno) {
+		this.mesAno = mesAno;
 	}
 }

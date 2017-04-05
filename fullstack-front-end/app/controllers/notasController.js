@@ -40,8 +40,21 @@
 		}
 		
 		function findClientes() {
+			
+			var msg;
+			
 			clienteService.findAll().success(function(result){
-				$scope.clientes = result;
+				
+				if(result.length > 0){
+					$scope.clientes = result;
+				}else{
+					msg = alertsService.alertInfo("Nenhum cliente cadastrado, realize o cadastro de um cliente para lançar suas notas fiscais.");
+					showAlert(msg);
+				}
+
+			}).error(function(){
+				msg = alertsService.alertError("Ocorreu um errro ! Não foi possível pesquisar os clientes", status);
+				showAlert(msg);
 			});
 		}
 		

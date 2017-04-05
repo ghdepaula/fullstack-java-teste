@@ -20,7 +20,7 @@
 					<div class="form-group">
 						<label for="dtBaseImposto">Período</label>
 						<div class="input-group date" ng-month-year-picker>
-							<input ng-model="dadosImpostos.yearMonth" ng-required="true" ng-change="validateImpostosMes()" ng-blur="validateImpostosMes()" id="dtBaseImposto" name="dtBaseImposto" type="text" class="form-control" /> 
+							<input ng-model="dadosImpostos.mesAno" ng-required="true" ng-change="validateImpostosMes()" ng-blur="validateImpostosMes()" id="dtBaseImposto" name="dtBaseImposto" type="text" class="form-control" /> 
 							<span class="input-group-addon"> 
 								<i class="fa fa-calendar"></i>
 							</span>
@@ -66,7 +66,7 @@
 						<tbody>
 							<tr ng-repeat="imposto in impostos">
 								<td>{{imposto.clienteDTO.nomeRazaoSocial}}</td>
-								<td>{{imposto.yearMonth}}</td>
+								<td>{{imposto.mesAno}}</td>
 								<td>{{imposto.tributoDTO.descricaoTributo}}</td>
 								<td>{{imposto.dataVencimento}}</td>
 								<td>{{imposto.valorImposto}}</td>
@@ -98,7 +98,7 @@
 						  	<label>Cliente:</label>&nbsp;{{imposto.clienteDTO.nomeRazaoSocial}}
 						  </li>
 						  <li>
-						  	<label>Período:</label>&nbsp;{{imposto.yearMonth}}
+						  	<label>Período:</label>&nbsp;{{imposto.mesAno}}
 						  </li>
 						  <li>
 						  	<label>Tributo:</label>&nbsp;{{imposto.tributoDTO.descricaoTributo}}
@@ -139,7 +139,7 @@
 						  	<label>Cliente:</label>&nbsp;{{imposto.clienteDTO.nomeRazaoSocial}}
 						  </li>
 						  <li>
-						  	<label>Período:</label>&nbsp;{{imposto.yearMonth}}
+						  	<label>Período:</label>&nbsp;{{imposto.mesAno}}
 						  </li>
 						  <li>
 						  	<label>Tributo:</label>&nbsp;{{imposto.tributoDTO.descricaoTributo}}

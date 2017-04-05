@@ -6,6 +6,12 @@ import java.util.Locale;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+/**
+ * Classe responsável pela serialização/deserialização do tipo Java {@link YearMonth} para XML/JSON e vice-versa.
+ * 
+ * @author Guilherme Henrique de Paula
+ *
+ */
 public class YearMonthAdapter extends XmlAdapter<String, YearMonth>{
 	
 	private DateTimeFormatter formatter;
@@ -15,16 +21,26 @@ public class YearMonthAdapter extends XmlAdapter<String, YearMonth>{
 	public YearMonthAdapter() {
 		formatter = DateTimeFormatter.ofPattern(LOCALDATE_FORMAT, new Locale("pt", "BR"));
 	}
+	
 
+	/**
+	 * Implementação do método marshal da classe abstrata {@link XmlAdapter} que serializa instâncias do tipo {@link YearMonth}
+	 * 
+	 */
+    @Override
+    public String marshal(YearMonth yearMonth) throws Exception {
+        String s = yearMonth.format(this.formatter);
+        return s;
+    }
+
+	/**
+	 * Implementação do método unmarshal da classe abstrata {@link XmlAdapter} que deserializa uma instância de {@link String}.
+	 * 
+	 */
     @Override
     public YearMonth unmarshal(String yearMonthString) throws Exception {
     	YearMonth yearMonth = formatter.parse(yearMonthString, YearMonth::from);
         return yearMonth;
     }
 
-    @Override
-    public String marshal(YearMonth yearMonth) throws Exception {
-        String s = yearMonth.format(this.formatter);
-        return s;
-    }
 }

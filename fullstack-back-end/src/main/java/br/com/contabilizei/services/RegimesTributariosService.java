@@ -2,6 +2,7 @@ package br.com.contabilizei.services;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.contabilizei.dao.RegimeTributarioDAO;
 import br.com.contabilizei.dto.RegimeTributarioDTO;
 import br.com.contabilizei.dto.TributoDTO;
@@ -67,6 +68,7 @@ public class RegimesTributariosService {
 	/**
 	 * Método que busca uma instância da entidade {@link RegimeTributario} com base no seu código identificador e realiza a conversão de dados para uma instância de {@link RegimeTributarioDTO}.
 	 * 
+	 * @param código identificado da entidade {@link RegimeTributario}
 	 * @return regimeTributarioDTO instância de {@link RegimeTributarioDTO} ou {@link <code>null</code>} caso nenhum registro seja encontrado.
 	 */
 	public RegimeTributarioDTO findById(Long codTributo) {

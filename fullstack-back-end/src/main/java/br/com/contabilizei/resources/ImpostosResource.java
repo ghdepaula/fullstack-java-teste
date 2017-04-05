@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+
 import br.com.contabilizei.dto.DadosImpostoDTO;
 import br.com.contabilizei.dto.ImpostoDTO;
 import br.com.contabilizei.model.Imposto;
@@ -119,7 +120,7 @@ public class ImpostosResource {
 	}
 	
 	/**
-	 * Método Java que processa a requisição HTTP GET para listagem de todos os impostos com base no código de cliente.
+	 * Método Java que processa a requisição HTTP GET para listagem de todos os impostos com base no código de cliente, mês e ano.
 	 * 
 	 * @param codCliente código do cliente que será parâmetro para busca da lista de impostos
 	 * @param mes mês que será parâmetro para busca da lista de impostos
@@ -144,7 +145,7 @@ public class ImpostosResource {
 	}
 	
 	/**
-	 * Método Java que processa a requisição HTTP GET para busca de um imposto.
+	 * Método Java que processa a requisição HTTP GET para busca de um imposto com base no seu código identificador.
 	 * 
 	 * @param idImposto código identificador do imposto a ser pesquisado
 	 * 

@@ -13,6 +13,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import br.com.contabilizei.dto.NotaFiscalDTO;
+import br.com.contabilizei.model.NotaFiscal;
 import br.com.contabilizei.services.NotaFiscalService;
 
 /**
@@ -36,7 +37,7 @@ public class NotaFiscalResource {
 	/**
 	 * Método Java que processa a requisição HTTP POST para inserção novas notas fiscais.
 	 * 
-	 * @param notaFiscal instância que contem os dados da nota fiscal a ser inserida.
+	 * @param notaFiscal instância que contem os dados da {@link NotaFiscal} a ser inserida.
 	 * @return response contendo os dados da nota fiscal inserida.
 	 */
 	@POST
@@ -55,9 +56,9 @@ public class NotaFiscalResource {
 	}
 
 	/**
-	 * Método Java que processa a requisição HTTP PUT para atualização dos dados de uma nota fiscal.
+	 * Método Java que processa a requisição HTTP PUT para atualização da entidade {@link NotaFiscal}.
 	 * 
-	 * @param notaFiscal instância contendo os dados da nota que deverá ser atualizada.
+	 * @param notaFiscal instância contendo os dados da {@link NotaFiscal} que deverá ser atualizada.
 	 * @return response contendo os dados da nota fiscal atualizada.
 	 */
 	@PUT

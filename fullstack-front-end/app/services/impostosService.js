@@ -27,8 +27,8 @@
 			return $http.get('http://localhost:8081/contabilizei/rest/impostos/' + idImposto);	
 		}
 		
-		var _findByCodClienteMes = function (codCli, periodo) {
-			return $http.get('http://localhost:8081/contabilizei/rest/impostos/cliente/' + codCli + '/mes/' + periodo);	
+		var _findByCodClienteMes = function (codCli, mesAno) {
+			return $http.get('http://localhost:8081/contabilizei/rest/impostos/cliente/' + codCli + '/mes/' + mesAno);	
 		}
 		
 

@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+
 import br.com.contabilizei.dto.AnexoDTO;
 import br.com.contabilizei.model.Anexo;
 import br.com.contabilizei.services.AnexoService;
